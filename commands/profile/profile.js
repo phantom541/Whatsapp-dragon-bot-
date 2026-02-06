@@ -25,9 +25,9 @@ export default {
 
     const caption =
 `🏮 *Name:* ${player.name}
-🌐 *Web Username:* @${jid.split('@')[0]}
-🛅 *Web Security:* Nope
-🔖 *Bio:* ${player.bio || '—'}
+🌐 *Web Username:* ${player.username || "@None"}
+🛅 *Web Security:* ${player.webSecurity || "Nope"}
+🔖 *Bio:* ${player.bio || "None"}
 
 🎏 *Experience:* ${player.exp || 0}
 🏅 *Rank:* ${player.rank}
@@ -36,8 +36,8 @@ export default {
 🍀 *Total Dragons:* ${dragons.length}
 🃏 *Cards:* ${player.cards || 0}
 
-♥ *Haigusha:* None
-🍁 *Quiz Wins:* 0
+♥ *Haigusha:* ${player.haigusha || "None"}
+🍁 *Quiz Wins:* ${player.quizWins || 0}
 
 👑 *Admin:* ${player.admin || false}
 💈 *Ban:* ${player.banned || false}

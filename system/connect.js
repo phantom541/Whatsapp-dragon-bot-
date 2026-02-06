@@ -27,7 +27,7 @@ sock.ev.on('connection.update', (update) => {
         }
     } else if(connection === 'open') {
         console.log('WhatsApp bot connected');
-            startSpawnLoop(sock, SETTINGS.spawnGroups);
+            startSpawnLoop(sock);
     }
 });
 

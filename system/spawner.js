@@ -1,102 +1,85 @@
-import { SPAWN_CONFIG, RARITY_WEIGHTS } from '../config/spawns.js';
+import DB from '../utils/database.js';
 import { ALL_DRAGONS } from '../data/dragon_templates.js';
+import crypto from 'crypto';
 
-const activeSpawns = new Map();
-
-function rollRarity() {
-  const roll = Math.random() * 100;
-  let cumulative = 0;
-
-  for (const r of RARITY_WEIGHTS) {
-    cumulative += r.weight;
-    if (roll <= cumulative) return r.rarity;
-  }
-  return 'Common';
+function genId() {
+  return crypto.randomBytes(2).toString('hex'); // 4 chars is enough for short-lived spawns
 }
 
-function pickDragonByRarity(rarity) {
-  const pool = ALL_DRAGONS.filter(d => d.rarity === rarity);
-  if (pool.length === 0) return ALL_DRAGONS[0]; // Fallback
-  return pool[Math.floor(Math.random() * pool.length)];
-}
+export async function spawnDragon(sock, groupId, spawnerId = null) {
+  const spawnDb = await DB.getDB('spawns');
+  spawnDb.spawns = spawnDb.spawns || {};
 
-export function spawnDragon(sock, groupId) {
-  if (activeSpawns.has(groupId)) return;
+  // Pick a random dragon from ALL_DRAGONS
+  // Filtering for 'spawnable' if we had that property, for now all are spawnable
+  const dragonTemplate = ALL_DRAGONS[Math.floor(Math.random() * ALL_DRAGONS.length)];
 
-  const rarity = rollRarity();
-  const dragon = pickDragonByRarity(rarity);
-
-  const spawn = {
-    id: Date.now(),
-    dragonTemplate: dragon,
-    rarity,
-    spawnedAt: Date.now(),
-    despawnAt: Date.now() + SPAWN_CONFIG.wild.lifetime,
-    claimedBy: null
+  const spawnId = genId();
+  const now = Date.now();
+  const dragon = {
+    ...dragonTemplate,
+    spawnId,
+    owner: null,
+    spawner: spawnerId,
+    spawnedAt: now,
+    catchableAfter: now + 1 * 60 * 1000, // 1 minute window
+    expiresAt: now + 5 * 60 * 1000        // 5 minute TTL
   };
 
-  activeSpawns.set(groupId, spawn);
+  if (!spawnDb.spawns[groupId]) spawnDb.spawns[groupId] = {};
+  spawnDb.spawns[groupId][spawnId] = dragon;
 
-  sock.sendMessage(groupId, {
+  await DB.saveDB('spawns');
+
+  await sock.sendMessage(groupId, {
     image: { url: dragon.image || 'https://placehold.co/600x400?text=Dragon' },
     caption:
-`🐲 *A Dragon Appears!*
+`🐲 *A Wild Dragon Appears!*
 
 • Name: *${dragon.name}*
-• Rarity: *${rarity}*
+• Rarity: *${dragon.rarity}*
 • Element: *${dragon.element}*
+• Spawn ID: *${spawnId}*
 
-⏳ Despawns in 90 seconds
-⚔️ Type *%capture* to engage`
+⏳ Despawns in 5 minutes
+🛡️ Grace Period: 1 minute (only spawner/none can claim)
+⚔️ Type *%claim ${spawnId}* to capture!`
   });
 
-  setTimeout(() => {
-    const currentSpawn = activeSpawns.get(groupId);
-    if (currentSpawn && currentSpawn.id === spawn.id && !currentSpawn.claimedBy) {
-      activeSpawns.delete(groupId);
-      sock.sendMessage(groupId, {
-        text: '🌫️ The dragon vanished into the wild.'
-      });
+  return { spawnId, dragon };
+}
+
+export async function autoSpawn(sock) {
+  const userDb = await DB.getDB('users');
+  userDb.groups = userDb.groups || {};
+
+  for (const groupId of Object.keys(userDb.groups)) {
+    const group = userDb.groups[groupId];
+    if (group.wildDragonsOn) {
+      await spawnDragon(sock, groupId);
     }
-  }, SPAWN_CONFIG.wild.lifetime);
-}
-
-export function getActiveSpawn(groupId) {
-  return activeSpawns.get(groupId);
-}
-
-export function claimSpawn(groupId, userId) {
-  const spawn = activeSpawns.get(groupId);
-  if (!spawn || spawn.claimedBy) return false;
-
-  spawn.claimedBy = userId;
-  // We don't delete immediately because we might want to show who captured it in battle logic
-  // But for now, we can delete it after successful claim if battle is instant
-  // Actually, let's keep it until the battle is resolved or captured.
-  return true;
-}
-
-export function removeSpawn(groupId) {
-    activeSpawns.delete(groupId);
-}
-
-export function startSpawnLoop(sock, groupIds = []) {
-  if (!groupIds || groupIds.length === 0) {
-      console.warn('⚠️ No group IDs provided for spawn loop.');
-      return;
   }
+}
 
-  function scheduleSpawn(groupId) {
-    const delay =
-      SPAWN_CONFIG.wild.minInterval +
-      Math.random() *
-      (SPAWN_CONFIG.wild.maxInterval - SPAWN_CONFIG.wild.minInterval);
+export function startSpawnLoop(sock) {
+  // Check every 30 minutes for auto-spawns
+  setInterval(() => autoSpawn(sock), 30 * 60 * 1000);
 
-    setTimeout(() => {
-      spawnDragon(sock, groupId);
-      scheduleSpawn(groupId);
-    }, delay);
-  }
+  // Also clean up expired spawns every minute
+  setInterval(async () => {
+    const spawnDb = await DB.getDB('spawns');
+    const now = Date.now();
+    let changed = false;
 
-  groupIds.forEach(groupId => scheduleSpawn(groupId));
+    for (const groupId in spawnDb.spawns) {
+      for (const spawnId in spawnDb.spawns[groupId]) {
+        if (now > spawnDb.spawns[groupId][spawnId].expiresAt) {
+          delete spawnDb.spawns[groupId][spawnId];
+          changed = true;
+        }
+      }
+    }
+
+    if (changed) await DB.saveDB('spawns');
+  }, 60 * 1000);
 }

@@ -9,13 +9,18 @@ export async function getUser(jid, name = 'Unknown') {
     db.users[jid] = {
       jid,
       name,
-      gold: 1000, // Starting gold as mentioned in some snippets
+      username: "@None",
+      webSecurity: "Nope",
+      bio: "None",
+      gold: 1000,
       bank: 0,
       rank: getDefaultRank(),
       exp: 0,
       lastDaily: 0,
       dragons: [],
       cards: 0,
+      haigusha: "None",
+      quizWins: 0,
       banned: false,
       admin: false,
       createdAt: new Date().toISOString()
