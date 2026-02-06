@@ -2,6 +2,8 @@ import baileys from '@adiwajshing/baileys';
 const { default: makeWASocket, useSingleFileAuthState, DisconnectReason } = baileys;
 import { handleMessage } from './events.js';
 import fs from 'fs';
+import { startSpawnLoop } from './spawner.js';
+import { SETTINGS } from '../config/settings.js';
 
 const authPath = './auth_info_baileys/session.json';
 if (!fs.existsSync('./auth_info_baileys')) {
@@ -25,6 +27,7 @@ sock.ev.on('connection.update', (update) => {
         }
     } else if(connection === 'open') {
         console.log('WhatsApp bot connected');
+            startSpawnLoop(sock, SETTINGS.spawnGroups);
     }
 });
 

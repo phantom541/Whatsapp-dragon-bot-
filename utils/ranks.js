@@ -32,3 +32,7 @@ export function getRankData(rankName) {
 export function getDefaultRank() {
   return RANKS[0].name;
 }
+
+export function getRankIndex(rankName) {
+  return RANKS.findIndex(r => r.name === rankName);
+}
