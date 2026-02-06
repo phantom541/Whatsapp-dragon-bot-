@@ -1,4 +1,6 @@
-import { getOrCreatePlayer, getUserJid } from '../../utils/player.js';
+import { getUser } from '../../utils/economy.js';
+import { getUserJid, getDisplayName } from '../../utils/player.js';
+import { getPlayerDragons } from '../../utils/dragons.js';
 
 export default {
   name: 'profile',
@@ -6,8 +8,11 @@ export default {
 
   execute: async (sock, msg) => {
     const from = msg.key.remoteJid;
-    const player = await getOrCreatePlayer(msg);
     const jid = getUserJid(msg);
+    const pushName = getDisplayName(msg);
+
+    const player = await getUser(jid, pushName);
+    const dragons = await getPlayerDragons(jid);
 
     let pfp;
     try {
@@ -16,28 +21,35 @@ export default {
       pfp = null;
     }
 
-    const caption =
-`🏮 *Name:* ${player.name}#${player.number.slice(-4)}
+    const companion = dragons.length > 0 ? dragons[0] : null;
 
-🌐 *Web Username:* @None
+    const caption =
+`🏮 *Name:* ${player.name}
+🌐 *Web Username:* @${jid.split('@')[0]}
 🛅 *Web Security:* Nope
 🔖 *Bio:* ${player.bio || '—'}
 
-🎏 *Experience:* ${player.exp}
+🎏 *Experience:* ${player.exp || 0}
 🏅 *Rank:* ${player.rank}
 
-🧣 *Companion:* None
-🍀 *Total Dragons:* ${player.dragons.length}
-🃏 *Cards:* ${player.cards}
+🧣 *Companion:* ${companion ? companion.name : 'None'}
+🍀 *Total Dragons:* ${dragons.length}
+🃏 *Cards:* ${player.cards || 0}
 
 ♥ *Haigusha:* None
 🍁 *Quiz Wins:* 0
 
-👑 *Admin:* ${player.admin}
-💈 *Ban:* ${player.banned}
+👑 *Admin:* ${player.admin || false}
+💈 *Ban:* ${player.banned || false}
 `;
 
-    if (pfp) {
+    // Priority: Companion image if exists, else WhatsApp PFP, else just text
+    if (companion && companion.image) {
+        await sock.sendMessage(from, {
+            image: { url: companion.image },
+            caption
+        });
+    } else if (pfp) {
       await sock.sendMessage(from, {
         image: { url: pfp },
         caption

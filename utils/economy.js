@@ -1,5 +1,5 @@
 import DB from './database.js';
-import { getRankData, getDefaultRank } from './ranks.js';
+import { getRankData, getDefaultRank, getRankForXP } from './ranks.js';
 
 export async function getUser(jid, name = 'Unknown') {
   const db = await DB.getDB();
@@ -58,4 +58,23 @@ export async function claimDaily(jid) {
 
   await DB.saveDB();
   return rank.daily;
+}
+
+export async function addXP(jid, amount) {
+  const db = await DB.getDB();
+  const user = db.users[jid];
+  if (!user) return { ok: false };
+
+  const oldRank = user.rank;
+  user.exp = (user.exp || 0) + amount;
+
+  const newRank = getRankForXP(user.exp);
+  let rankedUp = false;
+  if (newRank !== oldRank) {
+    user.rank = newRank;
+    rankedUp = true;
+  }
+
+  await DB.saveDB();
+  return { ok: true, exp: user.exp, rankedUp, oldRank, newRank };
 }

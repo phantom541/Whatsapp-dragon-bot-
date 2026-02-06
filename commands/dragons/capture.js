@@ -1,5 +1,5 @@
 import { getActiveSpawn, claimSpawn, removeSpawn } from '../../system/spawner.js';
-import { getUser } from '../../utils/economy.js';
+import { getUser, addXP } from '../../utils/economy.js';
 import { getUserJid, getDisplayName } from '../../utils/player.js';
 import { createDragon } from '../../utils/dragons.js';
 import { getRankIndex } from '../../utils/ranks.js';
@@ -40,8 +40,19 @@ export default {
       return sock.sendMessage(from, { text: '❌ Someone already engaged this dragon.' });
     }
 
-    // Battle logic (instant capture for now as per Step 10)
-    // In future steps this will be more complex
+    // Reward XP based on rarity
+    const rarityXP = {
+      Common: 50,
+      Uncommon: 100,
+      Rare: 200,
+      Epic: 350,
+      Legendary: 500,
+      Mythic: 1000
+    };
+    const gainedXP = rarityXP[spawn.rarity] || 50;
+    const xpResult = await addXP(jid, gainedXP);
+
+    // Battle logic (instant capture for now as per Step 10/11)
     const dragon = await createDragon(spawn.dragonTemplate, jid);
 
     user.dragons = user.dragons || [];
@@ -50,11 +61,15 @@ export default {
 
     removeSpawn(from);
 
-    await sock.sendMessage(from, {
-      text: `⚔️ *Capture Successful!*
+    let resultText = `⚔️ *Capture Successful!*\n\nYou successfully captured the ${spawn.rarity} dragon: *${dragon.name}*!\nIt has been added to your party.\n\n🎏 *XP Gained:* ${gainedXP}`;
 
-You successfully captured the ${spawn.rarity} dragon: *${dragon.name}*!
-It has been added to your party.`
+    if (xpResult.rankedUp) {
+      resultText += `\n🏮 *New Rank:* ${xpResult.newRank}`;
+    }
+
+    await sock.sendMessage(from, {
+      image: { url: dragon.image || 'https://placehold.co/600x400?text=Dragon' },
+      caption: resultText
     });
   }
 };
