@@ -1,9 +1,15 @@
-import fs from 'fs';
+import fs from 'fs/promises';
+import path from 'path';
 
-export function readJSON(file) {
-    return JSON.parse(fs.readFileSync(file, 'utf8') || '{}');
+const DB_PATH = path.resolve('./database');
+
+async function readJSON(file) {
+  const raw = await fs.readFile(path.join(DB_PATH, file), 'utf-8');
+  return JSON.parse(raw);
 }
 
-export function writeJSON(file, data) {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+async function writeJSON(file, data) {
+  await fs.writeFile(path.join(DB_PATH, file), JSON.stringify(data, null, 2));
 }
+
+export default { readJSON, writeJSON };

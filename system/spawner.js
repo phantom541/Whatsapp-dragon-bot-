@@ -1,7 +1,8 @@
-import { readJSON, writeJSON } from '../utils/database.js';
+import db from '../utils/database.js';
 
-export function spawnDragon(groupId) {
-    const spawns = readJSON('./database/spawns.json');
+export async function spawnDragon(groupId) {
+    const spawnsData = await db.readJSON('spawns.json');
+    const spawns = spawnsData.spawns;
 
     if(!spawns[groupId]) spawns[groupId] = [];
 
@@ -15,7 +16,7 @@ export function spawnDragon(groupId) {
     };
 
     spawns[groupId].push(dragon);
-    writeJSON('./database/spawns.json', spawns);
+    await db.writeJSON('spawns.json', { spawns });
 
     return dragon;
 }
