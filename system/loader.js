@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { pathToFileURL } from 'url';
 
 const __dirname = process.cwd();
 
@@ -18,7 +19,8 @@ export async function loadCommands() {
 
     for (const file of files) {
       const filePath = path.join(categoryPath, file);
-      const module = await import(filePath);
+      const fileUrl = pathToFileURL(filePath).href;
+      const module = await import(fileUrl);
 
       if (!module.default || !module.default.name || !module.default.execute) {
         console.warn(`⚠️ Skipped invalid command file: ${filePath}`);

@@ -6,7 +6,7 @@ export default {
 
   execute: async (sock, msg) => {
     const from = msg.key.remoteJid;
-    const player = getOrCreatePlayer(msg);
+    const player = await getOrCreatePlayer(msg);
     const jid = getUserJid(msg);
 
     let pfp;

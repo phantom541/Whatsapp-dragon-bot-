@@ -1,18 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
-const DB_PATH = path.resolve('./database/users.json');
-
-function readDB() {
-  if (!fs.existsSync(DB_PATH)) {
-    fs.writeFileSync(DB_PATH, JSON.stringify({ users: {} }, null, 2));
-  }
-  return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
-}
-
-function saveDB(db) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
-}
+import DB from './database.js';
+import { getDefaultRank } from './ranks.js';
 
 export function getUserJid(msg) {
   return msg.key.participant || msg.key.remoteJid;
@@ -26,9 +13,8 @@ export function getDisplayName(msg) {
   return msg.pushName || 'Unknown';
 }
 
-export function getOrCreatePlayer(msg) {
-  const db = readDB();
-
+export async function getOrCreatePlayer(msg) {
+  const db = await DB.getDB();
   const jid = getUserJid(msg);
   const number = getUserNumber(jid);
   const name = getDisplayName(msg);
@@ -40,21 +26,23 @@ export function getOrCreatePlayer(msg) {
       name,
       bio: '',
       exp: 0,
-      rank: '🎯 Rookie',
+      rank: getDefaultRank(),
       gold: 1000,
+      bank: 0,
       cards: 0,
       dragons: [],
       admin: false,
       banned: false,
+      lastDaily: 0,
       createdAt: new Date().toISOString()
     };
 
-    saveDB(db);
+    await DB.saveDB();
   } else {
     // update name if user changed it on WhatsApp
     if (db.users[jid].name !== name) {
       db.users[jid].name = name;
-      saveDB(db);
+      await DB.saveDB();
     }
   }
 
