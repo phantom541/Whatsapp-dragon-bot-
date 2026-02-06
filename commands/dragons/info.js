@@ -30,9 +30,15 @@ export default {
     const xpNeeded = 100 + (dragon.level || 1) * 50;
     const xpPercent = Math.min(100, Math.floor(((dragon.exp || 0) / xpNeeded) * 100));
 
+    let movesText = 'None';
+    if (dragon.moves && dragon.moves.length > 0) {
+        movesText = dragon.moves.map(m => `• ${m.name} (Pwr: ${m.power}, Cost: ${m.cost})`).join('\n');
+    }
+
     const statsMsg = `
 🧣 *${dragon.name}* (Level ${dragon.level || 1})
 🆔 ID: \`${dragon.id}\`
+🧬 Species: ${dragon.species || 'Unknown'}
 
 ⭐ XP: ${dragon.exp || 0}/${xpNeeded} (${xpPercent}%)
 💖 HP: ${dragon.hp}/${dragon.maxHp || 50}
@@ -43,6 +49,9 @@ export default {
 
 ⚔️ Attack: ${dragon.atk || 10}
 🛡️ Defense: ${dragon.def || 5}
+
+📜 *Moves:*
+${movesText}
 
 Owner: ${dragon.owner === jid ? 'You' : dragon.owner}
     `;

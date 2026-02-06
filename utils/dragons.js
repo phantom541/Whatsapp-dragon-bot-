@@ -14,19 +14,25 @@ export async function createDragon(template, ownerJid) {
   const dragon = {
     id,
     name: template.name,
-    type: template.type,
+    type: template.type || template.element,
+    species: template.species || 'Unknown',
     rarity: template.rarity,
 
-    level: 1,
+    level: template.level || 1,
     exp: 0,
 
     owner: ownerJid,
     inParty: true,
 
-    hp: template.baseHp,
-    atk: template.baseAtk,
-    def: template.baseDef,
+    hp: template.baseHp || 50,
+    maxHp: template.baseHp || 50,
+    atk: template.baseAtk || 10,
+    def: template.baseDef || 5,
+    pp: template.basePp || 20,
+    maxPp: template.basePp || 20,
 
+    moves: template.moves || [],
+    image: template.image,
     createdAt: Date.now()
   };
 
