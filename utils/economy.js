@@ -23,6 +23,7 @@ export async function getUser(jid, name = 'Unknown') {
       quizWins: 0,
       banned: false,
       admin: false,
+      roles: [],
       inBattle: {
         active: false,
         lastBattle: 0

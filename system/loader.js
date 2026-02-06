@@ -30,6 +30,11 @@ export async function loadCommands() {
       const cmd = module.default;
 
       commands[cmd.name] = cmd;
+      if (cmd.aliases && Array.isArray(cmd.aliases)) {
+        for (const alias of cmd.aliases) {
+          commands[alias] = cmd;
+        }
+      }
     }
   }
 

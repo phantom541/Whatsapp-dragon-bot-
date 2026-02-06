@@ -37,6 +37,7 @@ export async function getOrCreatePlayer(msg) {
       quizWins: 0,
       admin: false,
       banned: false,
+      roles: [],
       inBattle: {
         active: false,
         lastBattle: 0
