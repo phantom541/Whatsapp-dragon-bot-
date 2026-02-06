@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Baileys auth info (never share!)
+auth_info_baileys/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
