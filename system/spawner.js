@@ -1,69 +1,58 @@
 import DB from '../utils/database.js';
-import { ALL_DRAGONS } from '../data/dragon_templates.js';
+import { getRandomDragon, formatDragonInfo } from '../utils/dragons.js';
 import crypto from 'crypto';
 
 function genId() {
   return crypto.randomBytes(2).toString('hex');
 }
 
+const TTL_MS = 5 * 60 * 1000;      // 5 minutes
+const CLAIM_WINDOW_MS = 1 * 60 * 1000; // 1 minute before others can claim
+
+// Spawn a single wild dragon in a group
 export async function spawnDragon(sock, groupId, spawnerId = null) {
-  const spawnDb = await DB.getDB('spawns');
-  spawnDb.spawns = spawnDb.spawns || {};
-
-  // Randomly decide between Dragon (70%) and Card (30%)
-  const isCard = Math.random() < 0.3;
-  let entity;
-  let type;
-
-  if (isCard) {
-      const cardDb = await DB.getDB('cards');
-      const spawnableCards = Object.values(cardDb.cards).filter(c => c.spawnable);
-      entity = spawnableCards[Math.floor(Math.random() * spawnableCards.length)];
-      type = 'card';
-  } else {
-      entity = ALL_DRAGONS[Math.floor(Math.random() * ALL_DRAGONS.length)];
-      type = 'dragon';
-  }
+  const dragonTemplate = getRandomDragon();
+  if (!dragonTemplate) return null;
 
   const spawnId = genId();
   const now = Date.now();
+
   const spawn = {
-    ...entity,
+    ...dragonTemplate,
     spawnId,
-    entityType: type,
-    owner: null,
-    spawner: spawnerId,
+    owner: null,           // not yet claimed
+    spawner: spawnerId,    // who spawned it, if any
     spawnedAt: now,
-    catchableAfter: now + 1 * 60 * 1000,
-    expiresAt: now + 5 * 60 * 1000
+    catchableAfter: now + CLAIM_WINDOW_MS,
+    expiresAt: now + TTL_MS
   };
 
+  const spawnDb = await DB.getDB('spawns');
+  spawnDb.spawns = spawnDb.spawns || {};
   if (!spawnDb.spawns[groupId]) spawnDb.spawns[groupId] = {};
   spawnDb.spawns[groupId][spawnId] = spawn;
 
   await DB.saveDB('spawns');
 
-  const title = type === 'dragon' ? '🐲 *A Wild Dragon Appears!*' : '🎴 *A Rare Card Appears!*';
-  const rarityLabel = type === 'dragon' ? 'Rarity' : 'Tier';
-  const rarityVal = type === 'dragon' ? spawn.rarity : spawn.tier;
+  const title = '🐲 *A Wild Dragon Appears!*';
 
   await sock.sendMessage(groupId, {
-    image: { url: spawn.image || 'https://placehold.co/600x400?text=Entity' },
+    image: { url: dragonTemplate.image || 'https://placehold.co/600x400?text=Dragon' },
     caption:
 `${title}
 
-• Name: *${spawn.name}*
-• ${rarityLabel}: *${rarityVal}*
+${formatDragonInfo(dragonTemplate)}
 • Spawn ID: *${spawnId}*
 
 ⏳ Despawns in 5 minutes
-🛡️ Grace Period: 1 minute
+🛡️ Grace Period: 1 minute (only spawner/none can claim)
 ⚔️ Type *%claim ${spawnId}* to capture!`
   });
 
-  return { spawnId, entity: spawn };
+  return { spawnId, dragon: spawn };
 }
 
+// Automatically spawn dragons in groups with wild-dragon mode on
 export async function autoSpawn(sock) {
   const userDb = await DB.getDB('users');
   userDb.groups = userDb.groups || {};
@@ -77,8 +66,10 @@ export async function autoSpawn(sock) {
 }
 
 export function startSpawnLoop(sock) {
+  // Check every 30 minutes for auto-spawns
   setInterval(() => autoSpawn(sock), 30 * 60 * 1000);
 
+  // Also clean up expired spawns every minute
   setInterval(async () => {
     const spawnDb = await DB.getDB('spawns');
     const now = Date.now();

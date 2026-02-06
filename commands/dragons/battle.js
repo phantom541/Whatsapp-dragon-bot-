@@ -1,7 +1,7 @@
-import { fightDragons } from '../../utils/battle.js';
-import { getUserJid } from '../../utils/player.js';
 import DB from '../../utils/database.js';
+import { getUserJid } from '../../utils/player.js';
 import { getUser } from '../../utils/economy.js';
+import { formatDragonInfo } from '../../utils/dragons.js';
 
 const BATTLE_COOLDOWN = 60 * 1000; // 1 minute
 
@@ -10,77 +10,71 @@ export default {
   description: 'Challenge another player to a dragon battle',
   execute: async (sock, msg, args) => {
     const from = msg.key.remoteJid;
-    const player1Id = getUserJid(msg);
+    const sender = getUserJid(msg);
 
-    if (!args[0]) {
-      return sock.sendMessage(from, { text: '❌ Usage: %battle <targetUserNumber>\nExample: %battle 1234567890' });
-    }
+    // Extract opponent mention
+    const mentionedJid = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0];
+    if (!mentionedJid) return sock.sendMessage(from, { text: '❌ Please mention a player to battle.' });
 
-    const targetNumber = args[0].replace(/[^0-9]/g, '');
-    const player2Id = `${targetNumber}@s.whatsapp.net`;
-
-    if (player1Id === player2Id) {
+    if (sender === mentionedJid) {
         return sock.sendMessage(from, { text: '❌ You cannot battle yourself!' });
     }
 
-    const player1 = await getUser(player1Id);
-    const player2 = await getUser(player2Id);
+    const player = await getUser(sender);
+    const opponent = await getUser(mentionedJid);
 
-    if (!player2.name || player2.name === 'Unknown') {
-        return sock.sendMessage(from, { text: '❌ Target player not found or hasn\'t registered yet.' });
+    if (!player.dragons || player.dragons.length === 0) {
+        return sock.sendMessage(from, { text: '❌ You do not have any dragons to battle with.' });
+    }
+    if (!opponent.dragons || opponent.dragons.length === 0) {
+        return sock.sendMessage(from, { text: '❌ The opponent has no dragons to battle with.' });
     }
 
     // Check cooldown
     const now = Date.now();
-    if (now - (player1.inBattle?.lastBattle || 0) < BATTLE_COOLDOWN) {
-        const remaining = Math.ceil((BATTLE_COOLDOWN - (now - player1.inBattle.lastBattle)) / 1000);
+    if (now - (player.inBattle?.lastBattle || 0) < BATTLE_COOLDOWN) {
+        const remaining = Math.ceil((BATTLE_COOLDOWN - (now - player.inBattle.lastBattle)) / 1000);
         return sock.sendMessage(from, { text: `⚠️ You are still recovering! Wait ${remaining}s.` });
     }
 
-    // Check if dragons are set (companion is the first dragon in the list if not explicitly set)
-    // Actually the user snippet uses 'companion' property which is a dragon object.
-    // In my implementation, dragons are stored in db.dragons and referenced by ID in user.dragons.
-    // Let's adapt: if no companion, use the first dragon in user.dragons.
-    const dragons1 = player1.dragons || [];
-    const dragons2 = player2.dragons || [];
+    // Check if players are already in battle
+    const usersDb = await DB.getDB('users');
+    usersDb.sessions = usersDb.sessions || {};
 
-    if (dragons1.length === 0) return sock.sendMessage(from, { text: '❌ You have no dragons to battle with!' });
-    if (dragons2.length === 0) return sock.sendMessage(from, { text: '❌ Target player has no dragons!' });
-
-    const dragon1Id = dragons1[0];
-    const dragon2Id = dragons2[0];
-
-    // Set battle state
-    player1.inBattle.active = true;
-    player2.inBattle.active = true;
-    player1.inBattle.lastBattle = now;
-    player2.inBattle.lastBattle = now;
-    await DB.saveDB('users');
-
-    const result = await fightDragons(player1Id, dragon1Id, player2Id, dragon2Id);
-
-    // Reset battle state
-    player1.inBattle.active = false;
-    player2.inBattle.active = false;
-    await DB.saveDB('users');
-
-    if (!result.ok) {
-      return sock.sendMessage(from, { text: `❌ Error: ${result.reason}` });
+    if (usersDb.sessions[sender]?.inBattle || usersDb.sessions[mentionedJid]?.inBattle) {
+      return sock.sendMessage(from, { text: '❌ Either you or your opponent is already in a battle.' });
     }
 
-    const logText = result.log.join('\n');
-    const message = `⚔️ *Battle Result* ⚔️
+    // Use companion or first dragon
+    const myDragon = player.dragons.find(d => d.name === player.companion) || player.dragons[0];
+    const oppDragon = opponent.dragons.find(d => d.name === opponent.companion) || opponent.dragons[0];
 
-🏆 *Winner:* ${result.winner.name} (${result.winner.owner === player1Id ? player1.name : player2.name})
-💔 *Loser:* ${result.loser.name} (${result.loser.owner === player1Id ? player1.name : player2.name})
-${result.rankUpMsg}
+    // Initialize battle session
+    usersDb.sessions[sender] = {
+        inBattle: true,
+        opponent: mentionedJid,
+        myDragonIndex: player.dragons.indexOf(myDragon),
+        oppDragonIndex: opponent.dragons.indexOf(oppDragon)
+    };
+    usersDb.sessions[mentionedJid] = {
+        inBattle: true,
+        opponent: sender,
+        myDragonIndex: opponent.dragons.indexOf(oppDragon),
+        oppDragonIndex: player.dragons.indexOf(myDragon)
+    };
 
-🧣 *${result.winner.name}* HP: ${result.winner.hp}/${result.winner.maxHp}
-🧣 *${result.loser.name}* HP: ${result.loser.hp}/${result.loser.maxHp}
+    player.inBattle.active = true;
+    player.inBattle.lastBattle = now;
+    opponent.inBattle.active = true;
+    opponent.inBattle.lastBattle = now;
 
-*Battle log:*
-${logText}`;
+    await DB.saveDB('users');
 
-    await sock.sendMessage(from, { text: message });
+    await sock.sendMessage(from, {
+      text: `⚔️ *Battle Started!* ⚔️\n\n*${player.name}* vs *${opponent.name}*\n\n` +
+            `Your Dragon: ${myDragon.name} (Lvl ${myDragon.level})\n` +
+            `Opponent: ${oppDragon.name} (Lvl ${oppDragon.level})\n\n` +
+            `Use *%attack <move>* to fight!`
+    });
   }
 };

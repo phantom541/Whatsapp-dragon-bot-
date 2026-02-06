@@ -1,18 +1,24 @@
+import DB from '../../utils/database.js';
 import { getUser } from '../../utils/economy.js';
 import { getUserJid, getDisplayName } from '../../utils/player.js';
-import { getPlayerDragons } from '../../utils/dragons.js';
 
 export default {
   name: 'profile',
   description: 'View your player profile',
 
-  execute: async (sock, msg) => {
+  execute: async (sock, msg, args) => {
     const from = msg.key.remoteJid;
     const jid = getUserJid(msg);
     const pushName = getDisplayName(msg);
 
     const player = await getUser(jid, pushName);
-    const dragons = await getPlayerDragons(jid);
+
+    // Find companion image
+    let companionImage = null;
+    if (player.dragons && player.dragons.length > 0) {
+        const companion = player.dragons.find(d => d.name === player.companion) || player.dragons[0];
+        companionImage = companion.image;
+    }
 
     let pfp;
     try {
@@ -21,19 +27,17 @@ export default {
       pfp = null;
     }
 
-    const companion = dragons.length > 0 ? dragons[0] : null;
-
     const caption =
 `🏮 *Name:* ${player.name}
 🌐 *Web Username:* ${player.username || "@None"}
 🛅 *Web Security:* ${player.webSecurity || "Nope"}
 🔖 *Bio:* ${player.bio || "None"}
 
-🎏 *Experience:* ${player.exp || 0}
+🎏 *Experience:* ${player.exp}
 🏅 *Rank:* ${player.rank}
 
-🧣 *Companion:* ${companion ? companion.name : 'None'}
-🍀 *Total Dragons:* ${dragons.length}
+🧣 *Companion:* ${player.companion || "None"}
+🍀 *Total Dragons:* ${player.totalDragons || 0}
 🃏 *Cards:* ${player.cards || 0}
 
 ♥ *Haigusha:* ${player.haigusha || "None"}
@@ -43,15 +47,12 @@ export default {
 💈 *Ban:* ${player.banned || false}
 `;
 
-    // Priority: Companion image if exists, else WhatsApp PFP, else just text
-    if (companion && companion.image) {
-        await sock.sendMessage(from, {
-            image: { url: companion.image },
-            caption
-        });
-    } else if (pfp) {
+    // Priority: Companion image, then WhatsApp PFP
+    const imageUrl = companionImage || pfp;
+
+    if (imageUrl) {
       await sock.sendMessage(from, {
-        image: { url: pfp },
+        image: { url: imageUrl },
         caption
       });
     } else {
