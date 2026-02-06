@@ -13,6 +13,7 @@ export async function createDragon(template, ownerJid) {
 
   const dragon = {
     id,
+    templateId: template.id || null,
     name: template.name,
     type: template.type || template.element,
     species: template.species || 'Unknown',

@@ -32,7 +32,7 @@ export default {
 
     let movesText = 'None';
     if (dragon.moves && dragon.moves.length > 0) {
-        movesText = dragon.moves.map(m => `• ${m.name} (Pwr: ${m.power}, Cost: ${m.cost})`).join('\n');
+        movesText = dragon.moves.map(m => `• ${m.name} (${m.type || dragon.type}, Pwr: ${m.power}, Cost: ${m.cost})`).join('\n');
     }
 
     const statsMsg = `
