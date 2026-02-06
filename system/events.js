@@ -1,16 +1,22 @@
 import { handleCommand } from './handler.js';
+import { getOrCreatePlayer } from '../utils/player.js';
 
 export async function handleMessage(sock, msg) {
-    const messageType = Object.keys(msg.message)[0];
-    const text = msg.message.conversation || msg.message[messageType].caption || '';
+  const type = Object.keys(msg.message)[0];
+  const text =
+    msg.message.conversation ||
+    msg.message[type]?.caption ||
+    '';
 
-    if(!text) return;
+  if (!text) return;
 
-    // simple prefix check
-    if(!text.startsWith('%')) return;
+  // ensure player exists
+  getOrCreatePlayer(msg);
 
-    const args = text.slice(1).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+  if (!text.startsWith('%')) return;
 
-    handleCommand(sock, msg, command, args);
+  const args = text.slice(1).trim().split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  handleCommand(sock, msg, command, args);
 }

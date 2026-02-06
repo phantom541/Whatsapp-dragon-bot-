@@ -1,1 +1,3 @@
-import './system/connect.js'; // Starts WhatsApp connection
+import './system/connect.js';
+
+console.log('🐉 Dragon Bot starting...');
