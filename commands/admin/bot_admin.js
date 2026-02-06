@@ -8,104 +8,92 @@ export default {
     const from = msg.key.remoteJid;
     const sender = msg.key.participant || msg.key.remoteJid;
 
-    // Only primary owner
+    // Only owner
     if (!await isOwner(sender)) {
-      return sock.sendMessage(from, { text: '❌ Only owner can use this command.' });
+      return sock.sendMessage(from, { text: '❌ Only the primary owner can use this.' });
     }
 
     if (args.length < 1) {
-      return sock.sendMessage(from, { text: 'Usage:\n%botadmin <action> [category] [id] [field] [value]\n\nActions: set, get, reset\nCategories: dragon, user, spawn\nExample: %botadmin set user <jid> gold 1000000' });
+      return sock.sendMessage(from, {
+        text: 'Available subcommands:\n- %botadmin get <category> <id>\n- %botadmin setuser <jid> <field> <value>\n- %botadmin setdragon <id> <field> <value>\n- %botadmin setbot <field> <value>\n- %botadmin reset <category>'
+      });
     }
 
-    const action = args[0].toLowerCase();
+    const sub = args[0].toLowerCase();
 
-    // GET action: view any object
-    if (action === 'get') {
-      if (args.length < 3) {
-        return sock.sendMessage(from, { text: 'Usage: %botadmin get <category> <id>\nCategories: dragon, user, spawn' });
-      }
-      const category = args[1].toLowerCase();
-      const id = args[2];
+    switch(sub) {
+      case 'get': {
+        const category = args[1]?.toLowerCase();
+        const id = args[2];
+        if (!category || !id) return sock.sendMessage(from, { text: 'Usage: %botadmin get <user|dragon|spawn> <id>' });
 
-      let dbName = category === 'dragon' ? 'dragons' : category === 'user' ? 'users' : category === 'spawn' ? 'spawns' : null;
-      if (!dbName) return sock.sendMessage(from, { text: '❌ Invalid category' });
+        let dbName = category === 'dragon' ? 'dragons' : category === 'user' ? 'users' : category === 'spawn' ? 'spawns' : null;
+        if (!dbName) return sock.sendMessage(from, { text: '❌ Invalid category' });
 
-      const db = await DB.getDB(dbName);
-      let target;
-      if (category === 'dragon') target = db.dragons?.[id];
-      else if (category === 'user') target = db.users?.[id];
-      else if (category === 'spawn') {
-          // Spawns are nested by groupId
-          target = db.spawns?.[from]?.[id];
+        const db = await DB.getDB(dbName);
+        let target = category === 'dragon' ? db.dragons?.[id] : category === 'user' ? db.users?.[id] : db.spawns?.[from]?.[id];
+
+        if (!target) return sock.sendMessage(from, { text: `❌ ${category} ${id} not found` });
+        return sock.sendMessage(from, { text: `📋 ${category} ${id}:\n\`\`\`json\n${JSON.stringify(target, null, 2)}\n\`\`\`` });
       }
 
-      if (!target) {
-        return sock.sendMessage(from, { text: `❌ ${category} ${id} not found` });
+      case 'setuser': {
+        const jid = args[1];
+        const field = args[2];
+        const value = args.slice(3).join(' ');
+        if (!jid || !field) return sock.sendMessage(from, { text: 'Usage: %botadmin setuser <jid> <field> <value>' });
+
+        const db = await DB.getDB('users');
+        if (!db.users[jid]) return sock.sendMessage(from, { text: `❌ User ${jid} not found` });
+
+        db.users[jid][field] = (!isNaN(Number(value)) && value.trim() !== '') ? Number(value) : value;
+        await DB.saveDB('users');
+        return sock.sendMessage(from, { text: `✅ Set ${field} of ${jid} to ${value}` });
       }
 
-      return sock.sendMessage(from, { text: `📋 ${category} ${id}:\n\`\`\`json\n${JSON.stringify(target, null, 2)}\n\`\`\`` });
+      case 'setdragon': {
+        const id = args[1];
+        const field = args[2];
+        const value = args.slice(3).join(' ');
+        if (!id || !field) return sock.sendMessage(from, { text: 'Usage: %botadmin setdragon <id> <field> <value>' });
+
+        const db = await DB.getDB('dragons');
+        if (!db.dragons[id]) return sock.sendMessage(from, { text: `❌ Dragon ${id} not found` });
+
+        db.dragons[id][field] = (!isNaN(Number(value)) && value.trim() !== '') ? Number(value) : value;
+        await DB.saveDB('dragons');
+        return sock.sendMessage(from, { text: `✅ Dragon ${id} updated: ${field} = ${value}` });
+      }
+
+      case 'setbot': {
+        const field = args[1];
+        const value = args.slice(2).join(' ');
+        if (!field) return sock.sendMessage(from, { text: 'Usage: %botadmin setbot <field> <value>' });
+
+        // For now setbot can edit general fields in the users database (like group settings)
+        const db = await DB.getDB('users');
+        db[field] = (!isNaN(Number(value)) && value.trim() !== '') ? Number(value) : value;
+        await DB.saveDB('users');
+        return sock.sendMessage(from, { text: `✅ Bot field ${field} set to ${value}` });
+      }
+
+      case 'reset': {
+        const category = args[1]?.toLowerCase();
+        if (!category) return sock.sendMessage(from, { text: 'Usage: %botadmin reset <users|dragons|spawns>' });
+
+        if (['users', 'dragons', 'spawns'].includes(category)) {
+            const db = await DB.getDB(category);
+            if (category === 'users') db.users = {};
+            else if (category === 'dragons') db.dragons = {};
+            else if (category === 'spawns') db.spawns = {};
+            await DB.saveDB(category);
+            return sock.sendMessage(from, { text: `✅ ${category} reset successfully` });
+        }
+        return sock.sendMessage(from, { text: '❌ Invalid category' });
+      }
+
+      default:
+        return sock.sendMessage(from, { text: '❌ Unknown action.' });
     }
-
-    // SET action: modify any field
-    if (action === 'set') {
-      if (args.length < 5) {
-        return sock.sendMessage(from, { text: 'Usage: %botadmin set <category> <id> <field> <value>' });
-      }
-
-      const category = args[1].toLowerCase();
-      const id = args[2];
-      const field = args[3];
-      const value = args.slice(4).join(' ');
-
-      let dbName = category === 'dragon' ? 'dragons' : category === 'user' ? 'users' : category === 'spawn' ? 'spawns' : null;
-      if (!dbName) return sock.sendMessage(from, { text: '❌ Invalid category' });
-
-      const db = await DB.getDB(dbName);
-      let target;
-      if (category === 'dragon') target = db.dragons?.[id];
-      else if (category === 'user') target = db.users?.[id];
-      else if (category === 'spawn') target = db.spawns?.[from]?.[id];
-
-      if (!target) return sock.sendMessage(from, { text: `❌ ${category} ${id} not found` });
-
-      // Convert numeric fields automatically
-      if (!isNaN(Number(value)) && value.trim() !== '') {
-          target[field] = Number(value);
-      } else {
-          target[field] = value;
-      }
-
-      await DB.saveDB(dbName);
-
-      return sock.sendMessage(from, { text: `✅ ${category} ${id} updated: ${field} = ${value}` });
-    }
-
-    // RESET action: wipe data in category
-    if (action === 'reset') {
-      if (args.length < 2) {
-        return sock.sendMessage(from, { text: 'Usage: %botadmin reset <category>\nCategories: dragons, users, spawns' });
-      }
-      const category = args[1].toLowerCase();
-
-      if (category === 'dragons') {
-          const db = await DB.getDB('dragons');
-          db.dragons = {};
-          await DB.saveDB('dragons');
-      } else if (category === 'users') {
-          const db = await DB.getDB('users');
-          db.users = {};
-          await DB.saveDB('users');
-      } else if (category === 'spawns') {
-          const db = await DB.getDB('spawns');
-          db.spawns = {};
-          await DB.saveDB('spawns');
-      } else {
-          return sock.sendMessage(from, { text: '❌ Invalid category for reset' });
-      }
-
-      return sock.sendMessage(from, { text: `✅ ${category} reset successfully` });
-    }
-
-    return sock.sendMessage(from, { text: '❌ Unknown action. Allowed actions: get, set, reset' });
   }
 };
