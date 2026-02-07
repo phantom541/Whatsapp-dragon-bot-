@@ -1,6 +1,7 @@
 import DB from '../../utils/database.js';
 import { addXP } from '../../utils/economy.js';
 import { grantDragonXP } from '../../utils/dragon_xp.js';
+import { battleContextStore, playerAttackColossal } from '../../utils/battle_manager.js';
 
 const ELEMENT_ADVANTAGE = {
   FIRE: { strong: 'GRASS', weak: 'WATER' },
@@ -17,6 +18,12 @@ export default {
   name: 'attack',
   description: 'Attack the opponent in turn-based battle (Wild/PvP)',
   execute: async ({ sender, args, reply, getPlayer, sock, from }) => {
+    // Check for Colossal Battle first
+    if (battleContextStore[sender]) {
+        const res = await playerAttackColossal(sender);
+        return reply(res);
+    }
+
     const moveName = args.join(' ').trim();
     if (!moveName) return reply('Usage: %attack <move name>');
 

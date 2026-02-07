@@ -2,6 +2,7 @@ import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeys
 import { handleMessage } from './events.js';
 import fs from 'fs';
 import { startSpawnLoop } from './spawner.js';
+import { scheduleWeeklyColossalEvent } from '../utils/weekly_event.js';
 import pino from 'pino';
 
 const authPath = './auth_info_baileys';
@@ -31,6 +32,7 @@ async function startSocket() {
             console.log('WhatsApp bot connected');
             if (!spawnLoopStarted) {
                 startSpawnLoop(sock);
+                scheduleWeeklyColossalEvent(sock);
                 spawnLoopStarted = true;
             }
         }
