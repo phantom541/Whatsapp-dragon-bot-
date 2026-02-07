@@ -1,48 +1,52 @@
-import { spawnDungeon, getActiveDungeon } from "../../system/dungeon_spawner.js";
+import { runDungeonRaid, DUNGEONS } from '../../utils/dungeon_manager.js';
+import { getPlayerProfile } from '../../utils/rpg_user_manager.js';
 
 export default {
-  name: "dungeon",
-  description: "Check dungeon status or spawn a new one (Admin)",
-  execute: async ({ sender, reply, args, from, hasRole, sock }) => {
-    const sub = args[0]?.toLowerCase();
+    name: 'dungeon',
+    description: 'Enter a dungeon and battle monsters & bosses',
+    async execute(context) {
+        const { msg, reply, sender, args } = context;
+        const playerJid = sender;
+        const player = await getPlayerProfile(playerJid);
+        if(!player) return reply("Player profile not found.");
 
-    if (sub === 'spawn') {
-      if (!hasRole('owner') && !hasRole('admin')) {
-        return reply('❌ Only admins can manually spawn dungeons.');
-      }
+        // Randomly pick a dungeon if none is specified
+        let dungeonName = args[0];
 
-      const dungeon = await spawnDungeon(from);
+        if (!dungeonName) {
+            dungeonName = DUNGEONS[Math.floor(Math.random() * DUNGEONS.length)].name;
+        } else {
+            // allow partial match
+            const found = DUNGEONS.find(d => d.name.toLowerCase().includes(dungeonName.toLowerCase()));
+            if (found) dungeonName = found.name;
+        }
 
-      const caption = `🏰 *A NEW DUNGEON HAS OPENED!* 🏰\n\n` +
-        `📈 *Difficulty:* ${dungeon.difficulty.toUpperCase()}\n` +
-        `🏢 *Floors:* ${dungeon.maxFloors}\n\n` +
-        `👾 *Floor 1 Monsters:* ${dungeon.monstersRemaining.length}\n` +
-        `💀 *Floor 1 Boss:* ${dungeon.floorBoss.name} (${dungeon.floorBoss.title})\n\n` +
-        `Use *%attackmonster* to start the fight!`;
+        try {
+            const raidLog = await runDungeonRaid(playerJid, dungeonName);
 
-      if (dungeon.floorBoss.image) {
-        await sock.sendMessage(from, { image: { url: dungeon.floorBoss.image }, caption });
-      } else {
-        reply(caption);
-      }
-      return;
+            const monsterList = raidLog.monstersDefeated.join(', ');
+            const bosses = raidLog.bossesDefeated.join(', ') || "None";
+            const rewards = raidLog.rewards;
+
+            let titleMsg = "";
+            if(player.achievements && player.achievements.length){
+                titleMsg = `\n\n🏆 *Titles Earned:* ${player.achievements.join(', ')}`;
+            }
+
+            await reply(
+                `🗡️ *Dungeon Raid Complete!* 🗡️\n\n` +
+                `🏰 *Dungeon:* ${raidLog.dungeon}\n` +
+                `📈 *Difficulty:* ${raidLog.difficulty.toUpperCase()}\n\n` +
+                `👾 *Monsters Defeated:* ${raidLog.monstersDefeated.length}\n` +
+                `💀 *Boss Defeated:* ${bosses}\n\n` +
+                `💰 *Gold:* ${rewards.gold}\n` +
+                `✨ *XP:* ${rewards.xp}` +
+                titleMsg
+            );
+
+        } catch(e) {
+            console.error(e);
+            reply("❌ Error running dungeon raid. Make sure the dungeon exists.");
+        }
     }
-
-    const dungeon = await getActiveDungeon(from);
-    if (!dungeon) {
-      return reply('🏰 No active dungeon in this group. Use *%dungeon spawn* (Admin) to start one.');
-    }
-
-    const monstersList = dungeon.monstersRemaining.map((m, i) => `${i+1}. ${m.name} (HP: ${m.currentHp})`).join('\n');
-    const bossInfo = dungeon.floorBoss ? `💀 *Boss:* ${dungeon.floorBoss.name} (HP: ${dungeon.floorBoss.currentHp})` : `✅ Boss defeated!`;
-
-    const info = `🏰 *DUNGEON STATUS* 🏰\n\n` +
-      `🏢 *Current Floor:* ${dungeon.floor}/${dungeon.maxFloors}\n` +
-      `📈 *Difficulty:* ${dungeon.difficulty.toUpperCase()}\n\n` +
-      `👾 *Monsters Remaining:* ${dungeon.monstersRemaining.length}\n${monstersList}\n\n` +
-      `${bossInfo}\n\n` +
-      `⚔️ Use *%attackmonster* or *%attackboss*!`;
-
-    reply(info);
-  }
 };
