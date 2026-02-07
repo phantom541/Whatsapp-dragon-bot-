@@ -32,7 +32,7 @@ export async function isWorldLocked() {
   if (!state || !state.colossalActive) return false;
 
   const now = Date.now();
-  if (now > state.lockExpiresAt) {
+  if (state.lockExpiresAt > 0 && now > state.lockExpiresAt) {
     await clearColossalBeast();
     return false;
   }

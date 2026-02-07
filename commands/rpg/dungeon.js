@@ -1,6 +1,6 @@
 import { runDungeonRaid, DUNGEONS } from '../../utils/dungeon_manager.js';
 import { getPlayerProfile, updatePlayer } from '../../utils/rpg_user_manager.js';
-import { getPlayerGuild, addGuildXP } from '../../utils/guild_manager.js';
+import { getPlayerGuild, addGuildXP, updateGuild } from '../../utils/guild_manager.js';
 import { canEnterDungeon, setDungeonCooldown, getRemainingCooldown } from '../../utils/guild_cooldowns.js';
 import { applyGuildRewardsBuff } from '../../utils/guild_buffs.js';
 import { checkLoneWolfAchievements } from '../../utils/title_manager.js';
@@ -75,12 +75,16 @@ export default {
 
             await updatePlayer(updatedPlayer);
 
-            // Give Guild XP
+            // Give Guild XP and Stats
             if (guild) {
                 const gXp = dungeon.floors * 250;
                 await addGuildXP(guild.name, gXp);
-                guild.stats = guild.stats || { dungeonClears: 0, bossKills: 0 };
-                guild.stats.dungeonClears++;
+
+                // Fetch fresh guild object to avoid stale stats if addGuildXP changed level
+                const freshGuild = await getPlayerGuild(sender);
+                freshGuild.stats = freshGuild.stats || { dungeonClears: 0, bossKills: 0 };
+                freshGuild.stats.dungeonClears++;
+                await updateGuild(freshGuild);
             }
 
             const monsterCount = raidLog.monstersDefeated.length;

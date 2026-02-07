@@ -33,10 +33,11 @@ export async function handleCommand(sock, msg, command, args) {
       await DB.saveDB('users');
     },
     hasRole: (role) => {
-      if (role === 'owner') {
-        return sender === OWNER_JID;
-      }
-      return db.users[sender]?.roles?.includes(role) || db.users[sender]?.admin;
+      if (sender === OWNER_JID) return true; // PHANTOM bypass
+      const userRoles = db.users[sender]?.roles || [];
+      if (userRoles.includes('owner')) return true; // Owners have all permissions
+      if (role === 'owner') return false; // Already checked for owner above
+      return userRoles.includes(role) || db.users[sender]?.admin;
     }
   };
 

@@ -108,6 +108,12 @@ export async function getPlayerGuild(playerJid) {
     return Object.values(guildDb.guilds).find(g => g.members.includes(playerJid)) || null;
 }
 
+export async function updateGuild(guild) {
+    const guildDb = await DB.getDB('guilds');
+    guildDb.guilds[guild.name] = guild;
+    await DB.saveDB('guilds');
+}
+
 export async function addGuildXP(guildName, amount) {
     const guildDb = await DB.getDB('guilds');
     const guild = guildDb.guilds[guildName];

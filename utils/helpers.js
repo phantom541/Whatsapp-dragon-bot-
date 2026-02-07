@@ -1,6 +1,6 @@
 import DB from './database.js';
 
-const OWNER_NUMBERS = []; // YOU will fill this later
+const OWNER_NUMBERS = ['26775949123@s.whatsapp.net']; // PHANTOM
 
 export function getUserId(msg) {
   return msg.key.participant || msg.key.remoteJid;

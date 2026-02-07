@@ -1,22 +1,20 @@
-import baileys from '@adiwajshing/baileys';
-const { default: makeWASocket, useSingleFileAuthState, DisconnectReason } = baileys;
+import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
 import { handleMessage } from './events.js';
 import fs from 'fs';
 import { startSpawnLoop } from './spawner.js';
+import pino from 'pino';
 
-const authPath = './auth_info_baileys/session.json';
-if (!fs.existsSync('./auth_info_baileys')) {
-    fs.mkdirSync('./auth_info_baileys');
-}
+const authPath = './auth_info_baileys';
 
 let spawnLoopStarted = false;
 
-function startSocket() {
-    const { state, saveState } = useSingleFileAuthState(authPath);
+async function startSocket() {
+    const { state, saveCreds } = await useMultiFileAuthState(authPath);
 
     const sock = makeWASocket({
         auth: state,
         printQRInTerminal: true,
+        logger: pino({ level: 'silent' })
     });
 
     sock.ev.on('connection.update', (update) => {
@@ -46,9 +44,9 @@ function startSocket() {
         }
     });
 
-    sock.ev.on('creds.update', saveState);
+    sock.ev.on('creds.update', saveCreds);
 
     return sock;
 }
 
-export const sock = startSocket();
+export const sock = await startSocket();
