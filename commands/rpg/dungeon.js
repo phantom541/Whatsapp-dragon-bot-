@@ -1,8 +1,9 @@
 import { spawnDungeon, getActiveDungeon } from "../../system/dungeon_spawner.js";
+import { enterDungeon } from "../../system/dungeon_gameplay.js";
 
 export default {
   name: "dungeon",
-  description: "Check for active dungeons or spawn one (Admin)",
+  description: "Check for active dungeons, spawn one (Admin), or enter",
   execute: async ({ sender, reply, args, from, hasRole, sock }) => {
     const sub = args[0]?.toLowerCase();
 
@@ -29,6 +30,13 @@ export default {
         reply(caption);
       }
       return;
+    }
+
+    if (sub === 'enter') {
+      const res = await enterDungeon(from, sender);
+      if (!res.ok) return reply(`❌ ${res.message}`);
+
+      return reply(`✅ You have entered the dungeon: *${res.dungeon.boss.title}*!\nUse *%explore* to find monsters.`);
     }
 
     const dungeon = await getActiveDungeon(from);

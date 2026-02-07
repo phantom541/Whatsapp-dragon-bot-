@@ -22,6 +22,10 @@ export default {
       return reply('🏰 There is no active dungeon. Use *%dungeon spawn* to start one.');
     }
 
+    if (!dungeon.players.includes(sender)) {
+      return reply('❌ You must enter the dungeon first! Use *%dungeon enter*.');
+    }
+
     const usersDb = await DB.getDB('users');
     if (usersDb.sessions?.[sender]?.inBattle) {
       return reply('❌ You are already in a battle!');
