@@ -16,7 +16,12 @@ export async function updatePlayer(player) {
     const data = await DB.getDB('users');
     // Sync back progression to main fields
     if (player.progression) {
-        player.gold = player.progression.gold;
+        if (player.infiniteMoney) {
+            player.progression.gold = Infinity;
+            player.gold = Infinity;
+        } else {
+            player.gold = player.progression.gold;
+        }
         player.exp = player.progression.xp;
     }
     if (player.achievements) {

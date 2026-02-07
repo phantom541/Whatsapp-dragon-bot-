@@ -18,7 +18,27 @@ export async function addGold(jid, amount) {
   const user = db.users[jid];
   if (!user) return false;
 
-  user.gold = (user.gold || 0) + Math.max(0, amount);
+  if (user.infiniteMoney) {
+    user.gold = Infinity;
+  } else {
+    user.gold = (user.gold || 0) + Math.max(0, amount);
+  }
+
+  await DB.saveDB('users');
+  return true;
+}
+
+export async function deductGold(jid, amount) {
+  const db = await DB.getDB('users');
+  const user = db.users[jid];
+  if (!user) return false;
+
+  if (user.infiniteMoney) return true;
+
+  const currentGold = user.gold || 0;
+  if (currentGold < amount) return false;
+
+  user.gold = currentGold - amount;
   await DB.saveDB('users');
   return true;
 }
