@@ -1,19 +1,43 @@
 import fs from 'fs';
 import path from 'path';
+import { pathToFileURL } from 'url';
+
+const __dirname = process.cwd();
 
 export async function loadCommands() {
-    const commands = {};
-    const commandFolders = fs.readdirSync('./commands');
+  const commands = {};
+  const basePath = path.join(__dirname, 'commands');
 
-    for(const folder of commandFolders) {
-        const files = fs.readdirSync(`./commands/${folder}`).filter(f => f.endsWith('.js'));
-        for(const file of files) {
-            const cmd = await import(path.resolve(`./commands/${folder}/${file}`));
-            if(cmd.default && cmd.default.name) {
-                commands[cmd.default.name] = cmd.default.execute;
-            }
+  const categories = fs.readdirSync(basePath);
+
+  for (const category of categories) {
+    const categoryPath = path.join(basePath, category);
+
+    if (!fs.statSync(categoryPath).isDirectory()) continue;
+
+    const files = fs.readdirSync(categoryPath).filter(f => f.endsWith('.js'));
+
+    for (const file of files) {
+      const filePath = path.join(categoryPath, file);
+      const fileUrl = pathToFileURL(filePath).href;
+      const module = await import(fileUrl);
+
+      if (!module.default || !module.default.name || !module.default.execute) {
+        console.warn(`⚠️ Skipped invalid command file: ${filePath}`);
+        continue;
+      }
+
+      const cmd = module.default;
+
+      commands[cmd.name] = cmd;
+      if (cmd.aliases && Array.isArray(cmd.aliases)) {
+        for (const alias of cmd.aliases) {
+          commands[alias] = cmd;
         }
+      }
     }
+  }
 
-    return commands;
+  console.log(`✅ Loaded ${Object.keys(commands).length} commands`);
+  return commands;
 }
