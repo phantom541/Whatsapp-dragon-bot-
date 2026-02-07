@@ -1,6 +1,9 @@
 import { runDungeonRaid, DUNGEONS } from '../../utils/dungeon_manager.js';
-import { getPlayerProfile } from '../../utils/rpg_user_manager.js';
-import { getPlayerGuild } from '../../utils/guild_manager.js';
+import { getPlayerProfile, updatePlayer } from '../../utils/rpg_user_manager.js';
+import { getPlayerGuild, addGuildXP } from '../../utils/guild_manager.js';
+import { canEnterDungeon, setDungeonCooldown, getRemainingCooldown } from '../../utils/guild_cooldowns.js';
+import { applyGuildRewardsBuff } from '../../utils/guild_buffs.js';
+import { checkLoneWolfAchievements } from '../../utils/title_manager.js';
 
 export default {
     name: 'dungeon',
@@ -29,29 +32,69 @@ export default {
         if (!dungeonName) {
             dungeonName = DUNGEONS[Math.floor(Math.random() * DUNGEONS.length)].name;
         } else {
-            // allow partial match
             const found = DUNGEONS.find(d => d.name.toLowerCase().includes(dungeonName.toLowerCase()));
             if (found) dungeonName = found.name;
             else return reply(`❌ Dungeon "${dungeonName}" not found.`);
         }
 
+        const dungeon = DUNGEONS.find(d => d.name === dungeonName);
+
+        // Cooldown check (per guild)
+        if (guild && !isPrivileged) {
+            if (!canEnterDungeon(guild, dungeon.difficulty)) {
+                const remaining = getRemainingCooldown(guild, dungeon.difficulty);
+                const mins = Math.ceil(remaining / 60000);
+                return reply(`⏳ Your guild is still recovering. ${mins}m remaining for ${dungeon.difficulty.toUpperCase()} dungeons.`);
+            }
+        }
+
         try {
+            // Apply cooldown
+            if (guild && !isPrivileged) {
+                setDungeonCooldown(guild, dungeon.difficulty);
+            }
+
             const raidLog = await runDungeonRaid(sender, dungeonName);
+
+            // Apply guild buffs to rewards
+            const finalRewards = applyGuildRewardsBuff(guild, raidLog.rewards);
+
+            // Re-fetch player since runDungeonRaid updates it
+            const updatedPlayer = await getPlayerProfile(sender);
+
+            // Adjust for buffs
+            updatedPlayer.gold += (finalRewards.gold - raidLog.rewards.gold);
+            updatedPlayer.exp += (finalRewards.xp - raidLog.rewards.xp);
+
+            // Track solo clear for Lone Wolf
+            if (!guild && isPrivileged) {
+                updatedPlayer.stats = updatedPlayer.stats || {};
+                updatedPlayer.stats.solo_dungeons = (updatedPlayer.stats.solo_dungeons || 0) + 1;
+                checkLoneWolfAchievements(updatedPlayer);
+            }
+
+            await updatePlayer(updatedPlayer);
+
+            // Give Guild XP
+            if (guild) {
+                const gXp = dungeon.floors * 250;
+                await addGuildXP(guild.name, gXp);
+                guild.stats = guild.stats || { dungeonClears: 0, bossKills: 0 };
+                guild.stats.dungeonClears++;
+            }
 
             const monsterCount = raidLog.monstersDefeated.length;
             const bosses = raidLog.bossesDefeated.join(', ') || "None";
-            const rewards = raidLog.rewards;
 
             let titleMsg = "";
-            if(player.achievements && player.achievements.length){
-                const relevantTitles = player.achievements.filter(t => !t.includes("Lone Wolf"));
+            if(updatedPlayer.achievements && updatedPlayer.achievements.length){
+                const relevantTitles = updatedPlayer.achievements.filter(t => !t.includes("Lone Wolf"));
                 if (relevantTitles.length) {
                     titleMsg = `\n\n🏆 *Titles Earned:* ${relevantTitles.join(', ')}`;
                 }
             }
 
-            // Check if player has Lone Wolf title
-            if (player.roles?.includes("🐺 Lone Wolf")) {
+            if (updatedPlayer.roles?.includes("🐺 Lone Wolf")) {
                 titleMsg += `\n🐺 *Active Title:* 🐺 Lone Wolf`;
             }
 
@@ -61,8 +104,8 @@ export default {
                 `📈 *Difficulty:* ${raidLog.difficulty.toUpperCase()}\n\n` +
                 `👾 *Monsters Defeated:* ${monsterCount}\n` +
                 `💀 *Boss Defeated:* ${bosses}\n\n` +
-                `💰 *Gold:* ${rewards.gold}\n` +
-                `✨ *XP:* ${rewards.xp}` +
+                `💰 *Gold:* ${finalRewards.gold}${guild ? ` (Buffed)` : ''}\n` +
+                `✨ *XP:* ${finalRewards.xp}${guild ? ` (Buffed)` : ''}` +
                 titleMsg
             );
 

@@ -1,5 +1,6 @@
 import DB from '../utils/database.js';
 import { getRandomDragon, formatDragonInfo } from '../utils/dragons.js';
+import { isWorldLocked, clearColossalBeast } from '../utils/world_state.js';
 import crypto from 'crypto';
 
 function genId() {
@@ -11,6 +12,8 @@ const CLAIM_WINDOW_MS = 1 * 60 * 1000; // 1 minute before others can claim
 
 // Spawn a single wild dragon in a group
 export async function spawnDragon(sock, groupId, spawnerId = null) {
+  if (await isWorldLocked()) return null;
+
   const dragonTemplate = getRandomDragon();
   if (!dragonTemplate) return null;
 
@@ -54,6 +57,8 @@ ${formatDragonInfo(dragonTemplate)}
 
 // Automatically spawn dragons in groups with wild-dragon mode on
 export async function autoSpawn(sock) {
+  if (await isWorldLocked()) return;
+
   const userDb = await DB.getDB('users');
   userDb.groups = userDb.groups || {};
 
@@ -69,19 +74,24 @@ export function startSpawnLoop(sock) {
   // Check every 30 minutes for auto-spawns
   setInterval(() => autoSpawn(sock), 30 * 60 * 1000);
 
-  // Also clean up expired spawns every minute
+  // Also clean up expired spawns and Colossal Beasts every minute
   setInterval(async () => {
+    // Colossal Beast auto-despawn handled by isWorldLocked or explicitly here
+    await isWorldLocked();
+
     const spawnDb = await DB.getDB('spawns');
     const now = Date.now();
     let changed = false;
 
-    for (const groupId in spawnDb.spawns) {
-      for (const spawnId in spawnDb.spawns[groupId]) {
-        if (now > spawnDb.spawns[groupId][spawnId].expiresAt) {
-          delete spawnDb.spawns[groupId][spawnId];
-          changed = true;
+    if (spawnDb.spawns) {
+        for (const groupId in spawnDb.spawns) {
+            for (const spawnId in spawnDb.spawns[groupId]) {
+                if (now > spawnDb.spawns[groupId][spawnId].expiresAt) {
+                    delete spawnDb.spawns[groupId][spawnId];
+                    changed = true;
+                }
+            }
         }
-      }
     }
 
     if (changed) await DB.saveDB('spawns');
