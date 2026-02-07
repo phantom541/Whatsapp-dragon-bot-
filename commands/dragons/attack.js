@@ -85,8 +85,32 @@ export default {
           // End Wild Battle
           usersDb.sessions[sender] = { inBattle: false };
           player.inBattle.active = false;
-          player.gold += 500;
-          battleMsg += `\n\n🏆 You defeated the wild dragon!\n💰 +500 gold`;
+
+          if (session.isDungeon) {
+              const dungeonDb = await DB.getDB('dungeons');
+              const dungeon = dungeonDb[from]?.find(d => d.id === session.dungeonId);
+
+              if (dungeon) {
+                  if (oppDragon.isBoss) {
+                      dungeon.status = 'completed';
+                      player.gold += 5000;
+                      battleMsg += `\n\n🏆 *DUNGEON CONQUERED!* 🏆\nYou defeated the boss *${oppDragon.name}*!\n💰 +5000 gold`;
+                      await addXP(sender, 1000);
+                  } else {
+                      dungeon.monstersDefeated += 1;
+                      player.gold += 1000;
+                      battleMsg += `\n\n🏆 You defeated the dungeon monster!\n💰 +1000 gold\n⚔️ Monsters Defeated: ${dungeon.monstersDefeated}`;
+                      await addXP(sender, 100);
+
+                      // Auto-increase floor every 3 monsters
+                      dungeon.currentFloor = Math.floor(dungeon.monstersDefeated / 3) + 1;
+                  }
+                  await DB.saveDB('dungeons');
+              }
+          } else {
+              player.gold += 500;
+              battleMsg += `\n\n🏆 You defeated the wild dragon!\n💰 +500 gold`;
+          }
       } else {
           // Check for next dragon
           const oppNextIndex = opponent.dragons.findIndex(d => d.hp > 0);
@@ -110,9 +134,15 @@ export default {
         // Switch turn
         if (opponentJid === 'WILD') {
             // AI Counterattack
-            const aiDamage = Math.floor(Math.random() * 10) + 5;
-            myDragon.hp = Math.max(0, (myDragon.hp || 50) - aiDamage);
-            battleMsg += `\n\n🐲 Wild *${oppDragon.name}* strikes back for *${aiDamage}* damage!\n` +
+            const moveIndex = Math.floor(Math.random() * (oppDragon.moves?.length || 1));
+            const moveUsed = oppDragon.moves?.[moveIndex] || 'Strike';
+
+            let aiBaseDamage = (oppDragon.atk || 10) - (myDragon.def || 5);
+            aiBaseDamage = Math.max(5, aiBaseDamage);
+            const aiFinalDamage = Math.floor(aiBaseDamage * (0.8 + Math.random() * 0.4));
+
+            myDragon.hp = Math.max(0, (myDragon.hp || 50) - aiFinalDamage);
+            battleMsg += `\n\n🐲 *${oppDragon.name}* uses *${typeof moveUsed === 'string' ? moveUsed : moveUsed.name}* and deals *${aiFinalDamage}* damage!\n` +
                           `*${myDragon.name}* HP: ${myDragon.hp}`;
 
             if (myDragon.hp <= 0) {
