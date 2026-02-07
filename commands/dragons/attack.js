@@ -1,6 +1,7 @@
 import DB from '../../utils/database.js';
 import { addXP } from '../../utils/economy.js';
 import { grantDragonXP } from '../../utils/dragon_xp.js';
+import { checkFloorProgression } from '../../system/dungeon_gameplay.js';
 
 const ELEMENT_ADVANTAGE = {
   FIRE: { strong: 'GRASS', weak: 'WATER' },
@@ -102,8 +103,11 @@ export default {
                       battleMsg += `\n\n🏆 You defeated the dungeon monster!\n💰 +1000 gold\n⚔️ Monsters Defeated: ${dungeon.monstersDefeated}`;
                       await addXP(sender, 100);
 
-                      // Auto-increase floor every 3 monsters
-                      dungeon.currentFloor = Math.floor(dungeon.monstersDefeated / 3) + 1;
+                      // Check for floor progression
+                      const progression = await checkFloorProgression(from, session.dungeonId);
+                      if (progression?.type === 'floor_cleared') {
+                          battleMsg += `\n\n🏢 *FLOOR ${progression.floor} CLEARED!* 🏢\nProceeding to Floor ${progression.nextFloor}.`;
+                      }
                   }
                   await DB.saveDB('dungeons');
               }

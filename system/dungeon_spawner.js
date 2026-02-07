@@ -16,8 +16,9 @@ export async function spawnDungeon(groupId) {
     boss,
     status: 'active',
     currentFloor: 1,
-    maxFloors: 5, // Default for now
+    maxFloors: 10,
     monstersDefeated: 0,
+    monstersPerFloor: 5,
     players: [], // Track players currently in the dungeon
     startedAt: Date.now()
   };
@@ -26,7 +27,7 @@ export async function spawnDungeon(groupId) {
   const db = await DB.getDB('dungeons');
   db[groupId] = db[groupId] || [];
 
-  // Only allow one active dungeon per group for simplicity
+  // Only allow one active dungeon per group
   const activeDungeonIdx = db[groupId].findIndex(d => d.status === 'active');
   if (activeDungeonIdx !== -1) {
     return { error: 'A dungeon is already active in this group!' };

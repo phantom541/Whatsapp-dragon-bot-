@@ -1,5 +1,4 @@
 import { DUNGEON_MONSTERS } from "../../data/monsters.js";
-import { DUNGEON_BOSSES } from "../../data/dungeon_bosses.js";
 import { getActiveDungeon } from "../../system/dungeon_spawner.js";
 import DB from "../../utils/database.js";
 
@@ -36,41 +35,47 @@ export default {
       return reply('❌ You need a dragon to explore! Use *%startdragon* first.');
     }
 
-    // Determine if we meet the boss
-    // For now, let's say 10% chance if 5 monsters defeated, 50% if 10, 100% if 15.
-    let faceBoss = false;
-    if (dungeon.monstersDefeated >= 15) faceBoss = true;
-    else if (dungeon.monstersDefeated >= 10 && Math.random() < 0.5) faceBoss = true;
-    else if (dungeon.monstersDefeated >= 5 && Math.random() < 0.1) faceBoss = true;
+    // Check if current dragon is alive
+    const activeDragon = player.dragons[0];
+    if (activeDragon.hp <= 0) {
+        return reply('❌ Your active dragon has fainted! Heal it before exploring.');
+    }
+
+    // Progression logic
+    const monstersThisFloor = dungeon.monstersDefeated % dungeon.monstersPerFloor;
 
     let enemy;
-    if (faceBoss) {
-      enemy = JSON.parse(JSON.stringify(dungeon.boss));
-      enemy.isBoss = true;
+    let isBoss = false;
+
+    if (dungeon.currentFloor === dungeon.maxFloors && monstersThisFloor === 0 && dungeon.monstersDefeated > 0) {
+        // Boss time!
+        enemy = JSON.parse(JSON.stringify(dungeon.boss));
+        isBoss = true;
+        enemy.isBoss = true;
     } else {
-      const monsterTemplate = DUNGEON_MONSTERS[Math.floor(Math.random() * DUNGEON_MONSTERS.length)];
-      enemy = JSON.parse(JSON.stringify(monsterTemplate));
+        const monsterTemplate = DUNGEON_MONSTERS[Math.floor(Math.random() * DUNGEON_MONSTERS.length)];
+        enemy = JSON.parse(JSON.stringify(monsterTemplate));
 
-      const modifier = DIFFICULTY_MODIFIER[dungeon.difficulty] || 0;
-      enemy.level = enemy.baseLevel + modifier + Math.floor(Math.random() * 3);
+        const modifier = DIFFICULTY_MODIFIER[dungeon.difficulty] || 0;
+        enemy.level = enemy.baseLevel + modifier + Math.floor(Math.random() * 3);
 
-      // Scale stats
-      const levelDiff = enemy.level - enemy.baseLevel;
-      const scaleFactor = 1 + (levelDiff * 0.1); // +10% per level above base
+        // Scale stats
+        const levelDiff = enemy.level - enemy.baseLevel;
+        const scaleFactor = 1 + (levelDiff * 0.1);
 
-      enemy.hp = Math.floor(enemy.stats.hp * scaleFactor);
-      enemy.maxHp = enemy.hp;
-      enemy.atk = Math.floor(enemy.stats.atk * scaleFactor);
-      enemy.def = Math.floor(enemy.stats.def * scaleFactor);
-      enemy.spd = Math.floor(enemy.stats.spd * scaleFactor);
-      enemy.isDungeonMonster = true;
+        enemy.hp = Math.floor(enemy.stats.hp * scaleFactor);
+        enemy.maxHp = enemy.hp;
+        enemy.atk = Math.floor(enemy.stats.atk * scaleFactor);
+        enemy.def = Math.floor(enemy.stats.def * scaleFactor);
+        enemy.spd = Math.floor(enemy.stats.spd * scaleFactor);
+        enemy.isDungeonMonster = true;
     }
 
     // Set up battle session
     usersDb.sessions = usersDb.sessions || {};
     usersDb.sessions[sender] = {
       inBattle: true,
-      opponent: 'WILD', // Reuse WILD logic in attack.js
+      opponent: 'WILD',
       isDungeon: true,
       dungeonId: dungeon.id,
       activeDragonIndex: 0,
@@ -81,7 +86,7 @@ export default {
     player.inBattle.active = true;
     await DB.saveDB('users');
 
-    const title = enemy.isBoss ? `⚠️ *BOSS ENCOUNTER: ${enemy.name}* ⚠️` : `👾 *A Wild ${enemy.name} appears!*`;
+    const title = isBoss ? `⚠️ *FLOOR ${dungeon.currentFloor} BOSS: ${enemy.name}* ⚠️` : `👾 *[Floor ${dungeon.currentFloor}] A Wild ${enemy.name} appears!*`;
     const caption = `${title}\n\n` +
       `📈 *Level:* ${enemy.level || '??'}\n` +
       `❤️ *HP:* ${enemy.hp}\n` +

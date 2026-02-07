@@ -8,7 +8,6 @@ export async function canEnterDungeon(jid) {
   const player = db.users[jid];
   if (!player) return false;
 
-  // Basic check: at least one dragon with HP > 0
   if (!player.dragons || player.dragons.length === 0) return false;
   const aliveDragon = player.dragons.find(d => d.hp > 0);
   if (!aliveDragon) return false;
@@ -29,7 +28,6 @@ export async function enterDungeon(groupId, jid) {
   if (!dungeon.players.includes(jid)) {
     dungeon.players.push(jid);
     const db = await DB.getDB('dungeons');
-    // Find and update the dungeon in the list
     const dIdx = db[groupId].findIndex(d => d.id === dungeon.id);
     if (dIdx !== -1) {
         db[groupId][dIdx] = dungeon;
@@ -40,16 +38,24 @@ export async function enterDungeon(groupId, jid) {
   return { ok: true, dungeon };
 }
 
-// Note: The actual "fightFloor" logic will be integrated into the %explore command
-// which already handles monster spawning and HP tracking via battles.
-// This module will focus on progression and rewards.
-
-export async function clearDungeonFloor(groupId, dungeonId) {
+export async function checkFloorProgression(groupId, dungeonId) {
     const db = await DB.getDB('dungeons');
     const dungeon = db[groupId]?.find(d => d.id === dungeonId);
-    if (!dungeon) return null;
+    if (!dungeon || dungeon.status !== 'active') return null;
 
-    dungeon.currentFloor++;
-    await DB.saveDB('dungeons');
-    return dungeon;
+    const monstersThisFloor = dungeon.monstersDefeated % dungeon.monstersPerFloor;
+
+    // If we just defeated the last monster of the floor
+    if (dungeon.monstersDefeated > 0 && monstersThisFloor === 0) {
+        if (dungeon.currentFloor < dungeon.maxFloors) {
+            dungeon.currentFloor++;
+            await DB.saveDB('dungeons');
+            return { type: 'floor_cleared', floor: dungeon.currentFloor - 1, nextFloor: dungeon.currentFloor };
+        } else {
+            // Reached final floor, time for boss?
+            // In our current explore logic, boss is a chance or guaranteed at 15 monsters.
+            // Let's refine that in explore.js
+        }
+    }
+    return null;
 }

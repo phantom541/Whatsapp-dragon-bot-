@@ -1,10 +1,11 @@
 import { spawnColossalRaid, joinColossalRaid, getActiveRaid, damageColossalBeast } from "../../system/colossal_raid.js";
 import DB from "../../utils/database.js";
+import { TYPE_ADVANTAGE } from "../../data/type_advantage.js";
 
 export default {
   name: "raid",
   description: "Colossal Beast Raid system",
-  execute: async ({ sender, reply, args, from, hasRole, sock, getPlayer }) => {
+  execute: async ({ sender, reply, args, from, hasRole, sock, getPlayer, updatePlayer }) => {
     const sub = args[0]?.toLowerCase();
 
     if (sub === 'spawn') {
@@ -39,6 +40,16 @@ export default {
       return reply(`✅ You have joined the raid against *${raid.name}*!`);
     }
 
+    if (sub === 'leave') {
+      const db = await DB.getDB('raids');
+      if (db[from]?.colossal) {
+        db[from].colossal.participants = db[from].colossal.participants.filter(pid => pid !== sender);
+        await DB.saveDB('raids');
+        return reply('✅ You left the Colossal Beast raid.');
+      }
+      return reply('❌ No active raid found.');
+    }
+
     if (sub === 'attack') {
       if (!raid.participants.includes(sender)) {
         return reply('❌ You must join the raid first! Use *%raid join*.');
@@ -50,33 +61,58 @@ export default {
         return reply('❌ Your dragon is unable to fight! Heal it first.');
       }
 
-      // Simple damage based on dragon attack
-      const moveName = args.slice(1).join(' ');
-      let damage = Math.floor((dragon.atk || 10) * (0.5 + Math.random()));
+      // Player attack
+      const move = dragon.moves[Math.floor(Math.random() * dragon.moves.length)];
+      const moveName = typeof move === 'string' ? move : move.name;
 
-      // Bonus if it matches weakness
+      // Base damage formula
+      let damage = (dragon.atk || 10) * (Math.random() * 5 + 5);
+
+      // Weakness multiplier
       const isWeak = raid.weaknesses.some(w => w.toLowerCase() === (dragon.type || "").toLowerCase());
-      if (isWeak) {
-          damage = Math.floor(damage * 1.5);
-      }
+      if (isWeak) damage *= 1.5;
+
+      damage = Math.floor(Math.min(damage, raid.hp));
 
       const updatedRaid = await damageColossalBeast(from, sender, damage);
 
-      let msg = `⚔️ *${dragon.name}* attacked *${raid.name}* for *${damage}* damage!`;
-      if (isWeak) msg += `\n✨ It's super effective!`;
+      let msg = `⚔️ *${dragon.name}* used *${moveName}* on *${raid.name}* dealing ${damage} damage.\n`;
+      if (isWeak) msg += `✨ It's super effective!\n`;
 
-      msg += `\n❤️ *${raid.name}* HP: ${updatedRaid.hp}/${raid.maxHp}`;
+      // Beast counterattack
+      if (updatedRaid.hp > 0) {
+        const beastMove = raid.moves[Math.floor(Math.random() * raid.moves.length)];
+        let counterDamage = (raid.level / 2) * (Math.random() * 5 + 5);
+
+        // Type advantage check for beast
+        // Simplified: if beast type matches dragon weakness (not implemented fully, so let's use generic)
+        counterDamage = Math.floor(Math.min(counterDamage, dragon.hp));
+
+        dragon.hp -= counterDamage;
+        if (dragon.hp < 0) dragon.hp = 0;
+
+        await updatePlayer(player);
+
+        msg += `🛡️ *${raid.name}* used *${beastMove}* on *${dragon.name}* dealing ${counterDamage} damage.\n`;
+        msg += `💖 Dragon HP: ${dragon.hp} | Beast HP: ${updatedRaid.hp}/${raid.maxHp}`;
+      }
 
       if (updatedRaid.defeated) {
-          msg += `\n\n🏆 *COLOSSAL BEAST DEFEATED!* 🏆\nRewards have been distributed to all participants.`;
-          // Distribute rewards logic...
+          msg = `🏆 *${raid.name}* has been defeated!\nAll participants received rewards and the title: *${raid.raidReward.title}*`;
+
+          // Distribute rewards
           for (const pJid of updatedRaid.participants) {
-              const p = getPlayer(pJid);
-              p.gold += raid.raidReward.gold;
-              p.exp += raid.raidReward.xp;
-              // titles etc...
+              const p = await getPlayer(pJid);
+              if (p) {
+                p.gold += raid.raidReward.gold;
+                p.exp += raid.raidReward.xp;
+                p.roles = p.roles || [];
+                if (!p.roles.includes(raid.raidReward.title)) {
+                    p.roles.push(raid.raidReward.title);
+                }
+                await updatePlayer(p);
+              }
           }
-          await DB.saveDB('users');
       }
 
       return reply(msg);
