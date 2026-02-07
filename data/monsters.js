@@ -1,272 +1,32 @@
 export const DUNGEON_MONSTERS = [
-  {
-    id: 1,
-    name: "Cave Gnawer",
-    type: "Beast",
-    image: "https://i.imgur.com/6nXQkQf.png",
-    baseLevel: 3,
-    stats: { hp: 120, atk: 18, def: 10, spd: 12 },
-    moves: ["Bite", "Claw Swipe", "Growl", "Rush"]
-  },
-  {
-    id: 2,
-    name: "Ash Slime",
-    type: "Fire",
-    image: "https://i.imgur.com/M9aZJYy.png",
-    baseLevel: 4,
-    stats: { hp: 140, atk: 16, def: 12, spd: 8 },
-    moves: ["Burn Touch", "Melt", "Heat Pulse", "Split"]
-  },
-  {
-    id: 3,
-    name: "Stoneback Beetle",
-    type: "Earth",
-    image: "https://i.imgur.com/lGx6PpU.png",
-    baseLevel: 5,
-    stats: { hp: 180, atk: 14, def: 22, spd: 6 },
-    moves: ["Shell Bash", "Roll", "Stone Clamp", "Guard"]
-  },
-  {
-    id: 4,
-    name: "Duskhound",
-    type: "Dark",
-    image: "https://i.imgur.com/yZQq0F8.png",
-    baseLevel: 6,
-    stats: { hp: 160, atk: 22, def: 12, spd: 18 },
-    moves: ["Shadow Bite", "Pounce", "Howl", "Fade"]
-  },
-  {
-    id: 5,
-    name: "Feral Dryad",
-    type: "Nature",
-    image: "https://i.imgur.com/9F0xFzX.png",
-    baseLevel: 6,
-    stats: { hp: 150, atk: 20, def: 14, spd: 14 },
-    moves: ["Vine Lash", "Thorn Shot", "Root Bind", "Regrow"]
-  },
-  {
-    id: 6,
-    name: "Ruin Skeleton",
-    type: "Undead",
-    image: "https://i.imgur.com/7uE2sQk.png",
-    baseLevel: 7,
-    stats: { hp: 170, atk: 24, def: 15, spd: 10 },
-    moves: ["Bone Slash", "Rattle", "Pierce", "Reassemble"]
-  },
-  {
-    id: 7,
-    name: "Venom Moth",
-    type: "Poison",
-    image: "https://i.imgur.com/2P0A6Yr.png",
-    baseLevel: 7,
-    stats: { hp: 130, atk: 26, def: 10, spd: 20 },
-    moves: ["Toxic Dust", "Wing Cut", "Drain", "Evasion"]
-  },
-  {
-    id: 8,
-    name: "Iron Pup",
-    type: "Steel",
-    image: "https://i.imgur.com/3eC5wzG.png",
-    baseLevel: 8,
-    stats: { hp: 200, atk: 22, def: 24, spd: 8 },
-    moves: ["Metal Fang", "Brace", "Charge", "Crunch"]
-  },
-  {
-    id: 9,
-    name: "Mist Wraith",
-    type: "Ghost",
-    image: "https://i.imgur.com/8u9F8yJ.png",
-    baseLevel: 9,
-    stats: { hp: 140, atk: 28, def: 12, spd: 22 },
-    moves: ["Phase Claw", "Haunt", "Fog Veil", "Chill"]
-  },
-  {
-    id: 10,
-    name: "Frost Crawler",
-    type: "Ice",
-    image: "https://i.imgur.com/Z6ZlWm9.png",
-    baseLevel: 9,
-    stats: { hp: 190, atk: 24, def: 18, spd: 10 },
-    moves: ["Ice Fang", "Freeze", "Snow Guard", "Crack"]
-  },
-  {
-    id: 11,
-    name: "Blood Bat",
-    type: "Dark",
-    image: "https://i.imgur.com/6hM8t0U.png",
-    baseLevel: 10,
-    stats: { hp: 150, atk: 30, def: 12, spd: 26 },
-    moves: ["Drain Bite", "Screech", "Dive", "Blur"]
-  },
-  {
-    id: 12,
-    name: "Runic Golem",
-    type: "Arcane",
-    image: "https://i.imgur.com/WF5G9yo.png",
-    baseLevel: 11,
-    stats: { hp: 260, atk: 26, def: 30, spd: 6 },
-    moves: ["Rune Slam", "Mana Burst", "Barrier", "Overload"]
-  },
-  {
-    id: 13,
-    name: "Blight Stalker",
-    type: "Poison",
-    image: "https://i.imgur.com/vE2bX6P.png",
-    baseLevel: 11,
-    stats: { hp: 170, atk: 32, def: 14, spd: 20 },
-    moves: ["Venom Cut", "Ambush", "Corrode", "Fade"]
-  },
-  {
-    id: 14,
-    name: "Thunder Lynx",
-    type: "Electric",
-    image: "https://i.imgur.com/4dLzR2p.png",
-    baseLevel: 12,
-    stats: { hp: 180, atk: 34, def: 16, spd: 28 },
-    moves: ["Volt Claw", "Flash Step", "Discharge", "Snarl"]
-  },
-  {
-    id: 15,
-    name: "Obsidian Serpent",
-    type: "Fire",
-    image: "https://i.imgur.com/YJkF8T9.png",
-    baseLevel: 12,
-    stats: { hp: 210, atk: 36, def: 18, spd: 18 },
-    moves: ["Magma Bite", "Coil", "Eruption", "Burn"]
-  },
-  {
-    id: 16,
-    name: "Grave Knight",
-    type: "Undead",
-    image: "https://i.imgur.com/1DkZ8Ff.png",
-    baseLevel: 13,
-    stats: { hp: 240, atk: 38, def: 28, spd: 10 },
-    moves: ["Cursed Slash", "Shield Break", "Oath", "Retribution"]
-  },
-  {
-    id: 17,
-    name: "Abyss Leech",
-    type: "Water",
-    image: "https://i.imgur.com/2qJ7m3A.png",
-    baseLevel: 13,
-    stats: { hp: 200, atk: 34, def: 18, spd: 14 },
-    moves: ["Siphon", "Latch", "Abyss Pull", "Regenerate"]
-  },
-  {
-    id: 18,
-    name: "Sunken Horror",
-    type: "Dark",
-    image: "https://i.imgur.com/vpR9H8u.png",
-    baseLevel: 14,
-    stats: { hp: 260, atk: 40, def: 20, spd: 12 },
-    moves: ["Crush", "Terror Gaze", "Wave Slam", "Drown"]
-  },
-  {
-    id: 19,
-    name: "Void Imp",
-    type: "Arcane",
-    image: "https://i.imgur.com/rx4n9pL.png",
-    baseLevel: 14,
-    stats: { hp: 160, atk: 42, def: 14, spd: 30 },
-    moves: ["Warp Slash", "Blink", "Hex", "Collapse"]
-  },
-  {
-    id: 20,
-    name: "Ancient Watcher",
-    type: "Light",
-    image: "https://i.imgur.com/2X1x9XQ.png",
-    baseLevel: 15,
-    stats: { hp: 280, atk: 44, def: 30, spd: 14 },
-    moves: ["Judgment Ray", "Sanctify", "Seal", "Purge"]
-  },
-  {
-    id: 21,
-    name: "Crimson Jaw",
-    type: "Beast",
-    image: "https://i.imgur.com/Vm8t9kG.png",
-    baseLevel: 15,
-    stats: { hp: 240, atk: 46, def: 22, spd: 18 },
-    moves: ["Rend", "Savage Bite", "Bleed", "Intimidate"]
-  },
-  {
-    id: 22,
-    name: "Arc Spire Sentinel",
-    type: "Electric",
-    image: "https://i.imgur.com/6fMZ9cZ.png",
-    baseLevel: 15,
-    stats: { hp: 260, atk: 42, def: 34, spd: 12 },
-    moves: ["Arc Beam", "Overcharge", "Lockdown", "Pulse"]
-  },
-  {
-    id: 23,
-    name: "Rotting Abomination",
-    type: "Undead",
-    image: "https://i.imgur.com/3qA8HjT.png",
-    baseLevel: 16,
-    stats: { hp: 300, atk: 44, def: 26, spd: 8 },
-    moves: ["Putrefy", "Slam", "Infect", "Endure"]
-  },
-  {
-    id: 24,
-    name: "Mirror Shade",
-    type: "Ghost",
-    image: "https://i.imgur.com/1s8zq6r.png",
-    baseLevel: 16,
-    stats: { hp: 200, atk: 48, def: 20, spd: 30 },
-    moves: ["Reflect Cut", "Phase Shift", "Copy", "Blur"]
-  },
-  {
-    id: 25,
-    name: "Ember Revenant",
-    type: "Fire",
-    image: "https://i.imgur.com/kZP2qvM.png",
-    baseLevel: 17,
-    stats: { hp: 260, atk: 50, def: 24, spd: 22 },
-    moves: ["Flare Slash", "Burning Aura", "Ignite", "Rekindle"]
-  },
-  {
-    id: 26,
-    name: "Deepcoil Leviathanling",
-    type: "Water",
-    image: "https://i.imgur.com/yYF9Z4H.png",
-    baseLevel: 17,
-    stats: { hp: 320, atk: 48, def: 30, spd: 14 },
-    moves: ["Tidal Crush", "Coil", "Pressure Wave", "Soak"]
-  },
-  {
-    id: 27,
-    name: "Void-Touched Cultist",
-    type: "Dark",
-    image: "https://i.imgur.com/0uHcGvL.png",
-    baseLevel: 18,
-    stats: { hp: 220, atk: 52, def: 22, spd: 26 },
-    moves: ["Void Bolt", "Sacrifice", "Hex Brand", "Rift Step"]
-  },
-  {
-    id: 28,
-    name: "Crystal Spine Drifter",
-    type: "Earth",
-    image: "https://i.imgur.com/JMZqfCk.png",
-    baseLevel: 18,
-    stats: { hp: 340, atk: 46, def: 38, spd: 10 },
-    moves: ["Crystal Lance", "Fortify", "Shard Burst", "Anchor"]
-  },
-  {
-    id: 29,
-    name: "Stormbound Valk",
-    type: "Air",
-    image: "https://i.imgur.com/8qZL1pM.png",
-    baseLevel: 19,
-    stats: { hp: 260, atk: 54, def: 24, spd: 34 },
-    moves: ["Sky Rend", "Gale Dive", "Aerial Guard", "Momentum"]
-  },
-  {
-    id: 30,
-    name: "Eclipse Devourer",
-    type: "Dark",
-    image: "https://i.imgur.com/4d7hR6E.png",
-    baseLevel: 20,
-    stats: { hp: 360, atk: 60, def: 32, spd: 18 },
-    moves: ["Consume Light", "Gravity Crush", "Null Field", "Obliterate"]
-  }
+  { id: 1, name: "Goblin Marauder", type: "Beast", stats: { hp: 80, atk: 12, def: 5, spd: 8, affinity: "NONE" }, weaknesses: ["Fire"], moves: ["Slash", "Stab", "Sneak Attack"], image: "https://pixabay.com/illustrations/creature-monster-goblin-fantasy-6731005/", reward: { gold: 50, xp: 30, title: "Goblin Slayer" } },
+  { id: 2, name: "Forest Ogre", type: "Beast", stats: { hp: 120, atk: 18, def: 12, spd: 6, affinity: "NONE" }, weaknesses: ["Ice","Light"], moves: ["Club Smash","Roar","Stomp"], image: "https://pixabay.com/illustrations/goblin-fantasy-monster-witchcraft-1872986/", reward: { gold: 70, xp: 40, title: "Ogre Crusher" } },
+  { id: 3, name: "Rock Golem", type: "Earth", stats: { hp: 300, atk: 40, def: 30, spd: 10, affinity: "Earth" }, weaknesses: ["Water","Wind"], moves: ["Rock Slam","Earthquake","Stone Throw"], image: "https://www.pngplay.com/image/270778", reward: { gold: 200, xp: 120, title: "Stonebreaker" } },
+  { id: 4, name: "Dark Imp", type: "Demon", stats: { hp: 70, atk: 14, def: 4, spd: 12, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Shadow Jab","Night Bite","Trick"], image: "https://pixabay.com/illustrations/demon-fantasy-monster-creature-3295612/", reward: { gold: 60, xp: 35, title: "Imp Vanquisher" } },
+  { id: 5, name: "Cave Spider", type: "Beast", stats: { hp: 90, atk: 10, def: 6, spd: 14, affinity: "Poison" }, weaknesses: ["Fire"], moves: ["Bite","Web","Venom Sting"], image: "https://pixabay.com/illustrations/spider-monster-fantasy-creature-6697852/", reward: { gold: 55, xp: 32, title: "Arachnid Slayer" } },
+  { id: 6, name: "Stone Serpent", type: "Reptile", stats: { hp: 150, atk: 25, def: 18, spd: 12, affinity: "Earth" }, weaknesses: ["Water"], moves: ["Coil Strike","Tail Whip","Earth Crunch"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5969007/", reward: { gold: 120, xp: 70, title: "Serpent Slayer" } },
+  { id: 7, name: "Forest Lurker", type: "Beast", stats: { hp: 110, atk: 20, def: 10, spd: 10, affinity: "Nature" }, weaknesses: ["Fire"], moves: ["Claw Swipe","Ambush","Bite"], image: "https://pixabay.com/illustrations/fantasy-monster-fear-creature-2770346/", reward: { gold: 80, xp: 45, title: "Lurker Hunter" } },
+  { id: 8, name: "Swamp Slime", type: "Slime", stats: { hp: 60, atk: 8, def: 5, spd: 4, affinity: "Water" }, weaknesses: ["Fire"], moves: ["Blob Slam","Acid Spray","Split"], image: "https://pixabay.com/illustrations/slime-monster-fantasy-creature-4963893/", reward: { gold: 40, xp: 25, title: "Slime Squisher" } },
+  { id: 9, name: "Ice Wraith", type: "Undead", stats: { hp: 130, atk: 28, def: 15, spd: 12, affinity: "Ice" }, weaknesses: ["Fire"], moves: ["Frost Bite","Chill Touch","Haunt"], image: "https://pixabay.com/illustrations/ghost-monster-spirit-horror-4508414/", reward: { gold: 100, xp: 60, title: "Wraith Slayer" } },
+  { id: 10, name: "Sand Scorpion", type: "Beast", stats: { hp: 95, atk: 18, def: 8, spd: 15, affinity: "Earth" }, weaknesses: ["Water"], moves: ["Sting","Pincer Crush","Sand Blast"], image: "https://pixabay.com/illustrations/scorpion-monster-fantasy-creature-6319021/", reward: { gold: 65, xp: 38, title: "Scorpion Bane" } },
+  { id: 11, name: "Lava Lizard", type: "Reptile", stats: { hp: 140, atk: 30, def: 20, spd: 10, affinity: "Fire" }, weaknesses: ["Water"], moves: ["Flame Bite","Tail Burn","Lava Spit"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5969007/", reward: { gold: 120, xp: 75, title: "Lizard Burner" } },
+  { id: 12, name: "Shadow Panther", type: "Beast", stats: { hp: 125, atk: 35, def: 18, spd: 20, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Claw Strike","Pounce","Shadow Swipe"], image: "https://pixabay.com/illustrations/panther-feline-animal-wild-cat-1618596/", reward: { gold: 110, xp: 65, title: "Shadow Stalker" } },
+  { id: 13, name: "Thunder Drake", type: "Dragon", stats: { hp: 160, atk: 40, def: 22, spd: 18, affinity: "Electric" }, weaknesses: ["Ground"], moves: ["Thunder Roar","Lightning Fang","Spark Tail"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5984773/", reward: { gold: 130, xp: 80, title: "Storm Bringer" } },
+  { id: 14, name: "Poison Moth", type: "Insect", stats: { hp: 70, atk: 15, def: 6, spd: 12, affinity: "Poison" }, weaknesses: ["Fire"], moves: ["Venom Dust","Wing Slash","Toxic Bite"], image: "https://pixabay.com/illustrations/moth-butterfly-insect-pollinator-5426214/", reward: { gold: 50, xp: 30, title: "Moth Exterminator" } },
+  { id: 15, name: "Crystal Beetle", type: "Insect", stats: { hp: 100, atk: 22, def: 18, spd: 8, affinity: "Earth" }, weaknesses: ["Fire"], moves: ["Horn Bash","Crystal Sting","Burrow"], image: "https://pixabay.com/illustrations/beetle-insect-animal-nature-3218945/", reward: { gold: 75, xp: 45, title: "Beetle Crusher" } },
+  { id: 16, name: "Molten Golem", type: "Fire", stats: { hp: 300, atk: 50, def: 40, spd: 5, affinity: "Fire" }, weaknesses: ["Water"], moves: ["Flame Punch","Molten Slam","Heat Wave"], image: "https://pixabay.com/illustrations/dragon-fire-fantasy-creature-5731102/", reward: { gold: 200, xp: 130, title: "Golem Melter" } },
+  { id: 17, name: "Wind Sprite", type: "Spirit", stats: { hp: 90, atk: 18, def: 6, spd: 20, affinity: "Wind" }, weaknesses: ["Earth"], moves: ["Gust","Whirlwind","Air Slash"], image: "https://pixabay.com/illustrations/fantasy-spirit-creature-wizard-4465539/", reward: { gold: 60, xp: 35, title: "Breeze Chaser" } },
+  { id: 18, name: "Stone Crab", type: "Beast", stats: { hp: 130, atk: 28, def: 18, spd: 6, affinity: "Earth" }, weaknesses: ["Water"], moves: ["Crush Pinch","Claw Smash","Shell Spin"], image: "https://pixabay.com/illustrations/crab-animal-fantasy-creature-5994592/", reward: { gold: 90, xp: 50, title: "Crustacean Conqueror" } },
+  { id: 19, name: "Ice Serpent", type: "Dragon", stats: { hp: 180, atk: 35, def: 20, spd: 15, affinity: "Ice" }, weaknesses: ["Fire"], moves: ["Frost Bite","Icy Tail","Glacial Strike"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5984773/", reward: { gold: 140, xp: 85, title: "Frost Slayer" } },
+  { id: 20, name: "Dark Lich", type: "Undead", stats: { hp: 150, atk: 40, def: 15, spd: 10, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Shadow Bolt","Curse","Drain Life"], image: "https://pixabay.com/illustrations/ghost-monster-spirit-horror-4508414/", reward: { gold: 150, xp: 90, title: "Lich Bane" } },
+  { id: 21, name: "Venom Serpent", type: "Reptile", stats: { hp: 120, atk: 30, def: 15, spd: 16, affinity: "Poison" }, weaknesses: ["Fire"], moves: ["Poison Fang","Tail Strike","Venom Spray"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5969007/", reward: { gold: 110, xp: 65, title: "Venom Slayer" } },
+  { id: 22, name: "Blight Wolf", type: "Beast", stats: { hp: 130, atk: 35, def: 20, spd: 18, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Bite","Howl","Claw Slash"], image: "https://pixabay.com/illustrations/wolf-animal-fantasy-creature-1321702/", reward: { gold: 120, xp: 70, title: "Wolf Slayer" } },
+  { id: 23, name: "Fire Salamander", type: "Reptile", stats: { hp: 140, atk: 38, def: 25, spd: 14, affinity: "Fire" }, weaknesses: ["Water"], moves: ["Flame Spit","Tail Whip","Ember Strike"], image: "https://pixabay.com/illustrations/salamander-fantasy-creature-fire-4201115/", reward: { gold: 130, xp: 75, title: "Salamander Slayer" } },
+  { id: 24, name: "Thunder Tiger", type: "Beast", stats: { hp: 160, atk: 45, def: 30, spd: 20, affinity: "Electric" }, weaknesses: ["Ground"], moves: ["Lightning Claw","Roar","Thunder Leap"], image: "https://pixabay.com/illustrations/tiger-animal-fantasy-creature-1191581/", reward: { gold: 150, xp: 90, title: "Tiger Conqueror" } },
+  { id: 25, name: "Swamp Hag", type: "Demon", stats: { hp: 100, atk: 25, def: 12, spd: 8, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Hex","Poison","Cackle"], image: "https://pixabay.com/illustrations/witch-halloween-witchcraft-fantasy-1641779/", reward: { gold: 85, xp: 50, title: "Hag Bane" } },
+  { id: 26, name: "Venom Fang", type: "Beast", stats: { hp: 120, atk: 30, def: 15, spd: 14, affinity: "Poison" }, weaknesses: ["Fire"], moves: ["Poison Bite","Quick Strike","Fang Jab"], image: "https://pixabay.com/illustrations/snake-reptile-animal-wild-1788059/", reward: { gold: 100, xp: 60, title: "Fang Slayer" } },
+  { id: 27, name: "Blizzard Yeti", type: "Beast", stats: { hp: 180, atk: 42, def: 28, spd: 12, affinity: "Ice" }, weaknesses: ["Fire"], moves: ["Ice Punch","Snow Slam","Frost Roar"], image: "https://pixabay.com/illustrations/yeti-abominable-snowman-creature-3914016/", reward: { gold: 160, xp: 95, title: "Yeti Bane" } },
+  { id: 28, name: "Sand Wyrm", type: "Reptile", stats: { hp: 170, atk: 40, def: 25, spd: 16, affinity: "Earth" }, weaknesses: ["Water"], moves: ["Burrow","Sand Bite","Tail Slam"], image: "https://pixabay.com/illustrations/dragon-fantasy-fly-fantasy-creature-5984773/", reward: { gold: 145, xp: 85, title: "Wyrm Slayer" } },
+  { id: 29, name: "Forest Guardian", type: "Beast", stats: { hp: 200, atk: 35, def: 30, spd: 12, affinity: "Nature" }, weaknesses: ["Fire"], moves: ["Root Slam","Vine Whip","Claw Swipe"], image: "https://pixabay.com/illustrations/fantasy-monster-fear-creature-2770346/", reward: { gold: 170, xp: 100, title: "Forest Protector" } },
+  { id: 30, name: "Shadow Reaper", type: "Undead", stats: { hp: 210, atk: 50, def: 28, spd: 18, affinity: "Dark" }, weaknesses: ["Light"], moves: ["Scythe Slash","Shadow Bolt","Life Drain"], image: "https://pixabay.com/illustrations/ghost-monster-spirit-horror-4508414/", reward: { gold: 200, xp: 120, title: "Reaper Bane" } }
 ];

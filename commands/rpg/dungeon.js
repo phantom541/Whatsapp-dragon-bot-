@@ -1,9 +1,8 @@
 import { spawnDungeon, getActiveDungeon } from "../../system/dungeon_spawner.js";
-import { enterDungeon } from "../../system/dungeon_gameplay.js";
 
 export default {
   name: "dungeon",
-  description: "Check for active dungeons, spawn one (Admin), or enter",
+  description: "Check dungeon status or spawn a new one (Admin)",
   execute: async ({ sender, reply, args, from, hasRole, sock }) => {
     const sub = args[0]?.toLowerCase();
 
@@ -12,31 +11,21 @@ export default {
         return reply('❌ Only admins can manually spawn dungeons.');
       }
 
-      const result = await spawnDungeon(from);
-      if (result.error) {
-        return reply(`❌ ${result.error}`);
-      }
+      const dungeon = await spawnDungeon(from);
 
-      const boss = result.boss;
       const caption = `🏰 *A NEW DUNGEON HAS OPENED!* 🏰\n\n` +
-        `📜 *Title:* ${boss.title}\n` +
-        `💀 *Boss:* ${boss.name}\n` +
-        `📈 *Difficulty:* ${result.difficulty.toUpperCase()}\n\n` +
-        `Use *%explore* to enter the dungeon!`;
+        `📈 *Difficulty:* ${dungeon.difficulty.toUpperCase()}\n` +
+        `🏢 *Floors:* ${dungeon.maxFloors}\n\n` +
+        `👾 *Floor 1 Monsters:* ${dungeon.monstersRemaining.length}\n` +
+        `💀 *Floor 1 Boss:* ${dungeon.floorBoss.name} (${dungeon.floorBoss.title})\n\n` +
+        `Use *%attackmonster* to start the fight!`;
 
-      if (boss.image) {
-        await sock.sendMessage(from, { image: { url: boss.image }, caption });
+      if (dungeon.floorBoss.image) {
+        await sock.sendMessage(from, { image: { url: dungeon.floorBoss.image }, caption });
       } else {
         reply(caption);
       }
       return;
-    }
-
-    if (sub === 'enter') {
-      const res = await enterDungeon(from, sender);
-      if (!res.ok) return reply(`❌ ${res.message}`);
-
-      return reply(`✅ You have entered the dungeon: *${res.dungeon.boss.title}*!\nUse *%explore* to find monsters.`);
     }
 
     const dungeon = await getActiveDungeon(from);
@@ -44,14 +33,15 @@ export default {
       return reply('🏰 No active dungeon in this group. Use *%dungeon spawn* (Admin) to start one.');
     }
 
-    const boss = dungeon.boss;
-    const info = `🏰 *ACTIVE DUNGEON* 🏰\n\n` +
-      `📜 *Title:* ${boss.title}\n` +
-      `💀 *Boss:* ${boss.name} (Lv ${boss.level})\n` +
-      `📈 *Difficulty:* ${dungeon.difficulty.toUpperCase()}\n` +
-      `🏢 *Floors:* ${dungeon.currentFloor}/${dungeon.maxFloors}\n` +
-      `⚔️ *Monsters Defeated:* ${dungeon.monstersDefeated}\n\n` +
-      `Use *%explore* to progress!`;
+    const monstersList = dungeon.monstersRemaining.map((m, i) => `${i+1}. ${m.name} (HP: ${m.currentHp})`).join('\n');
+    const bossInfo = dungeon.floorBoss ? `💀 *Boss:* ${dungeon.floorBoss.name} (HP: ${dungeon.floorBoss.currentHp})` : `✅ Boss defeated!`;
+
+    const info = `🏰 *DUNGEON STATUS* 🏰\n\n` +
+      `🏢 *Current Floor:* ${dungeon.floor}/${dungeon.maxFloors}\n` +
+      `📈 *Difficulty:* ${dungeon.difficulty.toUpperCase()}\n\n` +
+      `👾 *Monsters Remaining:* ${dungeon.monstersRemaining.length}\n${monstersList}\n\n` +
+      `${bossInfo}\n\n` +
+      `⚔️ Use *%attackmonster* or *%attackboss*!`;
 
     reply(info);
   }

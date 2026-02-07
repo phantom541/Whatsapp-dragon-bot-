@@ -1,13 +1,11 @@
 import DB from '../../utils/database.js';
 import { addXP } from '../../utils/economy.js';
 import { grantDragonXP } from '../../utils/dragon_xp.js';
-import { checkFloorProgression } from '../../system/dungeon_gameplay.js';
 
 const ELEMENT_ADVANTAGE = {
   FIRE: { strong: 'GRASS', weak: 'WATER' },
   WATER: { strong: 'FIRE', weak: 'GRASS' },
   GRASS: { strong: 'WATER', weak: 'FIRE' },
-  // Add more elements as they appear in the 100-dragon roster
   ELECTRIC: { strong: 'WATER', weak: 'EARTH' },
   ICE: { strong: 'AIR', weak: 'FIRE' },
   EARTH: { strong: 'ELECTRIC', weak: 'GRASS' },
@@ -17,7 +15,7 @@ const ELEMENT_ADVANTAGE = {
 
 export default {
   name: 'attack',
-  description: 'Attack the opponent in turn-based battle',
+  description: 'Attack the opponent in turn-based battle (Wild/PvP)',
   execute: async ({ sender, args, reply, getPlayer, sock, from }) => {
     const moveName = args.join(' ').trim();
     if (!moveName) return reply('Usage: %attack <move name>');
@@ -26,6 +24,12 @@ export default {
     const session = usersDb.sessions?.[sender];
 
     if (!session?.inBattle) return reply('❌ You are not currently in a battle.');
+
+    // Redirect dungeon battles if someone uses %attack instead of %attackmonster
+    if (session.isDungeon) {
+        return reply('🏰 You are in a dungeon! Use *%attackmonster* or *%attackboss*.');
+    }
+
     if (!session.turn) return reply('❌ It is not your turn.');
 
     const player = getPlayer(sender);
@@ -86,35 +90,8 @@ export default {
           // End Wild Battle
           usersDb.sessions[sender] = { inBattle: false };
           player.inBattle.active = false;
-
-          if (session.isDungeon) {
-              const dungeonDb = await DB.getDB('dungeons');
-              const dungeon = dungeonDb[from]?.find(d => d.id === session.dungeonId);
-
-              if (dungeon) {
-                  if (oppDragon.isBoss) {
-                      dungeon.status = 'completed';
-                      player.gold += 5000;
-                      battleMsg += `\n\n🏆 *DUNGEON CONQUERED!* 🏆\nYou defeated the boss *${oppDragon.name}*!\n💰 +5000 gold`;
-                      await addXP(sender, 1000);
-                  } else {
-                      dungeon.monstersDefeated += 1;
-                      player.gold += 1000;
-                      battleMsg += `\n\n🏆 You defeated the dungeon monster!\n💰 +1000 gold\n⚔️ Monsters Defeated: ${dungeon.monstersDefeated}`;
-                      await addXP(sender, 100);
-
-                      // Check for floor progression
-                      const progression = await checkFloorProgression(from, session.dungeonId);
-                      if (progression?.type === 'floor_cleared') {
-                          battleMsg += `\n\n🏢 *FLOOR ${progression.floor} CLEARED!* 🏢\nProceeding to Floor ${progression.nextFloor}.`;
-                      }
-                  }
-                  await DB.saveDB('dungeons');
-              }
-          } else {
-              player.gold += 500;
-              battleMsg += `\n\n🏆 You defeated the wild dragon!\n💰 +500 gold`;
-          }
+          player.gold += 500;
+          battleMsg += `\n\n🏆 You defeated the wild dragon!\n💰 +500 gold`;
       } else {
           // Check for next dragon
           const oppNextIndex = opponent.dragons.findIndex(d => d.hp > 0);
