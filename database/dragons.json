@@ -78,7 +78,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029305_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029305_1280.png",
+      "baseStats": {
+        "hp": 80,
+        "attack": 25,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 95,
+        "attack": 45,
+        "defense": 25,
+        "speed": 15,
+        "crit": 0,
+        "hp": 95
+      },
+      "hp": 95,
+      "maxHp": 95,
+      "atk": 45,
+      "def": 25
     },
     "d002": {
       "id": "d002",
@@ -158,7 +178,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/12/15/25/dragon-147017_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/12/15/25/dragon-147017_1280.png",
+      "baseStats": {
+        "hp": 85,
+        "attack": 20,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 97,
+        "attack": 28,
+        "defense": 28,
+        "speed": 9,
+        "crit": 0,
+        "hp": 97
+      },
+      "hp": 97,
+      "maxHp": 97,
+      "atk": 28,
+      "def": 28
     },
     "d003": {
       "id": "d003",
@@ -238,7 +278,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2018/08/18/22/50/dragon-3615533_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2018/08/18/22/50/dragon-3615533_1280.png",
+      "baseStats": {
+        "hp": 75,
+        "attack": 28,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 87,
+        "attack": 36,
+        "defense": 20,
+        "speed": 9,
+        "crit": 0,
+        "hp": 87
+      },
+      "hp": 87,
+      "maxHp": 87,
+      "atk": 36,
+      "def": 20
     },
     "d004": {
       "id": "d004",
@@ -318,7 +378,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/dragon-1868005_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/dragon-1868005_1280.png",
+      "baseStats": {
+        "hp": 90,
+        "attack": 18,
+        "defense": 25,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 105,
+        "attack": 24,
+        "defense": 40,
+        "speed": 8,
+        "crit": 0,
+        "hp": 105
+      },
+      "hp": 105,
+      "maxHp": 105,
+      "atk": 24,
+      "def": 40
     },
     "d005": {
       "id": "d005",
@@ -398,7 +478,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2018/02/15/19/04/dragon-3158337_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2018/02/15/19/04/dragon-3158337_1280.png",
+      "baseStats": {
+        "hp": 82,
+        "attack": 30,
+        "defense": 10,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 94,
+        "attack": 46,
+        "defense": 18,
+        "speed": 9,
+        "crit": 4,
+        "hp": 94
+      },
+      "hp": 94,
+      "maxHp": 94,
+      "atk": 46,
+      "def": 18
     },
     "d006": {
       "id": "d006",
@@ -478,7 +578,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/12/15/25/dragon-147018_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/12/15/25/dragon-147018_1280.png",
+      "baseStats": {
+        "hp": 100,
+        "attack": 22,
+        "defense": 25,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 112,
+        "attack": 30,
+        "defense": 33,
+        "speed": 9,
+        "crit": 0,
+        "hp": 112
+      },
+      "hp": 112,
+      "maxHp": 112,
+      "atk": 30,
+      "def": 33
     },
     "d007": {
       "id": "d007",
@@ -558,7 +678,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/dragon-1868010_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2016/11/29/05/08/dragon-1868010_1280.png",
+      "baseStats": {
+        "hp": 72,
+        "attack": 24,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 81,
+        "attack": 33,
+        "defense": 18,
+        "speed": 17,
+        "crit": 0,
+        "hp": 81
+      },
+      "hp": 81,
+      "maxHp": 81,
+      "atk": 33,
+      "def": 18
     },
     "d008": {
       "id": "d008",
@@ -638,7 +778,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029310_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029310_1280.png",
+      "baseStats": {
+        "hp": 78,
+        "attack": 26,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 90,
+        "attack": 34,
+        "defense": 22,
+        "speed": 9,
+        "crit": 0,
+        "hp": 90
+      },
+      "hp": 90,
+      "maxHp": 90,
+      "atk": 34,
+      "def": 22
     },
     "d009": {
       "id": "d009",
@@ -718,7 +878,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2018/08/18/22/50/dragon-3615538_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2018/08/18/22/50/dragon-3615538_1280.png",
+      "baseStats": {
+        "hp": 95,
+        "attack": 32,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 120,
+        "attack": 52,
+        "defense": 28,
+        "speed": 10,
+        "crit": 0,
+        "hp": 120
+      },
+      "hp": 120,
+      "maxHp": 120,
+      "atk": 52,
+      "def": 28
     },
     "d010": {
       "id": "d010",
@@ -798,7 +978,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029311_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2017/01/31/22/16/dragon-2029311_1280.png",
+      "baseStats": {
+        "hp": 110,
+        "attack": 35,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 125,
+        "attack": 55,
+        "defense": 32,
+        "speed": 10,
+        "crit": 5,
+        "hp": 125
+      },
+      "hp": 125,
+      "maxHp": 125,
+      "atk": 55,
+      "def": 32
     },
     "d011": {
       "id": "d011",
@@ -878,7 +1078,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/13/10/07/dragon-158091_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/13/10/07/dragon-158091_1280.png",
+      "baseStats": {
+        "hp": 84,
+        "attack": 25,
+        "defense": 16,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 96,
+        "attack": 33,
+        "defense": 24,
+        "speed": 9,
+        "crit": 0,
+        "hp": 96
+      },
+      "hp": 96,
+      "maxHp": 96,
+      "atk": 33,
+      "def": 24
     },
     "d012": {
       "id": "d012",
@@ -958,7 +1178,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/12/18/43/dragon-153181_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/12/18/43/dragon-153181_1280.png",
+      "baseStats": {
+        "hp": 92,
+        "attack": 30,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 107,
+        "attack": 50,
+        "defense": 25,
+        "speed": 15,
+        "crit": 0,
+        "hp": 107
+      },
+      "hp": 107,
+      "maxHp": 107,
+      "atk": 50,
+      "def": 25
     },
     "d013": {
       "id": "d013",
@@ -1038,7 +1278,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/13/11/48/dragon-158293_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/13/11/48/dragon-158293_1280.png",
+      "baseStats": {
+        "hp": 105,
+        "attack": 15,
+        "defense": 30,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 120,
+        "attack": 21,
+        "defense": 45,
+        "speed": 8,
+        "crit": 0,
+        "hp": 120
+      },
+      "hp": 120,
+      "maxHp": 120,
+      "atk": 21,
+      "def": 45
     },
     "d014": {
       "id": "d014",
@@ -1118,7 +1378,27 @@
           "cost": 8
         }
       ],
-      "image": "https://cdn.pixabay.com/photo/2013/07/13/12/11/dragon-158331_1280.png"
+      "image": "https://cdn.pixabay.com/photo/2013/07/13/12/11/dragon-158331_1280.png",
+      "baseStats": {
+        "hp": 115,
+        "attack": 38,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 130,
+        "attack": 58,
+        "defense": 22,
+        "speed": 10,
+        "crit": 5,
+        "hp": 130
+      },
+      "hp": 130,
+      "maxHp": 130,
+      "atk": 58,
+      "def": 22
     },
     "d015": {
       "id": "d015",
@@ -1198,7 +1478,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 112,
+        "attack": 32,
+        "defense": 30,
+        "speed": 9,
+        "crit": 0,
+        "hp": 112
+      },
+      "hp": 112,
+      "maxHp": 112,
+      "atk": 32,
+      "def": 30
     },
     "d016": {
       "id": "d016",
@@ -1278,7 +1578,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 98,
+        "attack": 36,
+        "defense": 22,
+        "speed": 9,
+        "crit": 0,
+        "hp": 98
+      },
+      "hp": 98,
+      "maxHp": 98,
+      "atk": 36,
+      "def": 22
     },
     "d017": {
       "id": "d017",
@@ -1358,7 +1678,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 78,
+        "attack": 16,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 93,
+        "attack": 22,
+        "defense": 37,
+        "speed": 8,
+        "crit": 0,
+        "hp": 93
+      },
+      "hp": 93,
+      "maxHp": 93,
+      "atk": 22,
+      "def": 37
     },
     "d018": {
       "id": "d018",
@@ -1438,7 +1778,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 82,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 94,
+        "attack": 44,
+        "defense": 22,
+        "speed": 13,
+        "crit": 0,
+        "hp": 94
+      },
+      "hp": 94,
+      "maxHp": 94,
+      "atk": 44,
+      "def": 22
     },
     "d019": {
       "id": "d019",
@@ -1518,7 +1878,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 76,
+        "attack": 18,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 85,
+        "attack": 24,
+        "defense": 24,
+        "speed": 8,
+        "crit": 0,
+        "hp": 85
+      },
+      "hp": 85,
+      "maxHp": 85,
+      "atk": 24,
+      "def": 24
     },
     "d020": {
       "id": "d020",
@@ -1598,7 +1978,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 105,
+        "attack": 22,
+        "defense": 28,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 130,
+        "attack": 32,
+        "defense": 53,
+        "speed": 10,
+        "crit": 0,
+        "hp": 130
+      },
+      "hp": 130,
+      "maxHp": 130,
+      "atk": 32,
+      "def": 53
     },
     "d021": {
       "id": "d021",
@@ -1678,7 +2078,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 96,
+        "attack": 32,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 111,
+        "attack": 52,
+        "defense": 28,
+        "speed": 15,
+        "crit": 0,
+        "hp": 111
+      },
+      "hp": 111,
+      "maxHp": 111,
+      "atk": 52,
+      "def": 28
     },
     "d022": {
       "id": "d022",
@@ -1758,7 +2178,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 100,
+        "attack": 32,
+        "defense": 26,
+        "speed": 9,
+        "crit": 0,
+        "hp": 100
+      },
+      "hp": 100,
+      "maxHp": 100,
+      "atk": 32,
+      "def": 26
     },
     "d023": {
       "id": "d023",
@@ -1838,7 +2278,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 84,
+        "attack": 35,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 99,
+        "attack": 45,
+        "defense": 24,
+        "speed": 10,
+        "crit": 0,
+        "hp": 99
+      },
+      "hp": 99,
+      "maxHp": 99,
+      "atk": 45,
+      "def": 24
     },
     "d024": {
       "id": "d024",
@@ -1918,7 +2378,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 98,
+        "attack": 18,
+        "defense": 28,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 118,
+        "attack": 26,
+        "defense": 48,
+        "speed": 9,
+        "crit": 0,
+        "hp": 118
+      },
+      "hp": 118,
+      "maxHp": 118,
+      "atk": 26,
+      "def": 48
     },
     "d025": {
       "id": "d025",
@@ -1998,7 +2478,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 74,
+        "attack": 22,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 83,
+        "attack": 31,
+        "defense": 20,
+        "speed": 17,
+        "crit": 0,
+        "hp": 83
+      },
+      "hp": 83,
+      "maxHp": 83,
+      "atk": 31,
+      "def": 20
     },
     "d026": {
       "id": "d026",
@@ -2078,7 +2578,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 35,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 105,
+        "attack": 55,
+        "defense": 22,
+        "speed": 10,
+        "crit": 5,
+        "hp": 105
+      },
+      "hp": 105,
+      "maxHp": 105,
+      "atk": 55,
+      "def": 22
     },
     "d027": {
       "id": "d027",
@@ -2158,7 +2678,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 85,
+        "attack": 22,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 109,
+        "attack": 30,
+        "defense": 32,
+        "speed": 9,
+        "crit": 0,
+        "hp": 109
+      },
+      "hp": 109,
+      "maxHp": 109,
+      "atk": 30,
+      "def": 32
     },
     "d028": {
       "id": "d028",
@@ -2238,7 +2778,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 82,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 94,
+        "attack": 44,
+        "defense": 22,
+        "speed": 13,
+        "crit": 0,
+        "hp": 94
+      },
+      "hp": 94,
+      "maxHp": 94,
+      "atk": 44,
+      "def": 22
     },
     "d029": {
       "id": "d029",
@@ -2318,7 +2878,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 100,
+        "attack": 16,
+        "defense": 28,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 115,
+        "attack": 22,
+        "defense": 43,
+        "speed": 8,
+        "crit": 0,
+        "hp": 115
+      },
+      "hp": 115,
+      "maxHp": 115,
+      "atk": 22,
+      "def": 43
     },
     "d030": {
       "id": "d030",
@@ -2398,7 +2978,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 80,
+        "attack": 26,
+        "defense": 16,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 92,
+        "attack": 38,
+        "defense": 24,
+        "speed": 21,
+        "crit": 0,
+        "hp": 92
+      },
+      "hp": 92,
+      "maxHp": 92,
+      "atk": 38,
+      "def": 24
     },
     "d031": {
       "id": "d031",
@@ -2478,7 +3078,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 100,
+        "attack": 32,
+        "defense": 26,
+        "speed": 9,
+        "crit": 0,
+        "hp": 100
+      },
+      "hp": 100,
+      "maxHp": 100,
+      "atk": 32,
+      "def": 26
     },
     "d032": {
       "id": "d032",
@@ -2558,7 +3178,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 94,
+        "attack": 35,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 109,
+        "attack": 45,
+        "defense": 25,
+        "speed": 10,
+        "crit": 0,
+        "hp": 109
+      },
+      "hp": 109,
+      "maxHp": 109,
+      "atk": 45,
+      "def": 25
     },
     "d033": {
       "id": "d033",
@@ -2638,7 +3278,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 18,
+        "defense": 35,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 119,
+        "attack": 24,
+        "defense": 41,
+        "speed": 8,
+        "crit": 0,
+        "hp": 119
+      },
+      "hp": 119,
+      "maxHp": 119,
+      "atk": 24,
+      "def": 41
     },
     "d034": {
       "id": "d034",
@@ -2718,7 +3378,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 28,
+        "defense": 16,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 98,
+        "attack": 36,
+        "defense": 24,
+        "speed": 9,
+        "crit": 0,
+        "hp": 98
+      },
+      "hp": 98,
+      "maxHp": 98,
+      "atk": 36,
+      "def": 24
     },
     "d035": {
       "id": "d035",
@@ -2798,7 +3478,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 78,
+        "attack": 22,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 87,
+        "attack": 28,
+        "defense": 18,
+        "speed": 8,
+        "crit": 0,
+        "hp": 87
+      },
+      "hp": 87,
+      "maxHp": 87,
+      "atk": 28,
+      "def": 18
     },
     "d036": {
       "id": "d036",
@@ -2878,7 +3578,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 98,
+        "attack": 35,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 113,
+        "attack": 55,
+        "defense": 28,
+        "speed": 15,
+        "crit": 0,
+        "hp": 113
+      },
+      "hp": 113,
+      "maxHp": 113,
+      "atk": 55,
+      "def": 28
     },
     "d037": {
       "id": "d037",
@@ -2958,7 +3678,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 96,
+        "attack": 38,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 111,
+        "attack": 48,
+        "defense": 24,
+        "speed": 10,
+        "crit": 0,
+        "hp": 111
+      },
+      "hp": 111,
+      "maxHp": 111,
+      "atk": 48,
+      "def": 24
     },
     "d038": {
       "id": "d038",
@@ -3038,7 +3778,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 84,
+        "attack": 28,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 96,
+        "attack": 44,
+        "defense": 20,
+        "speed": 9,
+        "crit": 4,
+        "hp": 96
+      },
+      "hp": 96,
+      "maxHp": 96,
+      "atk": 44,
+      "def": 20
     },
     "d039": {
       "id": "d039",
@@ -3118,7 +3878,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 102,
+        "attack": 18,
+        "defense": 28,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 117,
+        "attack": 24,
+        "defense": 43,
+        "speed": 8,
+        "crit": 0,
+        "hp": 117
+      },
+      "hp": 117,
+      "maxHp": 117,
+      "atk": 24,
+      "def": 43
     },
     "d040": {
       "id": "d040",
@@ -3198,7 +3978,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 82,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 94,
+        "attack": 44,
+        "defense": 22,
+        "speed": 13,
+        "crit": 0,
+        "hp": 94
+      },
+      "hp": 94,
+      "maxHp": 94,
+      "atk": 44,
+      "def": 22
     },
     "d041": {
       "id": "d041",
@@ -3278,7 +4078,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 112,
+        "attack": 32,
+        "defense": 34,
+        "speed": 9,
+        "crit": 0,
+        "hp": 112
+      },
+      "hp": 112,
+      "maxHp": 112,
+      "atk": 32,
+      "def": 34
     },
     "d042": {
       "id": "d042",
@@ -3358,7 +4178,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 76,
+        "attack": 22,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 85,
+        "attack": 31,
+        "defense": 18,
+        "speed": 17,
+        "crit": 0,
+        "hp": 85
+      },
+      "hp": 85,
+      "maxHp": 85,
+      "atk": 31,
+      "def": 18
     },
     "d043": {
       "id": "d043",
@@ -3438,7 +4278,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 102,
+        "attack": 35,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 117,
+        "attack": 55,
+        "defense": 28,
+        "speed": 15,
+        "crit": 0,
+        "hp": 117
+      },
+      "hp": 117,
+      "maxHp": 117,
+      "atk": 55,
+      "def": 28
     },
     "d044": {
       "id": "d044",
@@ -3518,7 +4378,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 24,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 102,
+        "attack": 32,
+        "defense": 28,
+        "speed": 9,
+        "crit": 0,
+        "hp": 102
+      },
+      "hp": 102,
+      "maxHp": 102,
+      "atk": 32,
+      "def": 28
     },
     "d045": {
       "id": "d045",
@@ -3598,7 +4478,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 104,
+        "attack": 18,
+        "defense": 28,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 119,
+        "attack": 24,
+        "defense": 43,
+        "speed": 8,
+        "crit": 0,
+        "hp": 119
+      },
+      "hp": 119,
+      "maxHp": 119,
+      "atk": 24,
+      "def": 43
     },
     "d046": {
       "id": "d046",
@@ -3678,7 +4578,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 98,
+        "attack": 36,
+        "defense": 22,
+        "speed": 9,
+        "crit": 0,
+        "hp": 98
+      },
+      "hp": 98,
+      "maxHp": 98,
+      "atk": 36,
+      "def": 22
     },
     "d047": {
       "id": "d047",
@@ -3758,7 +4678,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 102,
+        "attack": 32,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 117,
+        "attack": 52,
+        "defense": 30,
+        "speed": 15,
+        "crit": 0,
+        "hp": 117
+      },
+      "hp": 117,
+      "maxHp": 117,
+      "atk": 52,
+      "def": 30
     },
     "d048": {
       "id": "d048",
@@ -3838,7 +4778,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 92,
+        "attack": 24,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 104,
+        "attack": 32,
+        "defense": 30,
+        "speed": 9,
+        "crit": 0,
+        "hp": 104
+      },
+      "hp": 104,
+      "maxHp": 104,
+      "atk": 32,
+      "def": 30
     },
     "d049": {
       "id": "d049",
@@ -3918,7 +4878,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 108,
+        "attack": 28,
+        "defense": 24,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 138,
+        "attack": 38,
+        "defense": 39,
+        "speed": 10,
+        "crit": 0,
+        "hp": 138
+      },
+      "hp": 138,
+      "maxHp": 138,
+      "atk": 38,
+      "def": 39
     },
     "d050": {
       "id": "d050",
@@ -3998,7 +4978,27 @@
           "power": 85,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 125,
+        "attack": 45,
+        "defense": 25,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 143,
+        "attack": 69,
+        "defense": 37,
+        "speed": 11,
+        "crit": 6,
+        "hp": 143
+      },
+      "hp": 143,
+      "maxHp": 143,
+      "atk": 69,
+      "def": 37
     },
     "d051": {
       "id": "d051",
@@ -4078,7 +5078,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 98,
+        "attack": 36,
+        "defense": 22,
+        "speed": 9,
+        "crit": 0,
+        "hp": 98
+      },
+      "hp": 98,
+      "maxHp": 98,
+      "atk": 36,
+      "def": 22
     },
     "d052": {
       "id": "d052",
@@ -4158,7 +5178,27 @@
           "power": 80,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 98,
+        "attack": 35,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 113,
+        "attack": 55,
+        "defense": 28,
+        "speed": 15,
+        "crit": 0,
+        "hp": 113
+      },
+      "hp": 113,
+      "maxHp": 113,
+      "atk": 55,
+      "def": 28
     },
     "d053": {
       "id": "d053",
@@ -4238,7 +5278,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 112,
+        "attack": 32,
+        "defense": 30,
+        "speed": 9,
+        "crit": 0,
+        "hp": 112
+      },
+      "hp": 112,
+      "maxHp": 112,
+      "atk": 32,
+      "def": 30
     },
     "d054": {
       "id": "d054",
@@ -4318,7 +5378,27 @@
           "power": 85,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 115,
+        "attack": 42,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 133,
+        "attack": 66,
+        "defense": 32,
+        "speed": 11,
+        "crit": 6,
+        "hp": 133
+      },
+      "hp": 133,
+      "maxHp": 133,
+      "atk": 66,
+      "def": 32
     },
     "d055": {
       "id": "d055",
@@ -4398,7 +5478,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 94,
+        "attack": 28,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 109,
+        "attack": 38,
+        "defense": 32,
+        "speed": 10,
+        "crit": 0,
+        "hp": 109
+      },
+      "hp": 109,
+      "maxHp": 109,
+      "atk": 38,
+      "def": 32
     },
     "d056": {
       "id": "d056",
@@ -4478,7 +5578,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 88,
+        "attack": 24,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 100,
+        "attack": 32,
+        "defense": 26,
+        "speed": 9,
+        "crit": 0,
+        "hp": 100
+      },
+      "hp": 100,
+      "maxHp": 100,
+      "atk": 32,
+      "def": 26
     },
     "d057": {
       "id": "d057",
@@ -4558,7 +5678,27 @@
           "power": 85,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 120,
+        "attack": 45,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 138,
+        "attack": 69,
+        "defense": 32,
+        "speed": 17,
+        "crit": 0,
+        "hp": 138
+      },
+      "hp": 138,
+      "maxHp": 138,
+      "atk": 69,
+      "def": 32
     },
     "d058": {
       "id": "d058",
@@ -4638,7 +5778,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 25,
+        "defense": 35,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 125,
+        "attack": 35,
+        "defense": 45,
+        "speed": 10,
+        "crit": 0,
+        "hp": 125
+      },
+      "hp": 125,
+      "maxHp": 125,
+      "atk": 35,
+      "def": 45
     },
     "d059": {
       "id": "d059",
@@ -4718,7 +5878,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 102,
+        "attack": 22,
+        "defense": 30,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 114,
+        "attack": 30,
+        "defense": 38,
+        "speed": 9,
+        "crit": 0,
+        "hp": 114
+      },
+      "hp": 114,
+      "maxHp": 114,
+      "atk": 30,
+      "def": 38
     },
     "d060": {
       "id": "d060",
@@ -4798,7 +5978,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 90,
+        "attack": 32,
+        "defense": 16,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 105,
+        "attack": 47,
+        "defense": 26,
+        "speed": 25,
+        "crit": 0,
+        "hp": 105
+      },
+      "hp": 105,
+      "maxHp": 105,
+      "atk": 47,
+      "def": 26
     },
     "d061": {
       "id": "d061",
@@ -4878,7 +6078,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 86,
+        "attack": 28,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 98,
+        "attack": 44,
+        "defense": 22,
+        "speed": 13,
+        "crit": 0,
+        "hp": 98
+      },
+      "hp": 98,
+      "maxHp": 98,
+      "atk": 44,
+      "def": 22
     },
     "d062": {
       "id": "d062",
@@ -4958,7 +6178,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 98,
+        "attack": 30,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 128,
+        "attack": 40,
+        "defense": 33,
+        "speed": 10,
+        "crit": 0,
+        "hp": 128
+      },
+      "hp": 128,
+      "maxHp": 128,
+      "atk": 40,
+      "def": 33
     },
     "d063": {
       "id": "d063",
@@ -5038,7 +6278,27 @@
           "power": 85,
           "cost": 8
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 110,
+        "attack": 40,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 128,
+        "attack": 52,
+        "defense": 27,
+        "speed": 11,
+        "crit": 0,
+        "hp": 128
+      },
+      "hp": 128,
+      "maxHp": 128,
+      "atk": 52,
+      "def": 27
     },
     "d064": {
       "id": "d064",
@@ -5118,7 +6378,27 @@
           "power": 75,
           "cost": 7
         }
-      ]
+      ],
+      "baseStats": {
+        "hp": 92,
+        "attack": 35,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 107,
+        "attack": 55,
+        "defense": 22,
+        "speed": 10,
+        "crit": 5,
+        "hp": 107
+      },
+      "hp": 107,
+      "maxHp": 107,
+      "atk": 55,
+      "def": 22
     },
     "d065": {
       "id": "d065",
@@ -5198,7 +6478,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/033/045/123/large/frost-wyrm-dragon.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/033/045/123/large/frost-wyrm-dragon.jpg",
+      "baseStats": {
+        "hp": 100,
+        "attack": 25,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 115,
+        "attack": 35,
+        "defense": 30,
+        "speed": 10,
+        "crit": 0,
+        "hp": 115
+      },
+      "hp": 115,
+      "maxHp": 115,
+      "atk": 35,
+      "def": 30
     },
     "d066": {
       "id": "d066",
@@ -5278,7 +6578,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/024/567/890/large/storm-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/024/567/890/large/storm-drake.jpg",
+      "baseStats": {
+        "hp": 95,
+        "attack": 30,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 110,
+        "attack": 40,
+        "defense": 25,
+        "speed": 10,
+        "crit": 0,
+        "hp": 110
+      },
+      "hp": 110,
+      "maxHp": 110,
+      "atk": 40,
+      "def": 25
     },
     "d067": {
       "id": "d067",
@@ -5358,7 +6678,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/012/345/678/large/inferno-dragon.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/012/345/678/large/inferno-dragon.jpg",
+      "baseStats": {
+        "hp": 98,
+        "attack": 32,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 113,
+        "attack": 52,
+        "defense": 28,
+        "speed": 15,
+        "crit": 0,
+        "hp": 113
+      },
+      "hp": 113,
+      "maxHp": 113,
+      "atk": 52,
+      "def": 28
     },
     "d068": {
       "id": "d068",
@@ -5438,7 +6778,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/014/567/890/large/terra-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/014/567/890/large/terra-drake.jpg",
+      "baseStats": {
+        "hp": 110,
+        "attack": 20,
+        "defense": 30,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 135,
+        "attack": 30,
+        "defense": 55,
+        "speed": 10,
+        "crit": 0,
+        "hp": 135
+      },
+      "hp": 135,
+      "maxHp": 135,
+      "atk": 30,
+      "def": 55
     },
     "d069": {
       "id": "d069",
@@ -5518,7 +6878,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/021/345/678/large/tide-serpent.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/021/345/678/large/tide-serpent.jpg",
+      "baseStats": {
+        "hp": 100,
+        "attack": 24,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 130,
+        "attack": 34,
+        "defense": 37,
+        "speed": 10,
+        "crit": 0,
+        "hp": 130
+      },
+      "hp": 130,
+      "maxHp": 130,
+      "atk": 34,
+      "def": 37
     },
     "d070": {
       "id": "d070",
@@ -5598,7 +6978,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/033/456/789/large/night-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/033/456/789/large/night-wyrm.jpg",
+      "baseStats": {
+        "hp": 115,
+        "attack": 38,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 133,
+        "attack": 62,
+        "defense": 30,
+        "speed": 11,
+        "crit": 6,
+        "hp": 133
+      },
+      "hp": 133,
+      "maxHp": 133,
+      "atk": 62,
+      "def": 30
     },
     "d071": {
       "id": "d071",
@@ -5678,7 +7078,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/022/345/678/large/radiant-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/022/345/678/large/radiant-drake.jpg",
+      "baseStats": {
+        "hp": 110,
+        "attack": 40,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 140,
+        "attack": 64,
+        "defense": 32,
+        "speed": 11,
+        "crit": 0,
+        "hp": 140
+      },
+      "hp": 140,
+      "maxHp": 140,
+      "atk": 64,
+      "def": 32
     },
     "d072": {
       "id": "d072",
@@ -5758,7 +7178,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/023/456/789/large/toxic-serpent.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/023/456/789/large/toxic-serpent.jpg",
+      "baseStats": {
+        "hp": 98,
+        "attack": 32,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 113,
+        "attack": 42,
+        "defense": 24,
+        "speed": 10,
+        "crit": 0,
+        "hp": 113
+      },
+      "hp": 113,
+      "maxHp": 113,
+      "atk": 42,
+      "def": 24
     },
     "d073": {
       "id": "d073",
@@ -5838,7 +7278,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/025/345/678/large/sky-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/025/345/678/large/sky-drake.jpg",
+      "baseStats": {
+        "hp": 85,
+        "attack": 35,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 100,
+        "attack": 50,
+        "defense": 22,
+        "speed": 25,
+        "crit": 0,
+        "hp": 100
+      },
+      "hp": 100,
+      "maxHp": 100,
+      "atk": 50,
+      "def": 22
     },
     "d074": {
       "id": "d074",
@@ -5918,7 +7378,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/026/345/678/large/metal-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/026/345/678/large/metal-drake.jpg",
+      "baseStats": {
+        "hp": 130,
+        "attack": 22,
+        "defense": 40,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 148,
+        "attack": 34,
+        "defense": 52,
+        "speed": 11,
+        "crit": 0,
+        "hp": 148
+      },
+      "hp": 148,
+      "maxHp": 148,
+      "atk": 34,
+      "def": 52
     },
     "d075": {
       "id": "d075",
@@ -5998,7 +7478,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/027/345/678/large/volcanic-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/027/345/678/large/volcanic-drake.jpg",
+      "baseStats": {
+        "hp": 110,
+        "attack": 42,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 128,
+        "attack": 66,
+        "defense": 32,
+        "speed": 17,
+        "crit": 0,
+        "hp": 128
+      },
+      "hp": 128,
+      "maxHp": 128,
+      "atk": 66,
+      "def": 32
     },
     "d076": {
       "id": "d076",
@@ -6078,7 +7578,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/028/345/678/large/glacial-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/028/345/678/large/glacial-wyrm.jpg",
+      "baseStats": {
+        "hp": 115,
+        "attack": 35,
+        "defense": 25,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 133,
+        "attack": 47,
+        "defense": 37,
+        "speed": 11,
+        "crit": 0,
+        "hp": 133
+      },
+      "hp": 133,
+      "maxHp": 133,
+      "atk": 47,
+      "def": 37
     },
     "d077": {
       "id": "d077",
@@ -6158,7 +7678,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/029/345/678/large/thunder-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/029/345/678/large/thunder-drake.jpg",
+      "baseStats": {
+        "hp": 100,
+        "attack": 45,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 118,
+        "attack": 57,
+        "defense": 27,
+        "speed": 11,
+        "crit": 0,
+        "hp": 118
+      },
+      "hp": 118,
+      "maxHp": 118,
+      "atk": 57,
+      "def": 27
     },
     "d078": {
       "id": "d078",
@@ -6238,7 +7778,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/030/345/678/large/blaze-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/030/345/678/large/blaze-drake.jpg",
+      "baseStats": {
+        "hp": 105,
+        "attack": 40,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 123,
+        "attack": 64,
+        "defense": 30,
+        "speed": 17,
+        "crit": 0,
+        "hp": 123
+      },
+      "hp": 123,
+      "maxHp": 123,
+      "atk": 64,
+      "def": 30
     },
     "d079": {
       "id": "d079",
@@ -6318,7 +7878,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/031/345/678/large/umbral-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/031/345/678/large/umbral-wyrm.jpg",
+      "baseStats": {
+        "hp": 110,
+        "attack": 42,
+        "defense": 12,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 128,
+        "attack": 66,
+        "defense": 24,
+        "speed": 11,
+        "crit": 6,
+        "hp": 128
+      },
+      "hp": 128,
+      "maxHp": 128,
+      "atk": 66,
+      "def": 24
     },
     "d080": {
       "id": "d080",
@@ -6398,7 +7978,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/032/345/678/large/solar-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/032/345/678/large/solar-drake.jpg",
+      "baseStats": {
+        "hp": 112,
+        "attack": 40,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 142,
+        "attack": 64,
+        "defense": 34,
+        "speed": 11,
+        "crit": 0,
+        "hp": 142
+      },
+      "hp": 142,
+      "maxHp": 142,
+      "atk": 64,
+      "def": 34
     },
     "d081": {
       "id": "d081",
@@ -6478,7 +8078,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/033/345/678/large/venom-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/033/345/678/large/venom-drake.jpg",
+      "baseStats": {
+        "hp": 105,
+        "attack": 38,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 123,
+        "attack": 50,
+        "defense": 30,
+        "speed": 11,
+        "crit": 0,
+        "hp": 123
+      },
+      "hp": 123,
+      "maxHp": 123,
+      "atk": 50,
+      "def": 30
     },
     "d082": {
       "id": "d082",
@@ -6558,7 +8178,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/034/345/678/large/sky-serpent.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/034/345/678/large/sky-serpent.jpg",
+      "baseStats": {
+        "hp": 95,
+        "attack": 45,
+        "defense": 14,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 113,
+        "attack": 63,
+        "defense": 26,
+        "speed": 29,
+        "crit": 0,
+        "hp": 113
+      },
+      "hp": 113,
+      "maxHp": 113,
+      "atk": 63,
+      "def": 26
     },
     "d083": {
       "id": "d083",
@@ -6638,7 +8278,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/035/345/678/large/titan-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/035/345/678/large/titan-drake.jpg",
+      "baseStats": {
+        "hp": 150,
+        "attack": 25,
+        "defense": 45,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 171,
+        "attack": 39,
+        "defense": 59,
+        "speed": 12,
+        "crit": 0,
+        "hp": 171
+      },
+      "hp": 171,
+      "maxHp": 171,
+      "atk": 39,
+      "def": 59
     },
     "d084": {
       "id": "d084",
@@ -6718,7 +8378,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/036/345/678/large/inferno-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/036/345/678/large/inferno-wyrm.jpg",
+      "baseStats": {
+        "hp": 120,
+        "attack": 50,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 141,
+        "attack": 78,
+        "defense": 34,
+        "speed": 19,
+        "crit": 0,
+        "hp": 141
+      },
+      "hp": 141,
+      "maxHp": 141,
+      "atk": 78,
+      "def": 34
     },
     "d085": {
       "id": "d085",
@@ -6798,7 +8478,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/037/345/678/large/frost-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/037/345/678/large/frost-drake.jpg",
+      "baseStats": {
+        "hp": 125,
+        "attack": 40,
+        "defense": 30,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 146,
+        "attack": 54,
+        "defense": 44,
+        "speed": 12,
+        "crit": 0,
+        "hp": 146
+      },
+      "hp": 146,
+      "maxHp": 146,
+      "atk": 54,
+      "def": 44
     },
     "d086": {
       "id": "d086",
@@ -6878,7 +8578,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/038/345/678/large/storm-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/038/345/678/large/storm-wyrm.jpg",
+      "baseStats": {
+        "hp": 110,
+        "attack": 55,
+        "defense": 15,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 131,
+        "attack": 69,
+        "defense": 29,
+        "speed": 12,
+        "crit": 0,
+        "hp": 131
+      },
+      "hp": 131,
+      "maxHp": 131,
+      "atk": 69,
+      "def": 29
     },
     "d087": {
       "id": "d087",
@@ -6958,7 +8678,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/039/345/678/large/umbral-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/039/345/678/large/umbral-drake.jpg",
+      "baseStats": {
+        "hp": 115,
+        "attack": 48,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 136,
+        "attack": 76,
+        "defense": 32,
+        "speed": 12,
+        "crit": 7,
+        "hp": 136
+      },
+      "hp": 136,
+      "maxHp": 136,
+      "atk": 76,
+      "def": 32
     },
     "d088": {
       "id": "d088",
@@ -7038,7 +8778,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/040/345/678/large/radiant-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/040/345/678/large/radiant-wyrm.jpg",
+      "baseStats": {
+        "hp": 118,
+        "attack": 45,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 153,
+        "attack": 73,
+        "defense": 36,
+        "speed": 12,
+        "crit": 0,
+        "hp": 153
+      },
+      "hp": 153,
+      "maxHp": 153,
+      "atk": 73,
+      "def": 36
     },
     "d089": {
       "id": "d089",
@@ -7118,7 +8878,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/041/345/678/large/toxic-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/041/345/678/large/toxic-drake.jpg",
+      "baseStats": {
+        "hp": 108,
+        "attack": 42,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 129,
+        "attack": 56,
+        "defense": 34,
+        "speed": 12,
+        "crit": 0,
+        "hp": 129
+      },
+      "hp": 129,
+      "maxHp": 129,
+      "atk": 56,
+      "def": 34
     },
     "d090": {
       "id": "d090",
@@ -7198,7 +8978,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/042/345/678/large/sky-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/042/345/678/large/sky-wyrm.jpg",
+      "baseStats": {
+        "hp": 100,
+        "attack": 50,
+        "defense": 16,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 121,
+        "attack": 71,
+        "defense": 30,
+        "speed": 33,
+        "crit": 0,
+        "hp": 121
+      },
+      "hp": 121,
+      "maxHp": 121,
+      "atk": 71,
+      "def": 30
     },
     "d091": {
       "id": "d091",
@@ -7278,7 +9078,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/043/345/678/large/metal-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/043/345/678/large/metal-wyrm.jpg",
+      "baseStats": {
+        "hp": 160,
+        "attack": 28,
+        "defense": 50,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 184,
+        "attack": 44,
+        "defense": 66,
+        "speed": 13,
+        "crit": 0,
+        "hp": 184
+      },
+      "hp": 184,
+      "maxHp": 184,
+      "atk": 44,
+      "def": 66
     },
     "d092": {
       "id": "d092",
@@ -7358,7 +9178,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/044/345/678/large/blaze-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/044/345/678/large/blaze-wyrm.jpg",
+      "baseStats": {
+        "hp": 125,
+        "attack": 55,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 149,
+        "attack": 87,
+        "defense": 38,
+        "speed": 21,
+        "crit": 0,
+        "hp": 149
+      },
+      "hp": 149,
+      "maxHp": 149,
+      "atk": 87,
+      "def": 38
     },
     "d093": {
       "id": "d093",
@@ -7438,7 +9278,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/045/345/678/large/glacial-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/045/345/678/large/glacial-drake.jpg",
+      "baseStats": {
+        "hp": 130,
+        "attack": 45,
+        "defense": 35,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 154,
+        "attack": 61,
+        "defense": 51,
+        "speed": 13,
+        "crit": 0,
+        "hp": 154
+      },
+      "hp": 154,
+      "maxHp": 154,
+      "atk": 61,
+      "def": 51
     },
     "d094": {
       "id": "d094",
@@ -7518,7 +9378,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/046/345/678/large/thunder-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/046/345/678/large/thunder-wyrm.jpg",
+      "baseStats": {
+        "hp": 115,
+        "attack": 60,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 139,
+        "attack": 76,
+        "defense": 34,
+        "speed": 13,
+        "crit": 0,
+        "hp": 139
+      },
+      "hp": 139,
+      "maxHp": 139,
+      "atk": 76,
+      "def": 34
     },
     "d095": {
       "id": "d095",
@@ -7598,7 +9478,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/047/345/678/large/umbral-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/047/345/678/large/umbral-drake.jpg",
+      "baseStats": {
+        "hp": 120,
+        "attack": 50,
+        "defense": 20,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 144,
+        "attack": 82,
+        "defense": 36,
+        "speed": 13,
+        "crit": 8,
+        "hp": 144
+      },
+      "hp": 144,
+      "maxHp": 144,
+      "atk": 82,
+      "def": 36
     },
     "d096": {
       "id": "d096",
@@ -7678,7 +9578,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/048/345/678/large/radiant-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/048/345/678/large/radiant-wyrm.jpg",
+      "baseStats": {
+        "hp": 122,
+        "attack": 48,
+        "defense": 25,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 162,
+        "attack": 80,
+        "defense": 41,
+        "speed": 13,
+        "crit": 0,
+        "hp": 162
+      },
+      "hp": 162,
+      "maxHp": 162,
+      "atk": 80,
+      "def": 41
     },
     "d097": {
       "id": "d097",
@@ -7758,7 +9678,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/049/345/678/large/toxic-drake.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/049/345/678/large/toxic-drake.jpg",
+      "baseStats": {
+        "hp": 112,
+        "attack": 45,
+        "defense": 22,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 136,
+        "attack": 61,
+        "defense": 38,
+        "speed": 13,
+        "crit": 0,
+        "hp": 136
+      },
+      "hp": 136,
+      "maxHp": 136,
+      "atk": 61,
+      "def": 38
     },
     "d098": {
       "id": "d098",
@@ -7838,7 +9778,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/050/345/678/large/sky-serpent.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/050/345/678/large/sky-serpent.jpg",
+      "baseStats": {
+        "hp": 105,
+        "attack": 55,
+        "defense": 18,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 129,
+        "attack": 79,
+        "defense": 34,
+        "speed": 37,
+        "crit": 0,
+        "hp": 129
+      },
+      "hp": 129,
+      "maxHp": 129,
+      "atk": 79,
+      "def": 34
     },
     "d099": {
       "id": "d099",
@@ -7918,7 +9878,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/051/345/678/large/titan-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/051/345/678/large/titan-wyrm.jpg",
+      "baseStats": {
+        "hp": 180,
+        "attack": 35,
+        "defense": 60,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 207,
+        "attack": 53,
+        "defense": 78,
+        "speed": 14,
+        "crit": 0,
+        "hp": 207
+      },
+      "hp": 207,
+      "maxHp": 207,
+      "atk": 53,
+      "def": 78
     },
     "d100": {
       "id": "d100",
@@ -7998,7 +9978,27 @@
           "cost": 4
         }
       ],
-      "image": "https://cdnb.artstation.com/p/assets/images/images/052/345/678/large/inferno-wyrm.jpg"
+      "image": "https://cdnb.artstation.com/p/assets/images/images/052/345/678/large/inferno-wyrm.jpg",
+      "baseStats": {
+        "hp": 150,
+        "attack": 65,
+        "defense": 30,
+        "speed": 5,
+        "crit": 0
+      },
+      "xp": 0,
+      "stats": {
+        "maxHp": 177,
+        "attack": 101,
+        "defense": 48,
+        "speed": 23,
+        "crit": 0,
+        "hp": 177
+      },
+      "hp": 177,
+      "maxHp": 177,
+      "atk": 101,
+      "def": 48
     }
   }
 }

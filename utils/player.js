@@ -14,10 +14,14 @@ export function getDisplayName(msg) {
 }
 
 export async function getOrCreatePlayer(msg) {
-  const db = await DB.getDB('users');
   const jid = getUserJid(msg);
-  const number = getUserNumber(jid);
   const name = getDisplayName(msg);
+  return await getOrCreateByJid(jid, name);
+}
+
+export async function getOrCreateByJid(jid, name = 'Unknown') {
+  const db = await DB.getDB('users');
+  const number = getUserNumber(jid);
 
   if (!db.users[jid]) {
     db.users[jid] = {
@@ -48,8 +52,8 @@ export async function getOrCreatePlayer(msg) {
 
     await DB.saveDB('users');
   } else {
-    // update name if user changed it on WhatsApp
-    if (db.users[jid].name !== name) {
+    // update name if provided and different
+    if (name !== 'Unknown' && db.users[jid].name !== name) {
       db.users[jid].name = name;
       await DB.saveDB('users');
     }

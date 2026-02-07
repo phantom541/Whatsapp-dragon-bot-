@@ -1,6 +1,5 @@
 import { handleCommand } from './handler.js';
-import { getUser } from '../utils/economy.js';
-import { getUserJid, getDisplayName } from '../utils/player.js';
+import { getOrCreatePlayer } from '../utils/player.js';
 
 export async function handleMessage(sock, msg) {
   const type = Object.keys(msg.message)[0];
@@ -12,9 +11,7 @@ export async function handleMessage(sock, msg) {
   if (!text) return;
 
   // ensure player exists
-  const jid = getUserJid(msg);
-  const name = getDisplayName(msg);
-  await getUser(jid, name);
+  await getOrCreatePlayer(msg);
 
   if (!text.startsWith('%')) return;
 

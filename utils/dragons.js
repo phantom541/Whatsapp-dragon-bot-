@@ -53,6 +53,7 @@ export async function createDragon(template, ownerJid) {
   const id = `d${Date.now()}${Math.floor(Math.random()*1000)}`;
 
   const dragon = {
+    ...template, // Carry over all template data
     id,
     templateId: template.id || null,
     name: template.name,
@@ -66,17 +67,24 @@ export async function createDragon(template, ownerJid) {
     owner: ownerJid,
     inParty: true,
 
-    hp: template.baseHp || 50,
-    maxHp: template.baseHp || 50,
-    atk: template.baseAtk || 10,
-    def: template.baseDef || 5,
-    pp: template.basePp || 20,
-    maxPp: template.basePp || 20,
+    hp: template.hp || template.baseHp || 50,
+    maxHp: template.maxHp || template.baseHp || 50,
+    atk: template.atk || template.baseAtk || 10,
+    def: template.def || template.baseDef || 5,
+    pp: template.pp || template.basePp || 20,
+    maxPp: template.maxPp || template.basePp || 20,
 
     moves: template.moves || [],
     image: template.image,
     createdAt: Date.now()
   };
+
+  // Clean up any spawn-specific fields if they leaked in
+  delete dragon.spawnId;
+  delete dragon.spawner;
+  delete dragon.spawnedAt;
+  delete dragon.catchableAfter;
+  delete dragon.expiresAt;
 
   db.dragons[id] = dragon;
   await DB.saveDB('dragons');

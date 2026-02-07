@@ -5,26 +5,24 @@ import { getUser } from '../../utils/economy.js';
 export default {
   name: 'dragon',
   description: 'Show detailed stats of a dragon',
-  execute: async (sock, msg, args) => {
-    const from = msg.key.remoteJid;
-    const jid = getUserJid(msg);
-    const user = await getUser(jid);
+  execute: async ({ sender, args, reply, getPlayer, sock, from }) => {
+    const player = getPlayer(sender);
+    const dragons = player.dragons || [];
 
-    let dragonId = args[0];
-    if (!dragonId) {
-        // Fallback to companion (first dragon)
-        if (user.dragons && user.dragons.length > 0) {
-            dragonId = user.dragons[0];
-        } else {
-            return sock.sendMessage(from, { text: '❌ You don\'t have any dragons. Use %startdragon to get one!' });
-        }
+    let dragon;
+    if (!args[0]) {
+      dragon = dragons[0];
+    } else {
+      const idx = parseInt(args[0]) - 1;
+      if (!isNaN(idx) && dragons[idx]) {
+        dragon = dragons[idx];
+      } else {
+        dragon = dragons.find(d => d.name.toLowerCase().includes(args.join(' ').toLowerCase()));
+      }
     }
 
-    const dragDb = await DB.getDB('dragons');
-    const dragon = dragDb.dragons?.[dragonId];
-
     if (!dragon) {
-      return sock.sendMessage(from, { text: '❌ Dragon not found.' });
+      return reply('❌ Dragon not found in your collection.');
     }
 
     const xpNeeded = 100 + (dragon.level || 1) * 50;
@@ -52,14 +50,12 @@ export default {
 
 📜 *Moves:*
 ${movesText}
-
-Owner: ${dragon.owner === jid ? 'You' : dragon.owner}
     `;
 
     if (dragon.image) {
         await sock.sendMessage(from, { image: { url: dragon.image }, caption: statsMsg });
     } else {
-        await sock.sendMessage(from, { text: statsMsg });
+        reply(statsMsg);
     }
   }
 };

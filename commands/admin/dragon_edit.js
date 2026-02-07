@@ -1,20 +1,16 @@
 import DB from '../../utils/database.js';
-import { isOwner } from '../../utils/helpers.js';
 
 export default {
   name: 'dragonedit',
   description: 'Owner command: view/edit any dragon',
-  execute: async (sock, msg, args) => {
-    const from = msg.key.remoteJid;
-    const sender = msg.key.participant || msg.key.remoteJid;
-
+  execute: async ({ sender, args, reply, hasRole }) => {
     // Check owner
-    if (!await isOwner(sender)) {
-      return sock.sendMessage(from, { text: '❌ Only owner can use this command.' });
+    if (!hasRole('owner')) {
+      return reply('❌ Only owner can use this command.');
     }
 
     if (args.length < 1) {
-      return sock.sendMessage(from, { text: 'Usage:\n%dragonedit <dragonId> [field] [newValue]\n\nExample: %dragonedit d0001 level 50' });
+      return reply('Usage:\n%dragonedit <dragonId> [field] [newValue]\n\nExample: %dragonedit d0001 level 50');
     }
 
     const dragonId = args[0];
@@ -23,7 +19,7 @@ export default {
     const dragon = db.dragons[dragonId];
 
     if (!dragon) {
-      return sock.sendMessage(from, { text: '❌ Dragon not found.' });
+      return reply('❌ Dragon not found.');
     }
 
     // If no field provided, just show full dragon info
@@ -38,9 +34,9 @@ HP: ${dragon.hp}
 Attack: ${dragon.atk || 0}
 Defense: ${dragon.def || 0}
 Rarity: ${dragon.rarity || "Unknown"}
-Element: ${dragon.element || "None"}
+Element: ${dragon.type || "None"}
 `;
-      return sock.sendMessage(from, { text: info });
+      return reply(info);
     }
 
     // Edit a field
@@ -52,17 +48,16 @@ Element: ${dragon.element || "None"}
     if (field === 'attack') targetField = 'atk';
     if (field === 'defense') targetField = 'def';
 
-    const allowedFields = ['name','level','hp','atk','def','rarity','element','owner'];
-    const displayFields = ['name','level','hp','attack','defense','rarity','element','owner'];
+    const allowedFields = ['name','level','hp','atk','def','rarity','type','owner'];
 
-    if (!allowedFields.includes(targetField) && !['attack', 'defense'].includes(field)) {
-      return sock.sendMessage(from, { text: `❌ Invalid field. Allowed: ${displayFields.join(', ')}` });
+    if (!allowedFields.includes(targetField)) {
+      return reply(`❌ Invalid field. Allowed: ${allowedFields.join(', ')}`);
     }
 
     // convert numeric fields
     if (['level','hp','atk','def'].includes(targetField)) {
       if (isNaN(Number(value))) {
-        return sock.sendMessage(from, { text: '❌ Value must be a number.' });
+        return reply('❌ Value must be a number.');
       }
       dragon[targetField] = Number(value);
     } else {
@@ -71,6 +66,19 @@ Element: ${dragon.element || "None"}
 
     await DB.saveDB('dragons');
 
-    return sock.sendMessage(from, { text: `✅ Dragon ${dragonId} updated. Field ${field} is now ${value}` });
+    // Sync with owner's collection if applicable
+    if (dragon.owner) {
+        const userDb = await DB.getDB('users');
+        const user = userDb.users[dragon.owner];
+        if (user && user.dragons) {
+            const idx = user.dragons.findIndex(d => d.id === dragonId);
+            if (idx !== -1) {
+                user.dragons[idx] = { ...dragon };
+                await DB.saveDB('users');
+            }
+        }
+    }
+
+    return reply(`✅ Dragon ${dragonId} updated. Field ${field} is now ${value}`);
   }
 };

@@ -8,35 +8,31 @@ export default {
   name: 'startdragon',
   description: 'Claim your first dragon',
 
-  execute: async (sock, msg) => {
-    const from = msg.key.remoteJid;
-    const jid = getUserJid(msg);
-    const pushName = getDisplayName(msg);
+  execute: async ({ sender, reply, getPlayer, updatePlayer }) => {
+    const player = getPlayer(sender);
 
-    const user = await getUser(jid, pushName);
-
-    if (user.dragons && user.dragons.length > 0) {
-      return sock.sendMessage(from, { text: '🐉 You already have a dragon.' });
+    if (player.dragons && player.dragons.length > 0) {
+      return reply('🐉 You already have a dragon.');
     }
 
     const starter = STARTER_DRAGONS[
       Math.floor(Math.random() * STARTER_DRAGONS.length)
     ];
 
-    const dragon = await createDragon(starter, jid);
+    const dragon = await createDragon(starter, sender);
 
-    user.dragons = user.dragons || [];
-    user.dragons.push(dragon.id);
-    await DB.saveDB('users');
+    player.dragons = player.dragons || [];
+    player.dragons.push(dragon); // Push full dragon object
 
-    await sock.sendMessage(from, {
-      text:
+    await updatePlayer(player);
+
+    reply(
 `🐲 *Your Dragon Has Awakened!*
 
 Name: ${dragon.name}
 Type: ${dragon.type}
 Level: 1
 Rarity: Common`
-    });
+    );
   }
 };

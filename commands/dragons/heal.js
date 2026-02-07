@@ -1,41 +1,24 @@
 import DB from '../../utils/database.js';
-import { getUserJid } from '../../utils/player.js';
-import { getUser } from '../../utils/economy.js';
 
 export default {
   name: 'heal',
-  description: 'Heal your dragons (restore HP and PP)',
-  execute: async (sock, msg) => {
-    const from = msg.key.remoteJid;
-    const jid = getUserJid(msg);
+  description: 'Heal your dragon if not in a battle',
+  execute: async ({ sender, reply, getPlayer }) => {
+    const db = await DB.getDB('users');
+    const player = getPlayer(sender);
 
-    const user = await getUser(jid);
-    if (user.inBattle?.active) {
-        return sock.sendMessage(from, { text: '❌ Cannot heal while in battle!' });
+    if (db.sessions?.[sender]?.inBattle) {
+      return reply('❌ You cannot heal during a battle.');
     }
 
-    const dragonIds = user.dragons || [];
-    if (dragonIds.length === 0) {
-        return sock.sendMessage(from, { text: '❌ You have no dragons to heal.' });
-    }
+    if (!player.dragons?.length) return reply('❌ No dragons to heal.');
 
-    const dragDb = await DB.getDB('dragons');
-    let healedCount = 0;
-
-    dragonIds.forEach(id => {
-        const dragon = dragDb.dragons?.[id];
-        if (dragon) {
-            dragon.hp = dragon.maxHp || 50;
-            dragon.pp = dragon.maxPp || 20;
-            healedCount++;
-        }
+    player.dragons.forEach(d => {
+      d.hp = d.maxHp || 100;
+      d.pp = d.maxPp || 100;
     });
 
-    if (healedCount > 0) {
-        await DB.saveDB('dragons');
-        return sock.sendMessage(from, { text: `✨ ${healedCount} dragon(s) have been fully healed! HP and PP restored.` });
-    } else {
-        return sock.sendMessage(from, { text: '❌ No valid dragons found to heal.' });
-    }
+    await DB.saveDB('users');
+    reply('💚 All dragons fully healed.');
   }
 };

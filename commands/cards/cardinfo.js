@@ -14,11 +14,10 @@ export default {
   name: "cardinfo",
   aliases: ["cf"],
   description: "Show info of a card by ID or Name",
-  execute: async (sock, msg, args) => {
-    const from = msg.key.remoteJid;
+  execute: async ({ sock, from, args, reply }) => {
     const search = args.join(" ").trim();
     if (!search) {
-        return sock.sendMessage(from, { text: "Usage: %cardinfo <cardID | card name>" });
+        return reply("Usage: %cardinfo <cardID | card name>");
     }
 
     const db = await DB.getDB('cards');
@@ -36,7 +35,7 @@ export default {
     }
 
     if (!card) {
-        return sock.sendMessage(from, { text: "❌ Card not found." });
+        return reply("❌ Card not found.");
     }
 
     // owner count
@@ -74,6 +73,6 @@ ${ownerText}
     }
 
     // fallback to text if image fails
-    return sock.sendMessage(from, { text: caption });
+    return reply(caption);
   }
 };

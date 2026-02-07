@@ -1,66 +1,55 @@
 import DB from '../../utils/database.js';
-import { getUserJid } from '../../utils/player.js';
-import { getUser } from '../../utils/economy.js';
 import { formatDragonInfo } from '../../utils/dragons.js';
 
 const BATTLE_COOLDOWN = 60 * 1000; // 1 minute
 
 export default {
   name: 'battle',
-  description: 'Challenge another player to a dragon battle',
-  execute: async (sock, msg, args) => {
-    const from = msg.key.remoteJid;
-    const sender = getUserJid(msg);
-
-    // Extract opponent mention
+  description: 'Challenge another player to a turn-based dragon battle',
+  execute: async ({ sender, reply, sock, from, msg, getPlayer }) => {
+    const player = getPlayer(sender);
     const mentionedJid = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0];
-    if (!mentionedJid) return sock.sendMessage(from, { text: '❌ Please mention a player to battle.' });
 
-    if (sender === mentionedJid) {
-        return sock.sendMessage(from, { text: '❌ You cannot battle yourself!' });
+    if (!mentionedJid) return reply('❌ Please mention a player to battle.');
+    if (sender === mentionedJid) return reply('❌ You cannot battle yourself!');
+
+    const opponent = getPlayer(mentionedJid);
+    if (!opponent?.name || opponent.name === 'Unknown') {
+        return reply('❌ Target player not found or hasn\'t registered yet.');
     }
 
-    const player = await getUser(sender);
-    const opponent = await getUser(mentionedJid);
-
-    if (!player.dragons || player.dragons.length === 0) {
-        return sock.sendMessage(from, { text: '❌ You do not have any dragons to battle with.' });
-    }
-    if (!opponent.dragons || opponent.dragons.length === 0) {
-        return sock.sendMessage(from, { text: '❌ The opponent has no dragons to battle with.' });
+    if (!player.dragons?.length || !opponent.dragons?.length) {
+      return reply('❌ Both players need at least 1 dragon.');
     }
 
     // Check cooldown
     const now = Date.now();
     if (now - (player.inBattle?.lastBattle || 0) < BATTLE_COOLDOWN) {
         const remaining = Math.ceil((BATTLE_COOLDOWN - (now - player.inBattle.lastBattle)) / 1000);
-        return sock.sendMessage(from, { text: `⚠️ You are still recovering! Wait ${remaining}s.` });
+        return reply(`⚠️ You are still recovering! Wait ${remaining}s.`);
     }
 
-    // Check if players are already in battle
-    const usersDb = await DB.getDB('users');
-    usersDb.sessions = usersDb.sessions || {};
+    const userDb = await DB.getDB('users');
+    userDb.sessions = userDb.sessions || {};
 
-    if (usersDb.sessions[sender]?.inBattle || usersDb.sessions[mentionedJid]?.inBattle) {
-      return sock.sendMessage(from, { text: '❌ Either you or your opponent is already in a battle.' });
+    if (userDb.sessions[sender]?.inBattle || userDb.sessions[mentionedJid]?.inBattle) {
+      return reply('❌ Either you or the opponent is already in a battle.');
     }
-
-    // Use companion or first dragon
-    const myDragon = player.dragons.find(d => d.name === player.companion) || player.dragons[0];
-    const oppDragon = opponent.dragons.find(d => d.name === opponent.companion) || opponent.dragons[0];
 
     // Initialize battle session
-    usersDb.sessions[sender] = {
-        inBattle: true,
-        opponent: mentionedJid,
-        myDragonIndex: player.dragons.indexOf(myDragon),
-        oppDragonIndex: opponent.dragons.indexOf(oppDragon)
+    userDb.sessions[sender] = {
+      inBattle: true,
+      opponent: mentionedJid,
+      activeDragonIndex: 0,
+      turn: true,
+      battleLog: []
     };
-    usersDb.sessions[mentionedJid] = {
-        inBattle: true,
-        opponent: sender,
-        myDragonIndex: opponent.dragons.indexOf(oppDragon),
-        oppDragonIndex: player.dragons.indexOf(myDragon)
+    userDb.sessions[mentionedJid] = {
+      inBattle: true,
+      opponent: sender,
+      activeDragonIndex: 0,
+      turn: false,
+      battleLog: []
     };
 
     player.inBattle.active = true;
@@ -70,11 +59,15 @@ export default {
 
     await DB.saveDB('users');
 
+    const myDragon = player.dragons[0];
+    const oppDragon = opponent.dragons[0];
+
     await sock.sendMessage(from, {
-      text: `⚔️ *Battle Started!* ⚔️\n\n*${player.name}* vs *${opponent.name}*\n\n` +
-            `Your Dragon: ${myDragon.name} (Lvl ${myDragon.level})\n` +
-            `Opponent: ${oppDragon.name} (Lvl ${oppDragon.level})\n\n` +
-            `Use *%attack <move>* to fight!`
+      text: `⚔️ *Battle Started!* ⚔️\n\n` +
+            `*${player.name}* vs *${opponent.name}*\n\n` +
+            `Your Active: ${myDragon.name} (Lvl ${myDragon.level})\n` +
+            `Opponent Active: ${oppDragon.name} (Lvl ${oppDragon.level})\n\n` +
+            `Use *%attack <move>* to fight or *%switch <index>* to change dragons!`
     });
   }
 };

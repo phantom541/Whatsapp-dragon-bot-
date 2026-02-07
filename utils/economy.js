@@ -1,40 +1,11 @@
 import DB from './database.js';
-import { getRankData, getDefaultRank, getRankForXP } from './ranks.js';
+import { getRankData, getRankForXP } from './ranks.js';
+import { getOrCreateByJid } from './player.js';
 
 export async function getUser(jid, name = 'Unknown') {
-  const db = await DB.getDB('users');
-  db.users = db.users || {};
-
-  if (!db.users[jid]) {
-    db.users[jid] = {
-      jid,
-      name,
-      username: "@None",
-      webSecurity: "Nope",
-      bio: "None",
-      gold: 1000,
-      bank: 0,
-      rank: getDefaultRank(),
-      exp: 0,
-      lastDaily: 0,
-      dragons: [],
-      cards: 0,
-      haigusha: "None",
-      quizWins: 0,
-      banned: false,
-      admin: false,
-      roles: [],
-      inBattle: {
-        active: false,
-        lastBattle: 0
-      },
-      createdAt: new Date().toISOString()
-    };
-    await DB.saveDB('users');
-  }
+  const user = await getOrCreateByJid(jid, name);
 
   // Ensure newer fields exist for older users
-  const user = db.users[jid];
   if (!user.inBattle) user.inBattle = { active: false, lastBattle: 0 };
   if (user.exp === undefined) user.exp = user.experience || 0;
   if (user.gold === undefined) user.gold = user.wallet || 1000;
