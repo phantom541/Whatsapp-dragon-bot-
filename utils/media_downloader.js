@@ -78,11 +78,23 @@ export async function downloadYouTubeAudio(url, outputPath, onProgress = null) {
 
 export async function downloadSocialVideo(url, outputPath) {
     try {
-        const res = await axios.get(url, { responseType: 'arraybuffer' });
-        checkSize(res.data.length);
-        fs.writeFileSync(outputPath, res.data);
-        return outputPath;
+        const response = await axios({
+            method: 'GET',
+            url: url,
+            responseType: 'stream'
+        });
+
+        const totalSize = parseInt(response.headers['content-length'], 10);
+        if (!isNaN(totalSize)) checkSize(totalSize);
+
+        const writer = fs.createWriteStream(outputPath);
+        response.data.pipe(writer);
+
+        return new Promise((resolve, reject) => {
+            writer.on('finish', () => resolve(outputPath));
+            writer.on('error', reject);
+        });
     } catch (err) {
-        throw new Error("Failed to download video from link. Make sure it is a direct link or the service is accessible.");
+        throw new Error("Failed to download video from link. Ensure it's a direct video link or try a different source.");
     }
 }

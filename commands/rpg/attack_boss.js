@@ -1,4 +1,6 @@
 import DB from '../../utils/database.js';
+import { getPlayerGuild } from '../../utils/guild_manager.js';
+import { applyGuildStatBuffs, applyGuildRewardsBuff } from '../../utils/guild_buffs.js';
 
 export default {
   name: 'attackboss',
@@ -16,10 +18,16 @@ export default {
     }
 
     const player = getPlayer(sender);
-    const dragon = player.dragons?.[0];
+    const guild = await getPlayerGuild(sender);
+    let dragon = player.dragons?.[0];
 
     if (!dragon || dragon.hp <= 0) {
       return reply('❌ Your dragon is unable to fight! Heal it first.');
+    }
+
+    // Apply guild buffs to stats for the duration of this calculation
+    if (guild) {
+        dragon = applyGuildStatBuffs(guild, dragon);
     }
 
     const boss = dungeon.floorBoss;
@@ -62,8 +70,13 @@ export default {
       replyText += `💖 Dragon HP: ${dragon.hp} | Boss HP: ${boss.currentHp}`;
     } else {
       // Boss defeated
-      player.gold += (boss.reward?.gold || 200);
-      player.exp += (boss.reward?.xp || 150);
+      let baseRewards = { gold: boss.reward?.gold || 200, xp: boss.reward?.xp || 150 };
+      if (guild) {
+          baseRewards = applyGuildRewardsBuff(guild, baseRewards);
+      }
+
+      player.gold += baseRewards.gold;
+      player.exp += baseRewards.xp;
       player.roles = player.roles || [];
       const title = boss.title || (boss.reward?.title);
       if (title && !player.roles.includes(title)) {
@@ -74,7 +87,7 @@ export default {
       // Clear floorBoss
       dungeon.floorBoss = null;
 
-      replyText += `\n🏆 Boss *${boss.name}* defeated! Rewards: ${boss.reward?.gold || 200} gold, ${boss.reward?.xp || 150} XP`;
+      replyText += `\n🏆 Boss *${boss.name}* defeated! Rewards: ${baseRewards.gold} gold, ${baseRewards.xp} XP${guild ? ' (Guild Boosted)' : ''}`;
       if (title) replyText += `\n🎖️ New Title: *${title}*`;
       replyText += `\n➡️ Use *%nextfloor* to advance.`;
     }

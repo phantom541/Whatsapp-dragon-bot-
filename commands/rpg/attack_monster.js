@@ -1,4 +1,6 @@
 import DB from '../../utils/database.js';
+import { getPlayerGuild } from '../../utils/guild_manager.js';
+import { applyGuildStatBuffs, applyGuildRewardsBuff } from '../../utils/guild_buffs.js';
 
 export default {
   name: 'attackmonster',
@@ -14,10 +16,16 @@ export default {
       return reply('✅ No monsters remaining on this floor. Use *%attackboss* or *%nextfloor*.');
 
     const player = getPlayer(sender);
-    const dragon = player.dragons?.[0]; // Default to first dragon
+    const guild = await getPlayerGuild(sender);
+    let dragon = player.dragons?.[0]; // Default to first dragon
 
     if (!dragon || dragon.hp <= 0) {
       return reply('❌ Your dragon is unable to fight! Heal it first.');
+    }
+
+    // Apply guild buffs to stats for the duration of this calculation
+    if (guild) {
+        dragon = applyGuildStatBuffs(guild, dragon);
     }
 
     // Target first monster
@@ -60,15 +68,20 @@ export default {
       dungeon.monstersRemaining.shift();
 
       // Reward player
-      player.gold += (monster.reward?.gold || 50);
-      player.exp += (monster.reward?.xp || 30);
+      let baseRewards = { gold: monster.reward?.gold || 50, xp: monster.reward?.xp || 30 };
+      if (guild) {
+          baseRewards = applyGuildRewardsBuff(guild, baseRewards);
+      }
+
+      player.gold += baseRewards.gold;
+      player.exp += baseRewards.xp;
       player.roles = player.roles || [];
       if (monster.reward?.title && !player.roles.includes(monster.reward.title)) {
         player.roles.push(monster.reward.title);
       }
       await updatePlayer(player);
 
-      replyText += `\n✅ *${monster.name}* defeated! Rewards: ${monster.reward?.gold} gold, ${monster.reward?.xp} XP`;
+      replyText += `\n✅ *${monster.name}* defeated! Rewards: ${baseRewards.gold} gold, ${baseRewards.xp} XP${guild ? ' (Guild Boosted)' : ''}`;
       if (dungeon.monstersRemaining.length > 0) {
           replyText += `\n⚔️ Next monster: *${dungeon.monstersRemaining[0].name}*`;
       } else {
