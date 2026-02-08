@@ -40,6 +40,7 @@ export default {
 
 👑 *Admin:* ${player.admin || false}
 💈 *Ban:* ${player.banned || false}
+${player.achievements?.includes("Defied Death") ? "☠️ *Title:* Defied Death\n" : ""}
 `;
 
     const imageUrl = companionImage || pfp;

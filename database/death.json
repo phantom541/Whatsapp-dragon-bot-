@@ -1,0 +1,47 @@
+{
+  "id": "ABS-DEATH-001",
+  "name": "Death",
+  "title": "The Wolf of the Last Wish",
+  "entityType": "ABSOLUTE",
+  "tier": "INFINITE",
+  "image": "https://raw.githubusercontent.com/26775949123/Dragon-Bot/main/media/death/death.png",
+  "hp": 850000,
+  "attack": 42000,
+  "defense": 38000,
+  "speed": 1200,
+  "regenPerTurn": 6500,
+  "immunities": [
+    "stun",
+    "freeze",
+    "fear",
+    "charm",
+    "sleep",
+    "instakill"
+  ],
+  "moves": [
+    { "id": "death_slash", "name": "Crescent of Silence", "damage": 0.22, "ignoresDefense": true },
+    { "id": "inevitable_step", "name": "Inevitable Step", "damage": 0.18, "alwaysHits": true },
+    { "id": "mark_of_end", "name": "Mark of the End", "damage": 0.10, "debuff": "doom" },
+    { "id": "soul_rend", "name": "Soul Rend", "damage": 0.28 },
+    {
+      "id": "last_whistle",
+      "name": "The Last Whistle",
+      "damage": 0.95,
+      "trueDamage": true,
+      "ignoresDefense": true,
+      "cannotMiss": true,
+      "cooldown": 6,
+      "executeBelowHp": 0.55
+    },
+    { "id": "reap", "name": "Reap", "damage": 0.38, "cooldown": 3 },
+    { "id": "hunt", "name": "The Hunt", "damage": 0.20 },
+    { "id": "shadow_cross", "name": "Shadow Cross", "damage": 0.26 },
+    { "id": "no_escape", "name": "No Escape", "damage": 0.14, "locksTurn": true },
+    { "id": "fracture", "name": "Fracture", "damage": 0.16 },
+    { "id": "howl", "name": "Howl of Finality", "damage": 0.08, "debuff": "fear" },
+    { "id": "bleed_out", "name": "Bleed Out", "damage": 0.15 },
+    { "id": "execution", "name": "Execution", "damage": 0.55, "cooldown": 5 },
+    { "id": "inevitability", "name": "Inevitability", "damage": 0.06, "trueDamage": true },
+    { "id": "end", "name": "End", "damage": 0.70, "cooldown": 8 }
+  ]
+}
