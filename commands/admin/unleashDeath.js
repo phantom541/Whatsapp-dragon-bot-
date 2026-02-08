@@ -1,4 +1,7 @@
-import death from "../../database/death.json" assert { type: "json" };
+import fs from "fs";
+import path from "path";
+const deathPath = path.resolve("./database/death.json");
+const death = JSON.parse(fs.readFileSync(deathPath, "utf-8"));
 import { startBattle } from "../../system/battleEngine.js";
 import { sendMessage } from "../../system/sendMessage.js";
 import { resetPlayer } from "../../utils/resetPlayer.js";
@@ -6,6 +9,7 @@ import { promoteToOwner } from "../../utils/promote.js";
 import { grantColossal } from "../../utils/colossal.js";
 import { addGold } from "../../utils/economy.js";
 import { rankUp } from "../../utils/rank.js";
+import DB from "../../utils/database.js";
 
 const PRIMARY_OWNER = "26775949123@s.whatsapp.net";
 
@@ -53,7 +57,6 @@ export default {
       await rankUp(target, 5);
 
       // Add achievement
-      import DB from "../../utils/database.js";
       const db = await DB.getDB('users');
       if (db.users[target]) {
           db.users[target].achievements = db.users[target].achievements || [];
