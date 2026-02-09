@@ -1,7 +1,5 @@
-import fs from "fs";
-import path from "path";
-const deathPath = path.resolve("./database/death.json");
-const death = JSON.parse(fs.readFileSync(deathPath, "utf-8"));
+import { loadJson } from "../../utils/loadJson.js";
+const death = loadJson("database/death.json");
 import { startBattle } from "../../system/battleEngine.js";
 import { sendMessage } from "../../system/sendMessage.js";
 import { resetPlayer } from "../../utils/resetPlayer.js";
