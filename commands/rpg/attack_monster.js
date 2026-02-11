@@ -13,7 +13,7 @@ export default {
     if (!dungeon) return reply('🏰 No active dungeon in this group.');
 
     if (dungeon.monstersRemaining.length === 0)
-      return reply('✅ No monsters remaining on this floor. Use *%attackboss* or *%nextfloor*.');
+      return reply('✅ No monsters remaining on this floor. Use *=attackboss* or *=nextfloor*.');
 
     const player = getPlayer(sender);
     const guild = await getPlayerGuild(sender);
@@ -85,7 +85,7 @@ export default {
       if (dungeon.monstersRemaining.length > 0) {
           replyText += `\n⚔️ Next monster: *${dungeon.monstersRemaining[0].name}*`;
       } else {
-          replyText += `\n🏢 Floor cleared! Use *%attackboss* if present or *%nextfloor*.`;
+          replyText += `\n🏢 Floor cleared! Use *=attackboss* if present or *=nextfloor*.`;
       }
     }
 

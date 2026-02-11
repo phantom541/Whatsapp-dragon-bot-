@@ -10,7 +10,7 @@ export default {
     }
 
     if (args.length < 1) {
-      return reply('Available subcommands:\n- %botadmin get <category> <id>\n- %botadmin setuser <jid> <field> <value>\n- %botadmin setdragon <id> <field> <value>\n- %botadmin setbot <field> <value>\n- %botadmin reset <category>');
+      return reply('Available subcommands:\n- =botadmin get <category> <id>\n- =botadmin setuser <jid> <field> <value>\n- =botadmin setdragon <id> <field> <value>\n- =botadmin setbot <field> <value>\n- =botadmin reset <category>');
     }
 
     const sub = args[0].toLowerCase();
@@ -19,7 +19,7 @@ export default {
       case 'get': {
         const category = args[1]?.toLowerCase();
         const id = args[2];
-        if (!category || !id) return reply('Usage: %botadmin get <user|dragon|spawn> <id>');
+        if (!category || !id) return reply('Usage: =botadmin get <user|dragon|spawn> <id>');
 
         let dbName = category === 'dragon' ? 'dragons' : category === 'user' ? 'users' : category === 'spawn' ? 'spawns' : null;
         if (!dbName) return reply('❌ Invalid category');
@@ -35,7 +35,7 @@ export default {
         const jid = args[1];
         const field = args[2];
         const value = args.slice(3).join(' ');
-        if (!jid || !field) return reply('Usage: %botadmin setuser <jid> <field> <value>');
+        if (!jid || !field) return reply('Usage: =botadmin setuser <jid> <field> <value>');
 
         const db = await DB.getDB('users');
         if (!db.users[jid]) return reply(`❌ User ${jid} not found`);
@@ -49,7 +49,7 @@ export default {
         const id = args[1];
         const field = args[2];
         const value = args.slice(3).join(' ');
-        if (!id || !field) return reply('Usage: %botadmin setdragon <id> <field> <value>');
+        if (!id || !field) return reply('Usage: =botadmin setdragon <id> <field> <value>');
 
         const db = await DB.getDB('dragons');
         if (!db.dragons[id]) return reply(`❌ Dragon ${id} not found`);
@@ -62,7 +62,7 @@ export default {
       case 'setbot': {
         const field = args[1];
         const value = args.slice(2).join(' ');
-        if (!field) return reply('Usage: %botadmin setbot <field> <value>');
+        if (!field) return reply('Usage: =botadmin setbot <field> <value>');
 
         const db = await DB.getDB('users');
         db[field] = (!isNaN(Number(value)) && value.trim() !== '') ? Number(value) : value;
@@ -72,7 +72,7 @@ export default {
 
       case 'reset': {
         const category = args[1]?.toLowerCase();
-        if (!category) return reply('Usage: %botadmin reset <users|dragons|spawns>');
+        if (!category) return reply('Usage: =botadmin reset <users|dragons|spawns>');
 
         if (['users', 'dragons', 'spawns'].includes(category)) {
             const db = await DB.getDB(category);

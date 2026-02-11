@@ -10,7 +10,7 @@ export default {
     const dragons = player.dragons || [];
 
     if (dragons.length === 0) {
-      return reply('🐉 You don\'t have any dragons yet. Use %startdragon to get your first one!');
+      return reply('🐉 You don\'t have any dragons yet. Use =startdragon to get your first one!');
     }
 
     let list = '📜 *Your Dragons*\n\n';

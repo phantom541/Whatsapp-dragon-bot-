@@ -40,7 +40,7 @@ export default {
 
     const encounterMsg = `🌲 *A wild dragon appears!* 🌲\n\n` +
       `${formatDragonInfo(wild)}\n\n` +
-      `Use *%attack <move>* to engage!`;
+      `Use *=attack <move>* to engage!`;
 
     if (wild.image) {
       await sock.sendMessage(from, { image: { url: wild.image }, caption: encounterMsg });

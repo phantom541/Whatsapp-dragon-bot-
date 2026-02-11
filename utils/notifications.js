@@ -10,7 +10,7 @@ export async function notifyColossalSpawn(sock, groupId) {
   const caption = `🦖 *A COLOSSAL BEAST HAS APPEARED!* 🦖\n\n` +
     `👾 *Name:* ${beast.name}\n` +
     `📈 *Level:* ${beast.level}\n\n` +
-    `💡 Be the first to fight it! Use *%battlecolossal* to start the 1v1 encounter.`;
+    `💡 Be the first to fight it! Use *=battlecolossal* to start the 1v1 encounter.`;
 
   if (beast.image) {
       await sock.sendMessage(groupId, { image: { url: beast.image }, caption });

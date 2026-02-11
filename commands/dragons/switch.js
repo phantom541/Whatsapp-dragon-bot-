@@ -5,7 +5,7 @@ export default {
   description: 'Switch your active dragon mid-battle',
   execute: async ({ sender, args, reply, getPlayer }) => {
     const index = parseInt(args[0], 10) - 1;
-    if (isNaN(index)) return reply('Usage: %switch <dragon number>');
+    if (isNaN(index)) return reply('Usage: =switch <dragon number>');
 
     const usersDb = await DB.getDB('users');
     const session = usersDb.sessions?.[sender];

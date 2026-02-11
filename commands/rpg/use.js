@@ -5,7 +5,7 @@ export default {
     name: 'use',
     description: 'Use an item from your bag.',
     async execute({ sender, reply, args }) {
-        if (!args[0]) return reply('❌ Specify the item number to use. Example: *%use 1*');
+        if (!args[0]) return reply('❌ Specify the item number to use. Example: *=use 1*');
 
         const index = parseInt(args[0]) - 1;
         if (isNaN(index)) return reply('❌ Invalid item number.');

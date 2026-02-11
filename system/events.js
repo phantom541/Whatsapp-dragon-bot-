@@ -13,7 +13,7 @@ export async function handleMessage(sock, msg) {
   // ensure player exists
   await getOrCreatePlayer(msg);
 
-  if (!text.startsWith('%')) return;
+  if (!text.startsWith('=')) return;
 
   const args = text.slice(1).trim().split(/ +/);
   const command = args.shift().toLowerCase();

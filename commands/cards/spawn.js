@@ -23,7 +23,7 @@ export default {
 ❀ Captcha: ${captcha}
 ❀ Cost: ${price}
 
-Use *%claim ${captcha}* to claim it!
+Use *=claim ${captcha}* to claim it!
 `;
 
         await sock.sendMessage(msg.key.remoteJid, {

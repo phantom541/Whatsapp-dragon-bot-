@@ -7,7 +7,7 @@ export default {
   description: 'Claim a spawned dragon',
   execute: async ({ sender, args, reply, sock, from, getPlayer, updatePlayer }) => {
     const spawnId = args[0];
-    if (!spawnId) return reply('Usage: %claim <spawnId>');
+    if (!spawnId) return reply('Usage: =claim <spawnId>');
 
     const spawnDb = await DB.getDB('spawns');
     const spawn = spawnDb.spawns?.[from]?.[spawnId];

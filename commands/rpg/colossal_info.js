@@ -23,7 +23,7 @@ export default {
         response += `*HP:* ${beast.hp.toLocaleString()}\n`;
         response += `*Weaknesses:* ${beast.weaknesses?.join(', ') || 'None'}\n\n`;
         response += `*Moves:*\n• ${beast.moves?.slice(0, 5).join('\n• ')}\n\n`;
-        response += `Use *%battle colossal* to fight the active beast!`;
+        response += `Use *=battle colossal* to fight the active beast!`;
 
         if (beast.image) {
             await sock.sendMessage(from, { image: { url: beast.image }, caption: response }, { quoted: msg });

@@ -7,7 +7,7 @@ export default {
     description: "Claim a spawned card using its captcha.",
     async execute({ sock, msg, reply, args, sender }) {
         const captcha = args[0]?.toUpperCase();
-        if (!captcha) return reply("❌ Please provide the captcha. Example: *%claim ABC123*");
+        if (!captcha) return reply("❌ Please provide the captcha. Example: *=claim ABC123*");
 
         const spawn = global.activeSpawns?.[captcha];
         if (!spawn) {

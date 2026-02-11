@@ -10,7 +10,7 @@ export default {
     }
 
     if (args.length < 1) {
-      return reply('Usage:\n%dragonedit <dragonId> [field] [newValue]\n\nExample: %dragonedit d0001 level 50');
+      return reply('Usage:\n=dragonedit <dragonId> [field] [newValue]\n\nExample: =dragonedit d0001 level 50');
     }
 
     const dragonId = args[0];

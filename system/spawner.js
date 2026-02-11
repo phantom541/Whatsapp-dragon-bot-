@@ -49,7 +49,7 @@ ${formatDragonInfo(dragonTemplate)}
 
 ⏳ Despawns in 5 minutes
 🛡️ Grace Period: 1 minute (only spawner/none can claim)
-⚔️ Type *%claim ${spawnId}* to capture!`
+⚔️ Type *=claim ${spawnId}* to capture!`
   });
 
   return { spawnId, dragon: spawn };

@@ -10,8 +10,8 @@ export default {
             if (!success) return reply(message);
 
             let response = `${message}\n\n` +
-                `💡 Use *%bag* to access your inventory during battle.\n` +
-                `💥 Use *%attack* to deal damage, or *%use <number>* for items!`;
+                `💡 Use *=bag* to access your inventory during battle.\n` +
+                `💥 Use *=attack* to deal damage, or *=use <number>* for items!`;
 
             return reply(response);
         } catch (err) {

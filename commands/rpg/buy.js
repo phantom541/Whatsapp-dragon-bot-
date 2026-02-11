@@ -5,7 +5,7 @@ export default {
     name: 'buy',
     description: 'Buy an item from the mart.',
     async execute({ msg, reply, args, sender }) {
-        if (!args[0]) return reply('❌ Please specify an item to buy. Example: *%buy Health Potion*');
+        if (!args[0]) return reply('❌ Please specify an item to buy. Example: *=buy Health Potion*');
 
         const itemName = args.join(' ').trim().toLowerCase();
         const item = ALL_MART_ITEMS.find(i => i.name.toLowerCase() === itemName);

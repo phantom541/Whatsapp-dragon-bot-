@@ -43,7 +43,7 @@ export async function startColossalBattle(playerJid) {
       inBattle: true,
       battleType: 'colossal',
       isColossal: true,
-      wildDragon: { ...beast, hp: beast.hp, maxHp: beast.hp } // compatibility for %use
+      wildDragon: { ...beast, hp: beast.hp, maxHp: beast.hp } // compatibility for =use
   };
   await DB.saveDB('users');
 

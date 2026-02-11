@@ -7,7 +7,7 @@ export default {
     async execute({ msg, reply, args }) {
         let pageNum = 1;
 
-        // Find page arg: %mart --page=2 or %mart 2
+        // Find page arg: =mart --page=2 or =mart 2
         const pageArg = args.find(a => a.startsWith('--page='))?.split('=')[1] || args[0];
         if (pageArg) {
             const p = parseInt(pageArg);
@@ -27,7 +27,7 @@ export default {
             response += `${i + 1 + start}. *${item.name}* - ${item.price.toLocaleString()}G\n   _${item.description}_\n\n`;
         });
 
-        response += `Use *%buy <name>* to purchase an item.\nUse *%mart --page=<1-6>* to flip pages.`;
+        response += `Use *=buy <name>* to purchase an item.\nUse *=mart --page=<1-6>* to flip pages.`;
 
         reply(response);
     }

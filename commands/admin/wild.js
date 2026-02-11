@@ -6,7 +6,7 @@ export default {
   execute: async ({ sender, from, args, reply, hasRole }) => {
     const sub = (args[0] || '').toLowerCase();
 
-    if (!['on', 'off'].includes(sub)) return reply('Usage: %wild on/off');
+    if (!['on', 'off'].includes(sub)) return reply('Usage: =wild on/off');
 
     if (!hasRole('mod') && !hasRole('owner')) {
       return reply('❌ Only Owner/Mod can toggle wild dragons.');
