@@ -1,54 +1,24 @@
-import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
-import { handleMessage } from './events.js';
-import fs from 'fs';
-import { startSpawnLoop } from './spawner.js';
-import { scheduleWeeklyColossalEvent } from '../utils/weekly_event.js';
-import pino from 'pino';
+import pkg from 'whatsapp-web.js';
+import qrcode from 'qrcode-terminal';
 
-const authPath = './auth_info_baileys';
+const { Client, LocalAuth } = pkg;
 
-let spawnLoopStarted = false;
+export async function startBot() {
+  const client = new Client({
+    authStrategy: new LocalAuth()
+  });
 
-async function startSocket() {
-    const { state, saveCreds } = await useMultiFileAuthState(authPath);
+  client.on('qr', qr => {
+    qrcode.generate(qr, { small: true });
+  });
 
-    const sock = makeWASocket({
-        auth: state,
-        printQRInTerminal: true,
-        logger: pino({ level: 'silent' })
-    });
+  client.on('ready', () => {
+    console.log('🐉 Bot is ready.');
+  });
 
-    sock.ev.on('connection.update', (update) => {
-        const { connection, lastDisconnect } = update;
-        if(connection === 'close') {
-            const shouldReconnect = lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut;
-            console.log('Connection closed. Reconnecting:', shouldReconnect);
-            if (shouldReconnect) {
-                startSocket();
-            } else {
-                console.log('Logged out, delete session and re-login');
-            }
-        } else if(connection === 'open') {
-            console.log('WhatsApp bot connected');
-            if (!spawnLoopStarted) {
-                startSpawnLoop(sock);
-                scheduleWeeklyColossalEvent(sock);
-                spawnLoopStarted = true;
-            }
-        }
-    });
+  client.on('message', async message => {
+    console.log(`Message from ${message.from}: ${message.body}`);
+  });
 
-    sock.ev.on('messages.upsert', async (m) => {
-        if(m.type !== 'notify') return;
-        for(const msg of m.messages) {
-            if(!msg.message || msg.key.fromMe) continue;
-            handleMessage(sock, msg);
-        }
-    });
-
-    sock.ev.on('creds.update', saveCreds);
-
-    return sock;
+  await client.initialize();
 }
-
-export const sock = await startSocket();
