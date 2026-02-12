@@ -67,7 +67,7 @@ export default {
             `*${player.name}* vs *${opponent.name}*\n\n` +
             `Your Active: ${myDragon.name} (Lvl ${myDragon.level})\n` +
             `Opponent Active: ${oppDragon.name} (Lvl ${oppDragon.level})\n\n` +
-            `Use *%attack <move>* to fight or *%switch <index>* to change dragons!`
+            `Use *=attack <move>* to fight or *=switch <index>* to change dragons!`
     });
   }
 };

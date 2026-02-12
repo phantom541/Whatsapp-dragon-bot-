@@ -10,39 +10,39 @@ export default {
     const player = await getPlayerProfile(sender);
 
     // -------------------- Dice & Coin --------------------
-    if (body.startsWith('%roll')) {
+    if (body.startsWith('=roll')) {
       const num = Math.floor(Math.random() * 100) + 1;
       return reply(`🎲 You rolled: ${num}`);
     }
 
-    if (body.startsWith('%coin')) {
+    if (body.startsWith('=coin')) {
       const side = Math.random() < 0.5 ? 'Heads' : 'Tails';
       return reply(`🪙 Coin flip: ${side}`);
     }
 
     // -------------------- Social Interactions --------------------
-    if (body.startsWith('%hug')) {
+    if (body.startsWith('=hug')) {
       const target = args[0] || 'yourself';
       return reply(`🤗 ${player.name} hugs ${target}!`);
     }
 
-    if (body.startsWith('%poke')) {
+    if (body.startsWith('=poke')) {
       const target = args[0] || 'yourself';
       return reply(`👉 ${player.name} pokes ${target}!`);
     }
 
-    if (body.startsWith('%slap')) {
+    if (body.startsWith('=slap')) {
       const target = args[0] || 'the air';
       return reply(`🖐️ ${player.name} slaps ${target}!`);
     }
 
-    if (body.startsWith('%highfive')) {
+    if (body.startsWith('=highfive')) {
       const target = args[0] || 'the air';
       return reply(`✋ ${player.name} high-fives ${target}!`);
     }
 
     // -------------------- Meme / Fun Media --------------------
-    if (body.startsWith('%meme')) {
+    if (body.startsWith('=meme')) {
       try {
         const res = await axios.get('https://meme-api.com/gimme');
         const data = res.data;
@@ -52,20 +52,20 @@ export default {
       }
     }
 
-    if (body.startsWith('%gif')) {
+    if (body.startsWith('=gif')) {
       const query = args.join(' ') || 'funny';
       return reply(`🎬 Here's a GIF search result for: ${query}\nhttps://giphy.com/search/${encodeURIComponent(query)}`);
     }
 
     // -------------------- Dragon Interaction --------------------
-    if (body.startsWith('%dragonparty')) {
+    if (body.startsWith('=dragonparty')) {
       const dragons = player.dragons || [];
-      if (dragons.length === 0) return reply('❌ You have no dragons yet! Use %startdragon');
+      if (dragons.length === 0) return reply('❌ You have no dragons yet! Use =startdragon');
       const dragonNames = dragons.map(d => `${d.name} (Lvl ${d.level || 1})`).join('\n');
       return reply(`🐉 *Your Dragon Party:*\n\n${dragonNames}`);
     }
 
-    if (body.startsWith('%playwithdragon')) {
+    if (body.startsWith('=playwithdragon')) {
       const dragons = player.dragons || [];
       if (dragons.length === 0) return reply('❌ No dragons to play with.');
       const dragon = dragons[0];
@@ -73,7 +73,7 @@ export default {
       return reply(`🐲 You played with ${dragon.name}. Mood is now ${dragon.mood}!`);
     }
 
-    if (body.startsWith('%dragonstats')) {
+    if (body.startsWith('=dragonstats')) {
       const dragons = player.dragons || [];
       if (dragons.length === 0) return reply('❌ No dragons to check.');
       const dragon = dragons[0];
@@ -82,7 +82,7 @@ export default {
     }
 
     // -------------------- Random Fun --------------------
-    if (body.startsWith('%riddle')) {
+    if (body.startsWith('=riddle')) {
       const riddles = [
         { q: 'I speak without a mouth and hear without ears. What am I?', a: 'An echo' },
         { q: 'What has keys but can’t open locks?', a: 'A piano' },
@@ -92,7 +92,7 @@ export default {
       return reply(`❓ *Riddle:*\n\n${choice.q}\n\n📝 *Answer:* ||${choice.a}||`);
     }
 
-    if (body.startsWith('%compliment')) {
+    if (body.startsWith('=compliment')) {
       const compliments = [
         'You have a brilliant mind!',
         'Your code is probably flawless!',

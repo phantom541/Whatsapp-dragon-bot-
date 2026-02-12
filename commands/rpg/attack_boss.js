@@ -11,7 +11,7 @@ export default {
     const dungeon = dungeonDb[from]?.find(d => d.status === 'active');
 
     if (!dungeon) return reply('🏰 No active dungeon in this group.');
-    if (!dungeon.floorBoss) return reply('✅ The boss for this floor has already been defeated. Use *%nextfloor*.');
+    if (!dungeon.floorBoss) return reply('✅ The boss for this floor has already been defeated. Use *=nextfloor*.');
 
     if (dungeon.monstersRemaining.length > 0) {
         return reply(`❌ You must defeat the remaining ${dungeon.monstersRemaining.length} monsters first!`);
@@ -89,7 +89,7 @@ export default {
 
       replyText += `\n🏆 Boss *${boss.name}* defeated! Rewards: ${baseRewards.gold} gold, ${baseRewards.xp} XP${guild ? ' (Guild Boosted)' : ''}`;
       if (title) replyText += `\n🎖️ New Title: *${title}*`;
-      replyText += `\n➡️ Use *%nextfloor* to advance.`;
+      replyText += `\n➡️ Use *=nextfloor* to advance.`;
     }
 
     await DB.saveDB('dungeons');

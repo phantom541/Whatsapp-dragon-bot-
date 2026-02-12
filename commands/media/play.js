@@ -17,7 +17,7 @@ export default {
             top5.forEach((v, i) => {
                 text += `${i + 1}. *${v.title}*\n🔗 ${v.url}\n⏱️ Duration: ${v.duration}\n\n`;
             });
-            text += "Use *%yta <link>* for audio or *%ytv <link>* for video!";
+            text += "Use *=yta <link>* for audio or *=ytv <link>* for video!";
 
             reply(text);
         } catch (err) {

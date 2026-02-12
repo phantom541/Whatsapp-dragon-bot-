@@ -15,7 +15,7 @@ export default {
         if(sub === "create") {
             const guildName = args[1];
             const desc = args.slice(2).join(" ");
-            if(!guildName) return reply("Usage: %guild create <name> [description]");
+            if(!guildName) return reply("Usage: =guild create <name> [description]");
             try {
                 const guild = await createGuild(sender, guildName, desc, isPrivileged);
                 reply(`✅ Guild "${guildName}" created successfully!\n👑 Leader: ${player.name}`);
@@ -24,7 +24,7 @@ export default {
             }
         } else if(sub === "join") {
             const guildName = args[1];
-            if(!guildName) return reply("Usage: %guild join <guildName>");
+            if(!guildName) return reply("Usage: =guild join <guildName>");
             try {
                 const guild = await joinGuild(sender, guildName, isPrivileged);
                 reply(`✅ You joined guild "${guildName}" successfully!`);
@@ -74,11 +74,11 @@ export default {
         } else {
             reply(
                 `🏰 *Guild Commands*\n\n` +
-                `• *%guild create <name> <desc>* - Create a guild (High rank/Mod/Owner only)\n` +
-                `• *%guild join <name>* - Join an existing guild\n` +
-                `• *%guild leave* - Leave your current guild\n` +
-                `• *%guild info* - View your guild details & buffs\n` +
-                `• *%guild members* - List all guild members`
+                `• *=guild create <name> <desc>* - Create a guild (High rank/Mod/Owner only)\n` +
+                `• *=guild join <name>* - Join an existing guild\n` +
+                `• *=guild leave* - Leave your current guild\n` +
+                `• *=guild info* - View your guild details & buffs\n` +
+                `• *=guild members* - List all guild members`
             );
         }
     }

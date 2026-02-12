@@ -45,11 +45,11 @@ export const ALL_MART_ITEMS = [
   { name: "Platinum Lucky Charm", price: 12000, description: "Boosts all dragon stats by 5% for 3 hours" },
 
   // Page 6 (Colossal Beast Traps)
-  { name: "Colossal Beast Trap: Beast 1", price: 10_000_000_000, description: "Catches Colossal Beast #1 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 2", price: 10_000_000_000, description: "Catches Colossal Beast #2 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 3", price: 10_000_000_000, description: "Catches Colossal Beast #3 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 4", price: 10_000_000_000, description: "Catches Colossal Beast #4 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 5", price: 10_000_000_000, description: "Catches Colossal Beast #5 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 6", price: 10_000_000_000, description: "Catches Colossal Beast #6 with 100% chance" },
-  { name: "Colossal Beast Trap: Beast 7", price: 10_000_000_000, description: "Catches Colossal Beast #7 with 100% chance" }
+  { name: "Colossal Beast Trap: Beast 1", price: 10_000_000_000, description: "Catches Colossal Beast =1 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 2", price: 10_000_000_000, description: "Catches Colossal Beast =2 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 3", price: 10_000_000_000, description: "Catches Colossal Beast =3 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 4", price: 10_000_000_000, description: "Catches Colossal Beast =4 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 5", price: 10_000_000_000, description: "Catches Colossal Beast =5 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 6", price: 10_000_000_000, description: "Catches Colossal Beast =6 with 100% chance" },
+  { name: "Colossal Beast Trap: Beast 7", price: 10_000_000_000, description: "Catches Colossal Beast =7 with 100% chance" }
 ];

@@ -25,16 +25,16 @@ export default {
     }
 
     const moveName = args.join(' ').trim();
-    if (!moveName) return reply('Usage: %attack <move name>');
+    if (!moveName) return reply('Usage: =attack <move name>');
 
     const usersDb = await DB.getDB('users');
     const session = usersDb.sessions?.[sender];
 
     if (!session?.inBattle) return reply('❌ You are not currently in a battle.');
 
-    // Redirect dungeon battles if someone uses %attack instead of %attackmonster
+    // Redirect dungeon battles if someone uses =attack instead of =attackmonster
     if (session.isDungeon) {
-        return reply('🏰 You are in a dungeon! Use *%attackmonster* or *%attackboss*.');
+        return reply('🏰 You are in a dungeon! Use *=attackmonster* or *=attackboss*.');
     }
 
     if (!session.turn) return reply('❌ It is not your turn.');

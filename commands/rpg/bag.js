@@ -29,7 +29,7 @@ export default {
         if (!inventoryList) return reply('📦 Your bag is empty.');
 
         let response = `📦 *Your Bag*\n\n${inventoryList}\n\n`;
-        response += 'Use an item with *%use <number>* (e.g. %use 1)';
+        response += 'Use an item with *=use <number>* (e.g. =use 1)';
 
         return reply(response);
     }

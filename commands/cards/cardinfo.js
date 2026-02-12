@@ -8,7 +8,7 @@ export default {
   execute: async ({ sock, from, args, reply }) => {
     const search = args.join(" ").trim();
     if (!search) {
-        return reply("Usage: %cardinfo <cardID | card name>");
+        return reply("Usage: =cardinfo <cardID | card name>");
     }
 
     // 1) Try ID
