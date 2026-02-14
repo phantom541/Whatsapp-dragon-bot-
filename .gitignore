@@ -1,16 +1,8 @@
-# Node modules
 node_modules/
-
-# Baileys auth info (never share!)
-auth_info_baileys/
-
-# Logs
-logs/
-*.log
-
-# OS files
 .DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.wwebjs_auth/
+.wwebjs_cache/
