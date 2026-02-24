@@ -1,0 +1,45 @@
+{
+  "protection_charm": {
+    "name": "Protection Charm",
+    "price": 150000,
+    "type": "charm",
+    "effect": "anti_rob"
+  },
+  "experience_charm": {
+    "name": "Experience Charm",
+    "price": 25000,
+    "type": "charm",
+    "effect": "xp_boost"
+  },
+  "gold_charm": {
+    "name": "Gold Charm",
+    "price": 35000,
+    "type": "charm",
+    "effect": "gold_boost"
+  },
+  "iron_pickaxe": {
+    "name": "Iron Pickaxe",
+    "type": "tool",
+    "price": 50000,
+    "effect": "mine"
+  },
+  "fishing_rod": {
+    "name": "Fishing Rod",
+    "type": "tool",
+    "price": 40000,
+    "effect": "fish"
+  },
+  "work_uniform": {
+    "name": "Work Uniform",
+    "type": "tool",
+    "price": 30000,
+    "effect": "work"
+  },
+  "coal": { "name": "Coal", "price": 1000, "type": "resource" },
+  "iron": { "name": "Iron", "price": 5000, "type": "resource" },
+  "gold": { "name": "Gold Resource", "price": 10000, "type": "resource" },
+  "diamond": { "name": "Diamond", "price": 50000, "type": "resource" },
+  "salmon": { "name": "Salmon", "price": 500, "type": "resource" },
+  "tuna": { "name": "Tuna", "price": 1000, "type": "resource" },
+  "golden_fish": { "name": "Golden Fish", "price": 10000, "type": "resource" }
+}

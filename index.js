@@ -1,10 +1,10 @@
-import { bootstrapOwner } from "./system/bootstrapOwner.js";
-import { startBot } from "./system/connect.js";
+import { bootstrapOwner } from './system/bootstrapOwner.js'
+import { connectBot } from './system/connect.js'
 
-console.log('🐉 Starting Owner Bootstrap...');
-await bootstrapOwner();
+console.log('🐉 Starting Owner Bootstrap...')
+await bootstrapOwner()
 
-console.log('🐉 Owner Bootstrap complete. Starting Bot...');
-await startBot();
+console.log('🐉 Owner Bootstrap complete. Starting Bot...')
+await connectBot()
 
-console.log('Hierarchy: PHANTOM > Owners > Mods > Group Admins > Players');
+console.log('Hierarchy: PHANTOM > Owners > Mods > Group Admins > Players')
